@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane minHeight="500.0" minWidth="700.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+    <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+          <BorderPane nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <center>
+               <VBox>
+                  <children>
+                        <WebView fx:id="webViewDocView" VBox.vgrow="ALWAYS">
+                        <VBox.margin>
+                           <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                        </VBox.margin>
+                     </WebView>
+                  </children>
+               </VBox>
+              </center>
+
+              <top>
+                  <VBox BorderPane.alignment="CENTER">
+                      <HBox id="hbox" alignment="CENTER">
+                      <children>
+                      <Button id="btn_copy" fx:id="btnCopy" layoutX="501.0" layoutY="14.0"
+                              mnemonicParsing="false" minHeight="25.0" minWidth="70.0" text="Copy">
+                          <tooltip>
+                              <Tooltip text="Copy the content"/>
+                          </tooltip>
+                          <HBox.margin>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+                          </HBox.margin>
+                      </Button>
+                      <Button id="btn_save" fx:id="btnSave" layoutX="541.0" layoutY="14.0" mnemonicParsing="false"
+                              minHeight="25.0" minWidth="70.0" text="Save">
+                          <tooltip>
+                              <Tooltip text="Save the Pad to HTML"/>
+                          </tooltip>
+                          <HBox.margin>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+                          </HBox.margin>
+                      </Button>
+                      <Button id="btn_open" fx:id="btnOpen" layoutX="771.0" layoutY="14.0" mnemonicParsing="false"
+                              minHeight="25.0" minWidth="70.0" text="Open">
+                          <tooltip>
+                              <Tooltip text="Open the File in HTML"/>
+                          </tooltip>
+                          <HBox.margin>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0"/>
+                          </HBox.margin>
+                      </Button>
+                      </children>
+                      </HBox>
+                  </VBox>
+              </top>
+
+                      <!--<Button id="button_simple" fx:id="btnFullCase" layoutX="811.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" minWidth="100.0" text="Full Case">-->
+                      <!--<tooltip>-->
+                      <!--<Tooltip text="Display Full Case" />-->
+                      <!--</tooltip>-->
+                      <!--<HBox.margin>-->
+                      <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                      <!--</HBox.margin>-->
+                      <!--</Button>-->
+                      <!--<Button id="button_simple" fx:id="btnAnalysis" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" minWidth="80.0" text="Analysis">-->
+                      <!--<tooltip>-->
+                      <!--<Tooltip text="Display Analysis only" />-->
+                      <!--</tooltip>-->
+                      <!--<HBox.margin>-->
+                      <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                      <!--</HBox.margin>-->
+                      <!--</Button>-->
+                      <!--<Button id="button_simple" fx:id="btnCitator" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" minWidth="80.0" text="Citator">-->
+                      <!--<tooltip>-->
+                      <!--<Tooltip text="Display Citator only" />-->
+                      <!--</tooltip>-->
+                      <!--<HBox.margin>-->
+                      <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                      <!--</HBox.margin>-->
+                      <!--</Button>-->
+                      <!--<Button id="button_simple" fx:id="btnReferred" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" minWidth="80.0" text="Referred">-->
+                      <!--<tooltip>-->
+                      <!--<Tooltip text="Display Cases referred only" />-->
+                      <!--</tooltip>-->
+                      <!--<HBox.margin>-->
+                      <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                      <!--</HBox.margin>-->
+                      <!--</Button>-->
+                      <!--<TextField fx:id="textFieldHighlight" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" minWidth="150.0" promptText="Press Enter to Focus Text">-->
+                      <!--<HBox.margin>-->
+                      <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                      <!--</HBox.margin></TextField>-->
+                      <!--&lt;!&ndash;<Button id="btn_find" fx:id="btnFindText" mnemonicParsing="false" prefHeight="28.0" prefWidth="30.0">&ndash;&gt;-->
+                      <!--&lt;!&ndash;<HBox.margin>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<Insets right="10.0" />&ndash;&gt;-->
+                      <!--&lt;!&ndash;</HBox.margin>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<tooltip>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<Tooltip text="Find text" />&ndash;&gt;-->
+                      <!--&lt;!&ndash;</tooltip>&ndash;&gt;-->
+                      <!--&lt;!&ndash;</Button>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<Label id="label" fx:id="labelJudHeadnoteSwap" text="Jud. / Headnote" />&ndash;&gt;-->
+                      <!--<Region HBox.hgrow="ALWAYS" />-->
+                      <!--<Button id="btn_zoom_out" fx:id="btnZoomPlus" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0">-->
+                      <!--<tooltip>-->
+                      <!--<Tooltip text="Zoom out" />-->
+                      <!--</tooltip>-->
+                      <!--<HBox.margin>-->
+                      <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                      <!--</HBox.margin>-->
+                      <!--</Button>-->
+                      <!--<Button id="btn_zoom_in" fx:id="btnZoomMinus" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0">-->
+                      <!--<tooltip>-->
+                      <!--<Tooltip text="Zoom in" />-->
+                      <!--</tooltip>-->
+                      <!--<HBox.margin>-->
+                      <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                      <!--</HBox.margin>-->
+                      <!--</Button>-->
+                      <!--<Separator maxHeight="-Infinity" orientation="VERTICAL" prefHeight="27.0">-->
+                      <!--<HBox.margin>-->
+                      <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                      <!--</HBox.margin></Separator>-->
+                      <!--<Button id="btn_bookmark" fx:id="btnBookMark" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0">-->
+                      <!--<tooltip>-->
+                      <!--<Tooltip text="Add to Bookmark" />-->
+                      <!--</tooltip>-->
+                      <!--<HBox.margin>-->
+                      <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                      <!--</HBox.margin>-->
+                      <!--</Button>-->
+                      <!--<Separator maxHeight="-Infinity" orientation="VERTICAL" prefHeight="27.0">-->
+                      <!--<HBox.margin>-->
+                      <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                      <!--</HBox.margin></Separator>-->
+                      <!--<Button id="btn_pdf" fx:id="btnPDF" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0">-->
+                      <!--<tooltip>-->
+                      <!--<Tooltip text="Save as PDF" />-->
+                      <!--</tooltip>-->
+                      <!--<HBox.margin>-->
+                      <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                      <!--</HBox.margin>-->
+                      <!--</Button>-->
+                      <!--<Button id="btn_folder" fx:id="btnMail" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0">-->
+                      <!--<tooltip>-->
+                      <!--<Tooltip text="Send email" />-->
+                      <!--</tooltip>-->
+                      <!--<HBox.margin>-->
+                      <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                      <!--</HBox.margin>-->
+                      <!--</Button>-->
+                      <!--<Separator layoutX="581.0" layoutY="14.0" maxHeight="-Infinity" orientation="VERTICAL" prefHeight="27.0">-->
+                      <!--<HBox.margin>-->
+                      <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                      <!--</HBox.margin></Separator>-->
+                      <!--<Button id="btn_print" fx:id="btnPrint" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0">-->
+                      <!--<tooltip>-->
+                      <!--<Tooltip text="Print Judgement" />-->
+                      <!--</tooltip>-->
+                      <!--<HBox.margin>-->
+                      <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                      <!--</HBox.margin>-->
+                      <!--</Button>-->
+                      <!--<Button id="btn_highlightpre" fx:id="btnHighlightPre" layoutX="501.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0">-->
+                      <!--<tooltip>-->
+                      <!--<Tooltip text="Focus previous highlight" />-->
+                      <!--</tooltip>-->
+                      <!--<HBox.margin>-->
+                      <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                      <!--</HBox.margin>-->
+                      <!--</Button>-->
+                      <!--<Button id="btn_highlightnext" fx:id="btnHighlightNext" layoutX="541.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0">-->
+                      <!--<tooltip>-->
+                      <!--<Tooltip text="Focus next highlight" />-->
+                      <!--</tooltip>-->
+                      <!--<HBox.margin>-->
+                      <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                      <!--</HBox.margin>-->
+                      <!--</Button>-->
+                      <!--</children>-->
+                      <!--<padding>-->
+                      <!--<Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />-->
+                      <!--</padding>-->
+                      <!--<VBox.margin>-->
+                      <!--<Insets bottom="2.0" left="2.0" right="2.0" />-->
+                      <!--</VBox.margin>-->
+                      <!--</HBox>-->
+                      <!--</children>-->
+                      <!--<BorderPane.margin>-->
+                      <!--<Insets />-->
+                      <!--</BorderPane.margin>-->
+
+
+
+              <!--<top>-->
+                  <!--<VBox BorderPane.alignment="CENTER">-->
+                      <!--<children>-->
+                          <!--<HBox id="hbox" alignment="CENTER">-->
+                              <!--<children>-->
+                                  <!--<Button id="btn_pre_row" fx:id="btnPreviousDoc" layoutX="501.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0">-->
+                                      <!--<tooltip>-->
+                                          <!--<Tooltip text="Navigate to Previous" />-->
+                                      <!--</tooltip>-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin>-->
+                                  <!--</Button>-->
+                                  <!--<Button id="btn_next_row" fx:id="btnNextDoc" layoutX="541.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0">-->
+                                      <!--<tooltip>-->
+                                          <!--<Tooltip text="Navigate to Next" />-->
+                                      <!--</tooltip>-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin>-->
+                                  <!--</Button>-->
+                                  <!--<Button id="button_simple" fx:id="btnHeadNote" layoutX="771.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" minWidth="100.0" text="Headnote">-->
+                                      <!--<tooltip>-->
+                                          <!--<Tooltip text="Display Headnote only" />-->
+                                      <!--</tooltip>-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin>-->
+                                  <!--</Button>-->
+                                  <!--<Button id="button_simple" fx:id="btnFullCase" layoutX="811.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" minWidth="100.0" text="Full Case">-->
+                                      <!--<tooltip>-->
+                                          <!--<Tooltip text="Display Full Case" />-->
+                                      <!--</tooltip>-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin>-->
+                                  <!--</Button>-->
+                        <!--<Button id="button_simple" fx:id="btnAnalysis" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" minWidth="80.0" text="Analysis">-->
+                           <!--<tooltip>-->
+                              <!--<Tooltip text="Display Analysis only" />-->
+                           <!--</tooltip>-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin>-->
+                        <!--</Button>-->
+                        <!--<Button id="button_simple" fx:id="btnCitator" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" minWidth="80.0" text="Citator">-->
+                           <!--<tooltip>-->
+                              <!--<Tooltip text="Display Citator only" />-->
+                           <!--</tooltip>-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin>-->
+                        <!--</Button>-->
+                        <!--<Button id="button_simple" fx:id="btnReferred" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" minWidth="80.0" text="Referred">-->
+                           <!--<tooltip>-->
+                              <!--<Tooltip text="Display Cases referred only" />-->
+                           <!--</tooltip>-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin>-->
+                        <!--</Button>-->
+                                  <!--<TextField fx:id="textFieldHighlight" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" minWidth="150.0" promptText="Press Enter to Focus Text">-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin></TextField>-->
+                                  <!--&lt;!&ndash;<Button id="btn_find" fx:id="btnFindText" mnemonicParsing="false" prefHeight="28.0" prefWidth="30.0">&ndash;&gt;-->
+                                      <!--&lt;!&ndash;<HBox.margin>&ndash;&gt;-->
+                                          <!--&lt;!&ndash;<Insets right="10.0" />&ndash;&gt;-->
+                                      <!--&lt;!&ndash;</HBox.margin>&ndash;&gt;-->
+                                      <!--&lt;!&ndash;<tooltip>&ndash;&gt;-->
+                                          <!--&lt;!&ndash;<Tooltip text="Find text" />&ndash;&gt;-->
+                                      <!--&lt;!&ndash;</tooltip>&ndash;&gt;-->
+                                  <!--&lt;!&ndash;</Button>&ndash;&gt;-->
+                                  <!--&lt;!&ndash;<Label id="label" fx:id="labelJudHeadnoteSwap" text="Jud. / Headnote" />&ndash;&gt;-->
+                                  <!--<Region HBox.hgrow="ALWAYS" />-->
+                                  <!--<Button id="btn_zoom_out" fx:id="btnZoomPlus" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0">-->
+                                      <!--<tooltip>-->
+                                          <!--<Tooltip text="Zoom out" />-->
+                                      <!--</tooltip>-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin>-->
+                                  <!--</Button>-->
+                                  <!--<Button id="btn_zoom_in" fx:id="btnZoomMinus" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0">-->
+                                      <!--<tooltip>-->
+                                          <!--<Tooltip text="Zoom in" />-->
+                                      <!--</tooltip>-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin>-->
+                                  <!--</Button>-->
+                                  <!--<Separator maxHeight="-Infinity" orientation="VERTICAL" prefHeight="27.0">-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin></Separator>-->
+                                  <!--<Button id="btn_bookmark" fx:id="btnBookMark" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0">-->
+                                      <!--<tooltip>-->
+                                          <!--<Tooltip text="Add to Bookmark" />-->
+                                      <!--</tooltip>-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin>-->
+                                  <!--</Button>-->
+                                  <!--<Separator maxHeight="-Infinity" orientation="VERTICAL" prefHeight="27.0">-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin></Separator>-->
+                                  <!--<Button id="btn_pdf" fx:id="btnPDF" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0">-->
+                                      <!--<tooltip>-->
+                                          <!--<Tooltip text="Save as PDF" />-->
+                                      <!--</tooltip>-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin>-->
+                                  <!--</Button>-->
+                                  <!--<Button id="btn_folder" fx:id="btnMail" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0">-->
+                                      <!--<tooltip>-->
+                                          <!--<Tooltip text="Send email" />-->
+                                      <!--</tooltip>-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin>-->
+                                  <!--</Button>-->
+                                  <!--<Separator layoutX="581.0" layoutY="14.0" maxHeight="-Infinity" orientation="VERTICAL" prefHeight="27.0">-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin></Separator>-->
+                                  <!--<Button id="btn_print" fx:id="btnPrint" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0">-->
+                                      <!--<tooltip>-->
+                                          <!--<Tooltip text="Print Judgement" />-->
+                                      <!--</tooltip>-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin>-->
+                                  <!--</Button>-->
+                                <!--<Button id="btn_highlightpre" fx:id="btnHighlightPre" layoutX="501.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0">-->
+                                      <!--<tooltip>-->
+                                          <!--<Tooltip text="Focus previous highlight" />-->
+                                      <!--</tooltip>-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin>-->
+                                  <!--</Button>-->
+                                  <!--<Button id="btn_highlightnext" fx:id="btnHighlightNext" layoutX="541.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="50.0">-->
+                                      <!--<tooltip>-->
+                                          <!--<Tooltip text="Focus next highlight" />-->
+                                      <!--</tooltip>-->
+                              <!--<HBox.margin>-->
+                                 <!--<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />-->
+                              <!--</HBox.margin>-->
+                                  <!--</Button>-->
+                              <!--</children>-->
+                              <!--<padding>-->
+                                  <!--<Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />-->
+                              <!--</padding>-->
+                              <!--<VBox.margin>-->
+                                  <!--<Insets bottom="2.0" left="2.0" right="2.0" />-->
+                              <!--</VBox.margin>-->
+                          <!--</HBox>-->
+                      <!--</children>-->
+                      <!--<BorderPane.margin>-->
+                          <!--<Insets />-->
+                      <!--</BorderPane.margin>-->
+                  <!--</VBox>-->
+              <!--</top>-->
+          </BorderPane>
+      </children>
+    </StackPane>
+  </AnchorPane>

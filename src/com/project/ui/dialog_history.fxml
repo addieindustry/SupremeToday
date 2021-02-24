@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import com.project.utils.PTableColumn?>
+<AnchorPane minHeight="350.0" minWidth="700.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <children>
+      <BorderPane>
+         <center>
+               <VBox BorderPane.alignment="CENTER">
+                  <children>
+                      <TableView fx:id="tableHistory" VBox.vgrow="ALWAYS">
+                          <columns>
+                              <PTableColumn fx:id="columnSearchText" percentageWidth="0.58" text="Search Text" />
+                              <PTableColumn fx:id="columnHistoryDate" percentageWidth="0.2" text="History Date" />
+                              <PTableColumn fx:id="columnSearchType" percentageWidth="0.2" text="Search Type" />
+
+                              <!--<TableColumn fx:id="columnSearchText" prefWidth="250.0" text="Search Text" />-->
+                              <!--<TableColumn fx:id="columnHistoryDate" prefWidth="100.0" text="History Date" />-->
+                              <!--<TableColumn fx:id="columnSearchType" prefWidth="150.0" text="Search Type" />-->
+                          </columns>
+                      </TableView>
+                  </children>
+               </VBox>
+         </center>
+         <bottom>
+            <HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
+               <children>
+                   <Button id="button" fx:id="btnClose" mnemonicParsing="false" minWidth="120.0" text="Close">
+                        <HBox.margin>
+                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        </HBox.margin></Button>
+               </children>
+            </HBox>
+         </bottom>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </BorderPane>
+    </children>
+    </StackPane>
+</AnchorPane>

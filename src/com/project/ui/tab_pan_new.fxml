@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <TabPane fx:id="tabpan" nodeOrientation="LEFT_TO_RIGHT" tabClosingPolicy="UNAVAILABLE">
+          <tabs>
+              <!--<Tab Text="HOME">-->
+                        <!--<tooltip>-->
+                      <!--<Tooltip text="HOME" />-->
+                  <!--</tooltip>-->
+                  <!--<content>-->
+                      <!--<fx:include fx:id="homepage" source="home_screen.fxml" />-->
+                  <!--</content>-->
+              <!--</Tab>-->
+
+              <!--<Tab Text="YEAR WISE">-->
+                  <!--<tooltip>-->
+                      <!--<Tooltip text="Year Wise Search" />-->
+                  <!--</tooltip>-->
+                   <!--<content>-->
+                       <!--<fx:include fx:id="year_wise" source="year_wise.fxml" />-->
+                   <!--</content>-->
+              <!--</Tab>-->
+              <!--<Tab Text="BARE ACTS">-->
+                  <!--<tooltip>-->
+                      <!--<Tooltip text="Bare Acts" />-->
+                  <!--</tooltip>-->
+                   <!--<content>-->
+                       <!--<fx:include fx:id="central_act" source="central_act.fxml" />-->
+                   <!--</content>-->
+              <!--</Tab>-->
+              <!--<Tab Text="COMMENTARY">-->
+                  <!--<tooltip>-->
+                      <!--<Tooltip text="Commentaries" />-->
+                  <!--</tooltip>-->
+                    <!--<content>-->
+                        <!--<fx:include fx:id="commentary" source="commentary.fxml" />-->
+                    <!--</content>-->
+              <!--</Tab>-->
+              <!--<Tab Text="WORD PHRASES">-->
+                  <!--<tooltip>-->
+                      <!--<Tooltip text="Word and Phrases" />-->
+                  <!--</tooltip>-->
+                  <!--<content>-->
+                      <!--<fx:include fx:id="word_phrase" source="word_phrases.fxml" />-->
+                  <!--</content>-->
+              <!--</Tab>-->
+              <!--<Tab Text="OVERRULED">-->
+                  <!--<tooltip>-->
+                      <!--<Tooltip text="Topical" />-->
+                  <!--</tooltip>-->
+                  <!--<content>-->
+                      <!--<fx:include fx:id="overruled" source="overruled.fxml" />-->
+                  <!--</content>-->
+              <!--</Tab>-->
+              <!--<Tab Text="GLOBAL SEARCH">-->
+                  <!--<tooltip>-->
+                      <!--<Tooltip text="Global Search" />-->
+                  <!--</tooltip>-->
+                  <!--<content>-->
+                      <!--<fx:include fx:id="global_search" source="global_search.fxml" />-->
+                  <!--</content>-->
+              <!--</Tab>-->
+              <!--<Tab Text="ADVANCE SEARCH">-->
+                  <!--<tooltip>-->
+                      <!--<Tooltip text="Advance Search" />-->
+                  <!--</tooltip>-->
+                  <!--<content>-->
+                      <!--<fx:include fx:id="advance_search" source="advance_search.fxml" />-->
+                  <!--</content>-->
+              <!--</Tab>-->
+          </tabs>
+      </TabPane>
+   </center>
+    <bottom>
+        <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+            <children>
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" HBox.hgrow="ALWAYS">
+               <children>
+                      <Hyperlink fx:id="hpDictionary" text="Dictionary">
+                          <tooltip>
+                              <Tooltip text="View Dictionary" />
+                          </tooltip>
+                      </Hyperlink>
+                      <Hyperlink fx:id="hpBookmarks" text="Bookmarks" />
+                      <Hyperlink fx:id="hpHistory" text="History" />
+                      <Hyperlink fx:id="hpFeedBack" text="FeedBack" />
+                      <Hyperlink fx:id="hpHelpManual" text="Help Manual" />
+                      <Hyperlink fx:id="hpSupremeCourtofIndia" text="Supreme Court of India" />
+                      <Hyperlink fx:id="hpCauseList" text="Cause List" />
+                      <Hyperlink fx:id="hpAbout" text="About" />
+                      <!--<Hyperlink fx:id="hpJharkhandPoliceManual" text="Jharkhand Police Manual" />-->
+                      <Hyperlink fx:id="hpPrintSetting" text="Print Setting" />
+                      <Hyperlink fx:id="hpLiveUpdate" text="Live Update" />
+               </children>
+            </FlowPane>
+            </children>
+            <BorderPane.margin>
+                <Insets bottom="10.0" />
+            </BorderPane.margin>
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -1,0 +1,81 @@
+{
+    "schema": [
+        {
+            "tableName": "cases_all",
+            "cols": [
+                {"title": "courtId", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "caseId", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "courttitle", "isIndexed": true, "isStore": true,"isFacet":true,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "title", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "stitle", "isIndexed": true, "isStore": false,"isFacet":false,"fieldType":"STRING","isSort":true,"isEncrypt":false,"hl":false},
+                {"title": "decisionDate", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"STRING","isSort":true,"isEncrypt":false,"hl":false},
+                {"title": "finalyear", "isIndexed": true, "isStore": true,"isFacet":true,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "acts", "isIndexed": true, "isStore": false,"isFacet":true,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "acts_store", "isIndexed": false, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":true,"hl":false},
+                {"title": "judge", "isIndexed": true, "isStore": true,"isFacet":true,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "citation", "isIndexed": true, "isStore": false,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":true},
+                {"title": "citation_store", "isIndexed": false, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":true,"hl":false},
+                {"title": "summary", "isIndexed": true, "isStore": false,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":true},
+                {"title": "summary_store", "isIndexed": false, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":true,"hl":false},
+                {"title": "content", "isIndexed": true, "isStore": false,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":true},
+                {"title": "content_store", "isIndexed": false, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":true,"hl":false},
+                {"title": "impNotes_store", "isIndexed": false, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":true,"hl":false},
+                {"title": "judgementHeader_store", "isIndexed": false, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":true,"hl":false},
+                {"title": "advocates", "isIndexed": false, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "cited", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"INT","isSort":true,"isEncrypt":false,"hl":false},
+                {"title": "bench", "isIndexed": true, "isStore": true,"isFacet":true,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "benchcounter", "isIndexed": true, "isStore": false,"isFacet":false,"fieldType":"INT","isSort":true,"isEncrypt":false,"hl":false},
+                {"title": "whitelist", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"INT","isSort":true,"isEncrypt":false,"hl":false},
+                {"title": "result", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "DocType", "isIndexed": true, "isStore": true,"isFacet":true,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false}
+            ],
+            "where": "courtId IN (%s)"
+        }
+        ,
+         {
+            "tableName": "BareActs",
+            "cols": [{"title": "id", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"STRING","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "stitle", "isIndexed": true, "isStore": false,"isFacet":false,"fieldType":"STRING","isSort":true,"isEncrypt":false,"hl":false},
+                {"title": "Acts", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "title", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "Type", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"STRING","isSort":true,"isEncrypt":false,"hl":false},
+                {"title": "summary", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":true},
+                {"title": "content", "isIndexed": true, "isStore": false,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":true},
+                {"title": "content_store", "isIndexed": false, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":true,"hl":false},
+                {"title": "caseId", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "DocType", "isIndexed": true, "isStore": true,"isFacet":true,"fieldType":"STRING","isSort":false,"isEncrypt":false,"hl":false}],
+            "where": ""
+        },
+        {
+            "tableName": "WordPhrase",
+            "cols": [{"title": "caseId", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "title", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "stitle", "isIndexed": true, "isStore": false,"isFacet":false,"fieldType":"STRING","isSort":true,"isEncrypt":false,"hl":false},
+                {"title": "content", "isIndexed": true, "isStore": false,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":true},
+                {"title": "content_store", "isIndexed": false, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":true,"hl":false},
+                {"title": "DocType", "isIndexed": true, "isStore": true,"isFacet":true,"fieldType":"STRING","isSort":false,"isEncrypt":false,"hl":false}],
+            "where": ""
+        },
+        {
+            "tableName": "Dictionary",
+            "cols": [{"title": "caseId", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "title", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":true,"isEncrypt":false,"hl":false},
+                {"title": "Hindi", "isIndexed": false, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "DocType", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"STRING","isSort":false,"isEncrypt":false,"hl":false}],
+            "where": ""
+        },
+        {
+            "tableName": "Commentary",
+            "cols": [{"title": "id", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "stitle", "isIndexed": true, "isStore": false,"isFacet":true,"fieldType":"STRING","isSort":true,"isEncrypt":false,"hl":false},
+                {"title": "title", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "Type", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"STRING","isSort":true,"isEncrypt":false,"hl":false},
+                {"title": "summary", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":true},
+                {"title": "content", "isIndexed": true, "isStore": false,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "content_store", "isIndexed": false, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":true,"hl":false},
+                {"title": "caseId", "isIndexed": true, "isStore": true,"isFacet":false,"fieldType":"DOC","isSort":false,"isEncrypt":false,"hl":false},
+                {"title": "DocType", "isIndexed": true, "isStore": true,"isFacet":true,"fieldType":"STRING","isSort":false,"isEncrypt":false,"hl":false}],
+            "where": ""
+        }
+    ]
+}

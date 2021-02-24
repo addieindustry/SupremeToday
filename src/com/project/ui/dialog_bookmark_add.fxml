@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane stylesheets="@../css/main.css" minHeight="300.0" minWidth="500.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <HBox alignment="TOP_CENTER" layoutX="13.0" layoutY="24.0" spacing="10.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="16.0">
+            <children>
+                <Label alignment="CENTER_RIGHT" minHeight="25.0" minWidth="110.0" text="Select Category :" />
+                <ComboBox fx:id="comboboxCategory" minHeight="25.0" minWidth="280.0" />
+            </children>
+        </HBox>
+        <HBox alignment="TOP_CENTER" layoutX="15.0" layoutY="98.0" minHeight="25.0" minWidth="620.0" spacing="10.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="17.0">
+            <children>
+                <Label alignment="CENTER_RIGHT" contentDisplay="TOP" minHeight="25.0" text="Description :" />
+            <TextField fx:id="textFieldDescription" prefHeight="25.0" minWidth="266.0" />
+            </children>
+        </HBox>
+        <HBox alignment="TOP_CENTER" layoutX="131.0" layoutY="138.0" spacing="10.0" AnchorPane.leftAnchor="131.0" AnchorPane.rightAnchor="131.0">
+            <children>
+                <Button id="button" fx:id="btnOk" maxWidth="90.0" mnemonicParsing="false" minHeight="25.0" minWidth="90.0" text="Submit" />
+                <Button id="button" fx:id="btnCancel" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" minWidth="90.0" text="Cancel" />
+            </children>
+        </HBox>
+        <HBox alignment="TOP_CENTER" layoutX="250.0" layoutY="67.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <Label prefHeight="23.0" prefWidth="80.0" text="Add Category :" />
+                <TextField fx:id="textFieldNewCategory" minHeight="25.0" minWidth="263.0" />
+            </children>
+            <Button id="button" fx:id="btnAddCategory" mnemonicParsing="false" minHeight="25.0" minWidth="56.0" text="Add" />
+        </HBox>
+    </children>
+</AnchorPane>

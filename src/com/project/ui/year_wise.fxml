@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.Region?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import java.lang.Double?>
+<StackPane xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1">
+<SplitPane fx:id="split_pane" dividerPositions="0.08" orientation="VERTICAL" style="-fx-background-color: white;" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <items>
+<AnchorPane fx:id="root">
+    <children>
+            <HBox id="hbox" alignment="CENTER" spacing="5.0">
+                <children>
+                   <Label alignment="CENTER" contentDisplay="RIGHT" minWidth="40.0" text="Court">
+                       <maxHeight><Double fx:constant="MAX_VALUE" /></maxHeight>
+                      <HBox.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                      </HBox.margin>
+                   </Label>
+                   <ComboBox id="txt_field_border" fx:id="comboboxCourt" minWidth="120.0">
+                      <HBox.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                      </HBox.margin>
+                   </ComboBox>
+                   <Label alignment="CENTER" contentDisplay="RIGHT" minWidth="30.0" text="Year">
+                      <HBox.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                      </HBox.margin>
+                   </Label>
+                   <ComboBox id="txt_field_border" fx:id="comboboxYear" minWidth="80.0">
+                      <HBox.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                      </HBox.margin>
+                   </ComboBox>
+                   <Region HBox.hgrow="ALWAYS" />
+                   <Hyperlink fx:id="hpAll" alignment="CENTER" text="All" minWidth="20.0">
+                      <HBox.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                      </HBox.margin>
+                   </Hyperlink>
+                   <Hyperlink fx:id="hpJan" alignment="CENTER" text="Jan" minWidth="20.0">
+                      <HBox.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                      </HBox.margin>
+                   </Hyperlink>
+                   <Hyperlink fx:id="hpFeb" alignment="CENTER" text="Feb" minWidth="20.0">
+                      <HBox.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                      </HBox.margin>
+                   </Hyperlink>
+                   <Hyperlink fx:id="hpMar" alignment="CENTER" text="Mar" minWidth="20.0">
+                      <HBox.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                      </HBox.margin>
+                   </Hyperlink>
+                   <Hyperlink fx:id="hpApr" alignment="CENTER" text="Apr" minWidth="20.0">
+                      <HBox.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                      </HBox.margin>
+                   </Hyperlink>
+                   <Hyperlink fx:id="hpMay" alignment="CENTER" text="May" minWidth="20.0">
+                      <HBox.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                      </HBox.margin>
+                   </Hyperlink>
+                   <Hyperlink fx:id="hpJun" alignment="CENTER" text="Jun" minWidth="20.0">
+                      <HBox.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                      </HBox.margin>
+                   </Hyperlink>
+                   <Hyperlink fx:id="hpJul" alignment="CENTER" text="Jul" minWidth="20.0">
+                      <HBox.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                      </HBox.margin>
+                   </Hyperlink>
+                   <Hyperlink fx:id="hpAug" alignment="CENTER" text="Aug" minWidth="20.0">
+                      <HBox.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                      </HBox.margin>
+                   </Hyperlink>
+                   <Hyperlink fx:id="hpSep" alignment="CENTER" text="Sep" minWidth="20.0">
+                      <HBox.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                      </HBox.margin>
+                   </Hyperlink>
+                   <Hyperlink fx:id="hpOct" alignment="CENTER" text="Oct" minWidth="20.0">
+                      <HBox.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                      </HBox.margin>
+                   </Hyperlink>
+                   <Hyperlink fx:id="hpNov" alignment="CENTER" text="Nov" minWidth="20.0">
+                      <HBox.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                      </HBox.margin>
+                   </Hyperlink>
+                   <Hyperlink fx:id="hpDec" alignment="CENTER" text="Dec" minWidth="20.0">
+                      <HBox.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                      </HBox.margin>
+                   </Hyperlink>
+                   <Button id="button" fx:id="btnReset" alignment="CENTER" mnemonicParsing="false" text="Reset" minWidth="50.0">
+                      <HBox.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                      </HBox.margin>
+                   </Button>
+                </children>
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="20.0" />
+                </padding>
+            </HBox>
+    </children>
+</AnchorPane>
+<AnchorPane fx:id="result_view_pane">
+</AnchorPane>
+    </items>
+</SplitPane>
+</StackPane>

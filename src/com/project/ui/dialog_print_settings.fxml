@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane minHeight="400.0" minWidth="400.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+    <StackPane fx:id="advance_search_pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <GridPane alignment="CENTER">
+            <children>
+                <Label minHeight="25.0" text="Page Type : " HBox.hgrow="ALWAYS" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+                    <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                    </GridPane.margin>
+                </Label>
+                <ComboBox fx:id="comboboxPageType" minHeight="25.0" minWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                    </GridPane.margin>
+                </ComboBox>
+
+
+        <Label minHeight="23.0" text="Print Font Size : " HBox.hgrow="ALWAYS" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <GridPane.margin>
+                <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+            </GridPane.margin>
+        </Label>
+        <ComboBox fx:id="comboboxPrintFontSize" minHeight="25.0" minWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+            </GridPane.margin>
+        </ComboBox>
+                <Label contentDisplay="TOP" prefHeight="25.0" text="Display Font Size : " HBox.hgrow="ALWAYS" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                    <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                    </GridPane.margin>
+                </Label>
+                <ComboBox fx:id="comboboxDisplayFontSize" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                    </GridPane.margin>
+                </ComboBox>
+
+
+                <Label minHeight="25.0" text="Top" HBox.hgrow="ALWAYS" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" >
+                    <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                    </GridPane.margin>
+                </Label>
+        <TextField fx:id="textFieldMarginTop" minWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="3">36.0</TextField>
+                <Label contentDisplay="TOP" minHeight="25.0" minWidth="50.0" text="Bottom" HBox.hgrow="ALWAYS" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER" >
+                    <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                    </GridPane.margin>
+                </Label>
+        <TextField fx:id="textFieldMarginBottom" minWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="4">36.0</TextField>
+                <Label contentDisplay="TOP" minHeight="25.0" text="Right" HBox.hgrow="ALWAYS" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER" >
+                    <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                    </GridPane.margin>
+                </Label>
+        <TextField fx:id="textFieldMarginRight" minWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="5">36.0</TextField>
+                <Label contentDisplay="TOP" minHeight="25.0" text="Left" HBox.hgrow="ALWAYS" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER" >
+                    <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                    </GridPane.margin>
+                </Label>
+        <TextField fx:id="textFieldMarginLeft" minWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="6">36.0</TextField>
+
+
+        <CheckBox fx:id="checkboxPrintwithLogo" selected="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="CENTER" text="Print with Supreme Logo">
+            <GridPane.margin>
+                <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+            </GridPane.margin>
+        </CheckBox>
+
+
+        <RadioButton fx:id="rbNativeOption" contentDisplay="CENTER" mnemonicParsing="false" minWidth="100.0" selected="true" text="Native Browser" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+            <toggleGroup>
+                <ToggleGroup fx:id="group" />
+            </toggleGroup>
+            <GridPane.margin>
+                <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+            </GridPane.margin>
+        </RadioButton>
+        <RadioButton fx:id="rbPDFOption" contentDisplay="CENTER" mnemonicParsing="false" minWidth="100.0" text="PDF Viewer" toggleGroup="$group" GridPane.columnIndex="1" GridPane.rowIndex="8">
+            <GridPane.margin>
+                <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+            </GridPane.margin>
+        </RadioButton>
+
+
+        <Button id="button" fx:id="btnOk" mnemonicParsing="false" minHeight="25.0" minWidth="90.0" text="Submit" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="9" GridPane.valignment="CENTER" >
+            <GridPane.margin>
+                <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+            </GridPane.margin>
+        </Button>
+        <Button id="button" fx:id="btnCancel" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" minWidth="90.0" text="Cancel" GridPane.columnIndex="1" GridPane.rowIndex="9">
+            <GridPane.margin>
+                <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+            </GridPane.margin>
+        </Button>
+
+    </children>
+            <columnConstraints>
+                <ColumnConstraints percentWidth="40.0" />
+                <ColumnConstraints percentWidth="40.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="25.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="25.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="25.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="25.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="25.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="25.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="25.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="25.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="25.0" vgrow="ALWAYS" />
+            </rowConstraints>
+        </GridPane>
+    </StackPane>
+
+</AnchorPane>

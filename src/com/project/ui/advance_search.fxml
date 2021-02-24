@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.project.utils.AutoTextAutoCompleteTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+
+<SplitPane fx:id="split_pane" orientation="VERTICAL" style="-fx-background-color: white;" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+  <items>
+    <AnchorPane fx:id="root" minHeight="0.0" minWidth="0.0">
+       <StackPane fx:id="advance_search_pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+           <GridPane alignment="CENTER">
+               <children>
+                   <Label fx:id="labelFreeText" alignment="CENTER_RIGHT" text="Free Text Search :" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                     </GridPane.margin></Label>
+                   <com.project.utils.AutoTextAutoCompleteTextField id="txt_field_border" fx:id="autoFillTextFreeText" promptText="Free Text Search" style="-fx-text-fill: blue;" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="0">
+                     <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                     </GridPane.margin></com.project.utils.AutoTextAutoCompleteTextField>
+                   <TextField id="txt_field_border" fx:id="textFieldwordWithin" promptText="Search Within" style="-fx-text-fill: blue;" GridPane.columnIndex="5" GridPane.rowIndex="0">
+                     <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                     </GridPane.margin></TextField>
+                   <HBox GridPane.columnIndex="6" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+                       <GridPane.margin>
+                           <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                       </GridPane.margin>
+                       <CheckBox fx:id="cbHeadnote" alignment="CENTER_LEFT" minWidth="150">In Headnote</CheckBox>
+                   </HBox>
+                   <HBox GridPane.columnIndex="7" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+                       <GridPane.margin>
+                           <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                       </GridPane.margin>
+                       <Button id="button" fx:id="btnHistory" minWidth="70" mnemonicParsing="false" text="History">
+                       </Button>
+                   </HBox>
+                   <!--<CheckBox fx:id="cbHeadnote" GridPane.columnIndex="7" GridPane.rowIndex="0">In Headnote only</CheckBox>-->
+                   <!--<Button id="button" fx:id="btnHistory" mnemonicParsing="false" text="History" GridPane.columnIndex="7" GridPane.rowIndex="0" prefWidth="80">-->
+                       <!--<GridPane.margin>-->
+                           <!--<Insets bottom="1.0" left="20.0" right="2.0" top="1.0" />-->
+                       <!--</GridPane.margin>-->
+                   <!--</Button>-->
+
+
+                   <Label alignment="CENTER_RIGHT" text="Acts/Sections :" textAlignment="RIGHT" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                     </GridPane.margin>
+                   </Label>
+                   <com.project.utils.AutoTextAutoCompleteTextField id="txt_field_border" fx:id="autoFillTextActRef" promptText="Refer Act" style="-fx-text-fill: darkred;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                     </GridPane.margin></com.project.utils.AutoTextAutoCompleteTextField>
+                   <com.project.utils.AutoTextAutoCompleteTextField id="txt_field_border" fx:id="autoFillTextActSectionRef" promptText="Refer Section" style="-fx-text-fill: darkred;" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                     </GridPane.margin></com.project.utils.AutoTextAutoCompleteTextField>
+                   <HBox GridPane.columnIndex="4" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                       <GridPane.margin>
+                           <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                       </GridPane.margin>
+                       <children>
+                           <Button id="button" fx:id="btnAddAct" alignment="CENTER" minWidth="60" mnemonicParsing="false" text="Add" />
+                           <Hyperlink fx:id="hpHelp" alignment="CENTER" text="?" /></children>
+                   </HBox>
+                   <!--<Button id="button" fx:id="btnAddAct" mnemonicParsing="false" prefWidth="60" text="Add" GridPane.columnIndex="4" GridPane.rowIndex="1">-->
+                     <!--<GridPane.margin>-->
+                        <!--<Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />-->
+                     <!--</GridPane.margin></Button>-->
+                   <!--<Hyperlink fx:id="hpHelp" text="?" GridPane.columnIndex="4" GridPane.rowIndex="1">-->
+                     <!--<GridPane.margin>-->
+                        <!--<Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />-->
+                     <!--</GridPane.margin></Hyperlink>-->
+
+                   <ListView id="listview_border" orientation="HORIZONTAL" fx:id="ActListView" minHeight="100" GridPane.columnIndex="5" GridPane.columnSpan="7" GridPane.rowIndex="1" GridPane.rowSpan="2" prefHeight="20" />
+
+
+                   <Label alignment="CENTER_RIGHT" text="App/Res :" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                         <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                     </GridPane.margin>
+                   </Label>
+                   <TextField id="txt_field_border" fx:id="textFieldAppRes" promptText="Appellants and or Respondents" style="-fx-text-fill:#FF5733;" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="2" />
+
+                   <Label alignment="CENTER_RIGHT" text="Judge Name : " GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                     </GridPane.margin></Label>
+                   <com.project.utils.AutoTextAutoCompleteTextField id="txt_field_border" fx:id="autoFillTextJudge" promptText="Judge" style="-fx-text-fill:#FF5733;" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                       <GridPane.margin>
+                           <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                       </GridPane.margin></com.project.utils.AutoTextAutoCompleteTextField>
+                   <Button id="button_info" fx:id="btnJudgeAdd" mnemonicParsing="false" text="+ Add" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                       <tooltip>
+                           <Tooltip text="Add multiple judge" />
+                       </tooltip>
+                     <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                     </GridPane.margin>
+                   </Button>
+                   <ListView id="listview_border" orientation="HORIZONTAL" fx:id="JudgeListView" GridPane.columnIndex="4" GridPane.columnSpan="5" GridPane.rowIndex="3" prefHeight="20" />
+
+                   <Label alignment="CENTER_RIGHT" text="Case No : " GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                       <GridPane.margin>
+                           <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                       </GridPane.margin></Label>
+                   <TextField id="txt_field_border" fx:id="textFieldCaseNo" promptText="Case No" style="-fx-text-fill:#FF5733;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                   <!--<com.project.utils.AutoTextAutoCompleteTextField id="txt_field_border" fx:id="autoFillTextCaseNo" promptText="Case No" GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-text-fill:#FF5733;">-->
+                       <!--<GridPane.margin>-->
+                           <!--<Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />-->
+                       <!--</GridPane.margin></com.project.utils.AutoTextAutoCompleteTextField>-->
+
+                   <Label alignment="CENTER_RIGHT" text="Case Year : " GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                       <GridPane.margin>
+                           <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                       </GridPane.margin></Label>
+                   <TextField id="txt_field_border" fx:id="textFieldCaseYear" promptText="Case Year" style="-fx-text-fill:#FF5733;" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                   <!--<com.project.utils.AutoTextAutoCompleteTextField id="txt_field_border" fx:id="autoFillTextCaseYear" promptText="Case Year" GridPane.columnIndex="3" GridPane.rowIndex="4" style="-fx-text-fill:#FF5733;">-->
+                       <!--<GridPane.margin>-->
+                           <!--<Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />-->
+                       <!--</GridPane.margin></com.project.utils.AutoTextAutoCompleteTextField>-->
+
+                   <Label alignment="CENTER_RIGHT" text="Advocates : " GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                       <GridPane.margin>
+                           <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                       </GridPane.margin></Label>
+                   <TextField id="txt_field_border" fx:id="textFieldAdvocates" promptText="Advocates" style="-fx-text-fill:#FF5733;" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+
+                   <!--<com.project.utils.AutoTextAutoCompleteTextField id="txt_field_border" fx:id="autoFillTextAdvocates" promptText="Advocates" GridPane.columnIndex="5" GridPane.rowIndex="4" style="-fx-text-fill:#FF5733;">-->
+                       <!--<GridPane.margin>-->
+                           <!--<Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />-->
+                       <!--</GridPane.margin></com.project.utils.AutoTextAutoCompleteTextField>-->
+
+
+                   <Label fx:id="labelPublisher" alignment="CENTER_RIGHT" text="Journal : " GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                       <GridPane.margin>
+                           <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                       </GridPane.margin></Label>
+                   <ComboBox id="txt_field_border" fx:id="comboboxPublisher" promptText="Select Publisher" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                       <GridPane.margin>
+                           <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                       </GridPane.margin></ComboBox>
+                   <Label fx:id="labelYear" alignment="CENTER_RIGHT" text="Year :" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                       <GridPane.margin>
+                           <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                       </GridPane.margin></Label>
+                   <ComboBox id="txt_field_border" fx:id="comboboxYear" promptText="Select Year" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                       <GridPane.margin>
+                           <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                       </GridPane.margin></ComboBox>
+                   <Label fx:id="labelVolume" alignment="CENTER_RIGHT" text="Volume :" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                       <GridPane.margin>
+                           <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                       </GridPane.margin></Label>
+                   <ComboBox id="txt_field_border" fx:id="comboboxVolume" promptText="Select Volume" GridPane.columnIndex="5" GridPane.rowIndex="5">
+                       <GridPane.margin>
+                           <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                       </GridPane.margin></ComboBox>
+                   <Label fx:id="labelPage" alignment="CENTER_RIGHT" text="Page No:" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                       <GridPane.margin>
+                           <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                       </GridPane.margin></Label>
+                   <ComboBox id="txt_field_border" fx:id="comboboxPage" promptText="Select Page No" GridPane.columnIndex="7" GridPane.rowIndex="5">
+                       <GridPane.margin>
+                           <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                       </GridPane.margin></ComboBox>
+
+
+                   <Label alignment="CENTER_RIGHT" text="Date Between" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                     <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                     </GridPane.margin></Label>
+                   <DatePicker fx:id="dateFrom" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                     </GridPane.margin></DatePicker>
+                   <DatePicker fx:id="dateTo" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                     <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                     </GridPane.margin></DatePicker>
+                   <Button id="button" fx:id="btnSearch" alignment="CENTER" minWidth="100" mnemonicParsing="false" text="Search" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                     <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                     </GridPane.margin></Button>
+                   <Button id="button" fx:id="btnReset" alignment="CENTER" contentDisplay="TEXT_ONLY" minWidth="80" mnemonicParsing="false" text="Reset" GridPane.columnIndex="4" GridPane.rowIndex="6">
+                     <GridPane.margin>
+                        <Insets bottom="1.0" left="2.0" right="2.0" top="1.0" />
+                     </GridPane.margin></Button>
+                   <Label id="label" fx:id="labSearch" alignment="CENTER_RIGHT" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+               </children>
+
+               <columnConstraints>
+                   <ColumnConstraints percentWidth="12.0" />
+                   <ColumnConstraints percentWidth="12.0" />
+                   <ColumnConstraints percentWidth="12.0" />
+                   <ColumnConstraints percentWidth="12.0" />
+                   <ColumnConstraints percentWidth="12.0" />
+                   <ColumnConstraints percentWidth="12.0" />
+                   <ColumnConstraints percentWidth="12.0" />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="35.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="35.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="35.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="35.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="35.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="35.0" vgrow="ALWAYS" />
+                  <RowConstraints minHeight="35.0" vgrow="ALWAYS" />
+               </rowConstraints>
+           </GridPane>
+       </StackPane>
+      </AnchorPane>
+    <AnchorPane fx:id="result_view_pane" minHeight="0.0" minWidth="0.0">
+    </AnchorPane>
+  </items>
+</SplitPane>

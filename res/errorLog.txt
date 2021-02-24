@@ -1,0 +1,215 @@
+
+
+10/10/2017 13:53:34
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_bookmark.fxml
+ at m.f():484
+
+10/10/2017 13:53:36
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_history.fxml
+ at m.a():533
+
+10/10/2017 13:53:38
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_dictionary.fxml
+ at m.e():728
+
+10/10/2017 13:53:51
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_live_update.fxml
+ at m.d():679
+
+10/10/2017 13:53:53
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_dictionary.fxml
+ at m.e():728
+
+10/10/2017 13:54:36
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_dictionary.fxml
+ at m.e():728
+
+10/10/2017 13:55:47
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_dictionary.fxml
+ at m.e():728
+
+10/10/2017 13:56:23
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_bookmark.fxml
+ at m.f():484
+
+10/10/2017 13:56:24
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_bookmark.fxml
+ at m.f():484
+
+10/10/2017 13:56:25
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_history.fxml
+ at m.a():533
+
+10/10/2017 13:57:49
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_dictionary.fxml
+ at m.e():728
+
+10/10/2017 13:58:43
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_dictionary.fxml
+ at m.e():728
+
+10/10/2017 14:03:25
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_dictionary.fxml
+ at m.e():731
+
+10/10/2017 14:08:24
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_dictionary.fxml
+ at y.e():731
+
+10/10/2017 14:12:41
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_dictionary.fxml
+ at y.e():733
+
+10/10/2017 14:13:16
+javafx.fxml.LoadException: 
+/F:/ST/Projects/JavaFX/SupremeToday/out/production/SupremeToday/com/project/ui/dialog_dictionary.fxml
+ at TabViewController.showDictionaryDialogWindow():731
+
+10/10/2017 14:13:18
+javafx.fxml.LoadException: 
+/F:/ST/Projects/JavaFX/SupremeToday/out/production/SupremeToday/com/project/ui/dialog_dictionary.fxml
+ at TabViewController.showDictionaryDialogWindow():731
+
+10/10/2017 14:14:34
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_dictionary.fxml
+ at y.e():731
+
+10/10/2017 14:14:38
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_dictionary.fxml
+ at y.e():731
+
+10/10/2017 14:17:30
+javafx.fxml.LoadException: com.project.b.n is not a valid property.
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_dictionary.fxml:40
+ at y.e():731
+
+10/10/2017 14:49:16
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_live_update.fxml
+ at y.d():679
+
+10/10/2017 15:08:01
+javafx.fxml.LoadException: com.project.utils.f is not a valid property.
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_dictionary.fxml:39
+ at TabViewController.e():726
+
+11/10/2017 12:39:44
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_live_update.fxml
+ at TabViewController.d():679
+
+11/10/2017 12:57:18
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_live_update.fxml
+ at TabViewController.d():677
+
+11/10/2017 12:57:26
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_live_update.fxml
+ at TabViewController.d():677
+
+11/10/2017 12:59:14
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_live_update.fxml
+ at TabViewController.d():677
+
+11/10/2017 13:02:35
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_live_update.fxml
+ at TabViewController.d():677
+
+11/10/2017 13:05:14
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_live_update.fxml
+ at TabViewController.d():677
+
+14/10/2017 13:30:33
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_bookmark.fxml:26
+ at TabViewController.f():482
+
+30/10/2017 12:54:01
+javafx.fxml.LoadException: 
+/F:/ST/Projects/JavaFX/SupremeToday/out/production/SupremeToday/com/project/ui/dialog_live_update.fxml
+ at TabViewController.showLiveUpdateDialogWindow():677
+
+30/10/2017 12:59:13
+javafx.fxml.LoadException: 
+/F:/ST/Projects/JavaFX/SupremeToday/out/production/SupremeToday/com/project/ui/dialog_live_update.fxml
+ at TabViewController.showLiveUpdateDialogWindow():677
+
+30/10/2017 13:01:28
+javafx.fxml.LoadException: 
+/F:/ST/Projects/JavaFX/SupremeToday/out/production/SupremeToday/com/project/ui/dialog_live_update.fxml
+ at TabViewController.showLiveUpdateDialogWindow():677
+
+30/10/2017 13:02:36
+javafx.fxml.LoadException: 
+/F:/ST/Projects/JavaFX/SupremeToday/out/production/SupremeToday/com/project/ui/dialog_live_update.fxml
+ at TabViewController.showLiveUpdateDialogWindow():677
+
+30/10/2017 13:28:34
+javafx.fxml.LoadException: 
+/F:/ST/Projects/JavaFX/SupremeToday/out/production/SupremeToday/com/project/ui/dialog_live_update.fxml
+ at TabViewController.showLiveUpdateDialogWindow():677
+
+30/10/2017 14:33:45
+javafx.fxml.LoadException: 
+file:/F:/ST/Projects/JavaFX/SupremeToday/out/artifacts/SupremeToday/SupremeToday_enc.jar!/com/project/ui/dialog_live_update.fxml
+ at t.d():677
+
+18/12/2017 14:58:36
+javafx.fxml.LoadException: 
+/F:/ST/Projects/JavaFX/SupremeToday/out/production/SupremeToday/com/project/ui/dialog_central_act.fxml
+ at JudgementViewController.showCentralActsDialogWindow():963
+
+18/12/2017 14:59:56
+javafx.fxml.LoadException: 
+/F:/ST/Projects/JavaFX/SupremeToday/out/production/SupremeToday/com/project/ui/dialog_central_act.fxml
+ at JudgementViewController.showCentralActsDialogWindow():963
+
+10/04/2019 12:47:36
+javafx.fxml.LoadException: 
+/D:/Addie/SupremeToday/SupremeToday/out/production/SupremeToday/com/project/ui/dialog_supreme_pad.fxml
+ at JudgementViewController.showSupremePadWindow():515
+
+12/04/2019 14:32:56
+java.lang.NullPointerException at ResultViewHelper.loadTableData():466
+
+12/04/2019 14:36:52
+java.lang.NullPointerException at ResultViewHelper.loadTableData():466
+
+12/04/2019 14:39:33
+java.lang.NullPointerException at ResultViewHelper.loadTableData():466
+
+12/04/2019 14:41:12
+java.lang.NullPointerException at ResultViewHelper.loadTableData():466
+
+12/04/2019 14:41:44
+java.lang.NullPointerException at ResultViewHelper.loadTableData():466
+
+09/09/2019 13:26:18
+java.lang.StringIndexOutOfBoundsException: String index out of range: -12 at CommentaryController.tuneHTMLContent():396
+
+19/02/2020 16:08:17
+java.lang.NullPointerException at ResultViewHelper.loadTableData():506
+
+19/02/2020 16:08:31
+java.lang.NullPointerException at ResultViewHelper.loadTableData():506

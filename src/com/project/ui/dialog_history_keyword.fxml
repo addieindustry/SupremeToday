@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane minHeight="300.0" minWidth="400.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <BorderPane>
+            <center>
+                <TableView fx:id="tableTitleList" minWidth="634.0" minHeight="328.0" BorderPane.alignment="CENTER">
+                    <columns>
+                        <TableColumn fx:id="columnKeywords" minWidth="300.0" prefWidth="393.0" />
+                    </columns>
+                </TableView>
+            </center>
+            <bottom>
+                <HBox alignment="CENTER_RIGHT" minHeight="50.0" minWidth="634.0" spacing="10.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button id="button" fx:id="btnClose" mnemonicParsing="false" minHeight="25.0" minWidth="163.0" text="Close" />
+                    </children>
+                </HBox>
+            </bottom>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+        </BorderPane>
+    </children>
+</AnchorPane>

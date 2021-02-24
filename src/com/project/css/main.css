@@ -1,0 +1,487 @@
+.root{
+   /* -fx-background-image: url("/com/project/resources/home_bg.jpg");*/
+    /*-fx-background-image: url("/com/project/resources/background.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-position: center;*/
+    -fx-background-color: #F5F5F5;
+    -fx-font-family: "Verdana";
+}
+
+.hyperlink {
+    -fx-underline: false;
+    -fx-hover: false;
+    -fx-text-fill: darkred;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.0em;
+    -fx-font-family: "Arial";
+}
+
+#web-view{
+    -fx-font-size: 1.2em;
+}
+
+.hyperlink:hover { -fx-underline: true; }
+
+/*.table-row-cell:selected {
+
+}*/
+
+.table-view {
+    -fx-border-color: #00558E;
+}
+
+#overruled .table-row-cell {
+    -fx-cursor: hand;
+}
+
+.table-row-cell:selected {
+    -fx-text-background-color: black;
+    -fx-background-color: white;
+}
+.table-row-cell:selected .text {
+       -fx-font-weight: bold;
+       -fx-text-fill: 	black;
+}
+.table-view .column-header .label {
+    -fx-text-fill: 	black;
+    -fx-font-weight: bold;
+}
+
+.tooltip {
+    -fx-background: white;
+    -fx-text-fill: black;
+    -fx-background-color: white;
+    /*-fx-background-radius: 6px;
+    -fx-background-insets: 0;
+    -fx-padding: 0.667em 0.75em 0.667em 0.75em; *//* 10px *//*
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 10, 0.0 , 0 , 3 );
+    -fx-font-size: 0.85em;*/
+}
+
+.styleImportant {
+    -fx-font-weight: bold;
+    -fx-text-fill: red;
+}
+
+.autofill-text{
+    -fx-skin:"np.com.ngopal.control.AutoFillTextBoxSkin";
+}
+
+#pane_border {
+    -fx-border-color: #00558E;
+    -fx-border-width: 1px;
+    -fx-padding: 10;
+    -fx-spacing: 8;
+}
+
+#pane_box_border {
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #00558E;
+    -fx-border-width: 1px;
+    -fx-padding: 8;
+    -fx-spacing: 8;
+}
+
+#pane {
+ /*   -fx-background-color: #1d1d1d;*/
+    /*-fx-background-image: url("/com/project/resources/background.jpg");*/
+}
+
+#button_transparent {
+    -fx-background-color: transparent;
+}
+
+#hbox {
+    -fx-background-color: white;
+}
+
+#vbox {
+    -fx-background-color: white;
+}
+
+.radio-button {
+  -fx-mark-highlight-color: #00558E;
+  -fx-mark-color: #00558E;
+}
+
+.radio-button -radio:armed {
+    -fx-background-color: #00558E;
+}
+
+#label {
+    -fx-text-fill: 	#00558E;
+    -fx-font-weight: bold;
+}
+
+#label-blue {
+    -fx-text-fill: rgba(40,109,150);
+    -fx-font-weight: bold;
+}
+
+#txt-border{
+-fx-text-box-border: rgba(110,37,37);
+/*-fx-background-image: url("/com/project/resources/txt_bg.png");*/
+-fx-border-width: 3;
+}
+
+#ComboBox{
+-fx-text-box-border: rgba(110,37,37);
+-fx-border-width: 3;
+}
+
+#txt_bg {
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color:
+        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+        #9d4024,
+        #d86e3a,
+        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+}
+
+#button {
+    -fx-font-family: "Arial";
+    -fx-background-color: darkred;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+    -fx-base: #00a7d4;
+    -fx-background: #e5f3f6;
+    -fx-focus-color: #0093FF;
+    -fx-control-inner-background: #FFFFFF;
+    -fx-text-base-color: #FFFFFF;
+    -fx-inner-border: linear-gradient(to bottom, derive(-fx-color,73.6%) 0%, derive(-fx-color,29.200000000000003%) 100%);
+    -fx-body-color: linear-gradient( to bottom, derive(-fx-color, 34.0%) 0%, derive(-fx-color, -18.0%) 100%);
+    -fx-background-insets: 0px;
+    -fx-background-radius: 0px;
+    -fx-padding: 0.166667em 0.833333em 0.25em 0.833333em; /* 2 10 3 10 */
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: LEFT;
+    -fx-cursor: hand;
+}
+
+#button_simple {
+        -fx-background-color: darkred;
+        -fx-font-weight: bold;
+        -fx-base: #00a7d4;
+        -fx-background: #e5f3f6;
+        -fx-focus-color: #0093FF;
+        -fx-control-inner-background: #FFFFFF;
+        -fx-text-base-color: #FFFFFF;
+        -fx-inner-border: linear-gradient(to bottom, derive(-fx-color,73.6%) 0%, derive(-fx-color,29.200000000000003%) 100%);
+        -fx-body-color: linear-gradient( to bottom, derive(-fx-color, 34.0%) 0%, derive(-fx-color, -18.0%) 100%);
+        -fx-background-insets: 0px;
+        -fx-background-radius: 0px;
+        -fx-padding: 0.166667em 0.833333em 0.25em 0.833333em; /* 2 10 3 10 */
+        -fx-text-fill: -fx-text-base-color;
+        -fx-alignment: CENTER;
+        -fx-content-display: LEFT;
+        -fx-cursor: hand;
+}
+
+.label{
+    -fx-font-size: 1.1em;
+}
+
+#txt_field_border{
+    -fx-font-size: 1.1em;
+    -fx-border-color: #808080;
+    -fx-border-width: 1px;
+    -fx-font-weight: bold;
+    -fx-background-color: white;
+}
+#listview_border{
+     -fx-box-border: white;
+     -fx-focus-color:white;
+     -fx-background-color: white;
+     /*-fx-focus-color: rgba(110,37,37);*/
+}
+
+#button_popup {
+    -fx-background-color: #999999;
+   /* -fx-text-fill: white;*/
+     /*-fx-background-color: #090a0c,linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),linear-gradient(#20262b, #191d22),radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));*/
+       /* -fx-background-radius: 5,4,3,5;*/
+        -fx-background-insets: 0,1,2,0;
+        -fx-text-fill: white;
+        -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+        /*-fx-font-family: "Arial";*/
+        -fx-text-fill: linear-gradient(white, #d0d0d0);
+        -fx-font-size: 1.1em;
+        -fx-font-weight: bold;
+        -fx-cursor: hand;
+/*        -fx-padding: 10 20 10 20;*/
+}
+
+.tab-label {
+    -fx-font-family: "Arial";
+    -fx-content-display: top;
+    -fx-text-fill: #696969;
+    -fx-font-size: 1.4em;
+}
+.tab-pane {
+    -fx-tab-min-height: 30;
+    -fx-tab-max-height: 50;
+}
+
+/*[Tab] To set the background color of the tabpane header write in the CSS file:*/
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #FFFFFF;
+ /*-fx-background-image: url("/com/project/resources/header_bg.png");*/
+/* -fx-pref-height: 50px;*/
+ /*-fx-background-image: stretch;*/
+ -fx-background-size: cover;
+}
+
+.tab{
+   -fx-background-color: #FFFFFF;
+}
+
+.tab:hover{
+-fx-background-color:   #1e88e5;
+-fx-cursor: hand;}
+
+.tab:selected{
+/*-fx-border-color: black;*/
+/*-fx-background-repeat: no-repeat;*/
+/*-fx-background-position: center;*/
+-fx-font-weight: bold;
+}
+
+
+
+/*[Tab] To remove the borders write:*/
+/*.tab-pane .tab-header-area .tab-header-background {
+    -fx-effect: null;
+}*/
+
+/*[Tab] To remove the header completely set opacity to 0:*/
+/*
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}*/
+
+/*
+    .tab-pane > .tab-header-area > .headers-region > .tab:top {
+        -fx-border-color: #a3a7a8;
+        -fx-border-radius: 5 5 0 0;
+        -fx-background-color: white;
+        -fx-pref-height: 40px;
+        -fx-background-insets: 0;
+    }
+
+    .tab-pane > .tab-header-area > .headers-region > .tab:selected:top {
+        -fx-border-color: #2381E9 #a3a7a8 #a3a7a8 #a3a7a8;
+        -fx-border-width: 5 1 1 1;
+        -fx-border-radius: 5 5 0 0;
+        -fx-background-color: white;
+        -fx-pref-height: 40px;
+        -fx-background-insets: 0;
+    }
+
+
+    .tab-pane > .tab-header-area > .headers-region > .tab:selected > .tab-container > .tab-label {
+        -fx-alignment: CENTER;
+        -fx-text-fill: #2381E9;
+        -fx-font-weight: bold;
+    }
+
+
+    .tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
+        -fx-alignment: CENTER;
+        -fx-text-fill: #2381E9;
+        -fx-font-weight: bold;
+    }
+*/
+
+
+  /*  .tab-pane > .tab-header-area > .tab-header-background {
+        -fx-background-color: rgba(110,37,37);
+        -fx-border-color: rgba(110,37,37);
+        -fx-border-width: 0 0 1 0;
+        -fx-background-insets: 0;
+        -fx-pref-height: 50px;
+    }*/
+
+#btn_common {
+    -fx-background-color: transparent;
+    -fx-background-size: 30 30;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_print {
+    -fx-background-color:  transparent;
+    -fx-background-image: url("/com/project/resources/icon_print_white.png");
+    -fx-background-size: 35 35;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_highlightpre {
+    -fx-background-color:  transparent;
+    -fx-background-image: url("/com/project/resources/previous_history.png");
+    -fx-background-size: 35 35;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_highlightnext {
+    -fx-background-color:  transparent;
+    -fx-background-image: url("/com/project/resources/next_history.png");
+    -fx-background-size: 35 35;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_digestview {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/com/project/resources/icon_digest_view.png");
+    -fx-background-size: 35 35;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_zoom_out {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/com/project/resources/icon_minus.png");
+    -fx-background-size: 35 35;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_zoom_in {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/com/project/resources/icon_plus.png");
+    -fx-background-size: 35 35;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_pdf {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/com/project/resources/icon_pdf_white.png");
+    -fx-background-size: 35 35;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_folder {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/com/project/resources/icon_folder_white.png");
+    -fx-background-size: 35 35;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_find {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/com/project/resources/icon_find.png");
+    -fx-background-size: 40 60;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_next_row {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/com/project/resources/icon_nex_row.png");
+    -fx-background-size: 35 35;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_pre_row {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/com/project/resources/icon_pre_row.png");
+    -fx-background-size: 35 35;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_bookmark {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/com/project/resources/icon_bookmark.png");
+    -fx-background-size: 35 35;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_hide_show {
+    -fx-background-color: #e0dddd;
+    -fx-background-image: url("/com/project/resources/show_hide.png");
+    -fx-background-size: 35 35;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_top_row {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/com/project/resources/top_page.png");
+    -fx-background-size: 31 31;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_buttom_row {
+    -fx-background-color: transparent;
+    -fx-background-image: url("/com/project/resources/bottom_page.png");
+    -fx-background-size: 31 31;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_scroll_top {
+    -fx-background-color: #e0dddd;
+    -fx-background-image: url("/com/project/resources/scroll_top.png");
+    -fx-background-size: 35 35;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_scroll_bottom {
+    -fx-background-color: #e0dddd;
+    -fx-background-image: url("/com/project/resources/scroll_bottom.png");
+    -fx-background-size: 35 35;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_go_back {
+    -fx-background-color: #e0dddd;
+    -fx-background-image: url("/com/project/resources/icon_back.png");
+    -fx-background-size: 35 35;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
+#btn_search_in_search {
+    -fx-background-color: #e0dddd;
+    -fx-background-image: url("/com/project/resources/icon_search.png");
+    -fx-background-size: 35 35;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}

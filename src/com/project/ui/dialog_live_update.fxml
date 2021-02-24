@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import com.project.utils.PTableColumn?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Label?>
+
+<AnchorPane minHeight="300.0" minWidth="600.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1">
+    <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <children>
+      <BorderPane>
+         <center>
+               <VBox BorderPane.alignment="CENTER">
+                  <BorderPane.margin>
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                  </BorderPane.margin>
+                  <children>
+                    <TableView fx:id="tableUpdateStatus" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <!--<PTableColumn fx:id="columnId" percentageWidth="0.1" text="Id" />-->
+                            <PTableColumn fx:id="columnVersion" percentageWidth="0.3" text="Version" />
+                            <PTableColumn fx:id="columnCourtId" visible="false" text="CourtId" />
+                            <PTableColumn fx:id="columnTitle" percentageWidth="0.4" text="Title" />
+                            <PTableColumn fx:id="columnStatus" percentageWidth="0.3" text="Status" />
+
+                            <!--<TableColumn fx:id="columnId" prefWidth="80.0" text="Id" />-->
+                            <!--<TableColumn fx:id="columnTitle" prefWidth="200.0" text="Case Name" />-->
+                            <!--<TableColumn fx:id="columnCategory" prefWidth="120.0" text="Category" />-->
+                            <!--<TableColumn fx:id="columnDescription" prefWidth="250.0" text="Description" />-->
+                        </columns>
+                    </TableView>
+                  </children>
+               </VBox>
+         </center>
+         <bottom>
+            <VBox spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                    <HBox alignment="TOP_CENTER">
+                     <children>
+                         <ProgressBar fx:id="progressStatus" HBox.hgrow="ALWAYS"  />
+                     </children>
+                  </HBox>
+                    <HBox alignment="TOP_CENTER">
+                     <children>
+                            <Button id="button" fx:id="btnUpdate" mnemonicParsing="false" minWidth="90.0" text="Update">
+                              <HBox.margin>
+                                 <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+                              </HBox.margin></Button>
+                            <Button id="button" fx:id="btnClose" mnemonicParsing="false" minWidth="90.0" text="Close">
+                              <HBox.margin>
+                                 <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+                            </HBox.margin></Button>
+                             <Label fx:id="labelStatus"><HBox.margin>
+                                 <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+                             </HBox.margin></Label>
+                     </children>
+                    </HBox>
+               </children>
+            </VBox>
+         </bottom>
+      </BorderPane>
+    </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+    </StackPane>
+</AnchorPane>
