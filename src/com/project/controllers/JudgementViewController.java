@@ -7,7 +7,6 @@ import com.google.common.collect.Multimap;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.license4j.util.FileUtils;
 import com.project.GetMyIP;
 import com.project.JavaHelper;
 import com.project.WebEventDispatcher;
@@ -19,8 +18,6 @@ import com.project.interfaces.SearchInSearchFromWebViewEventHandler;
 import com.project.model.JudgementResultModel;
 import com.project.utility.SearchUtility;
 import com.project.utils.Utils;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -28,46 +25,36 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
-import javafx.event.EventDispatchChain;
-import javafx.event.EventDispatcher;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.*;
-import javafx.util.Duration;
-import org.eclipse.jetty.client.HttpResponse;
-import org.jdesktop.jdic.browser.WebBrowser;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.datatransfer.*;
+import java.awt.datatransfer.StringSelection;
 import java.io.*;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
+import java.net.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
@@ -75,7 +62,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
-import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -115,6 +101,8 @@ public class JudgementViewController implements Initializable {
     private String htmlHeader = "";
     private String copyHeader = "";
     String judgementHTML = "";
+    String googleTranslatorScript = "<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en'},'google_translate_element');}</script> <script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>";
+    String googleTranslatorDiv = "<div id=\"google_translate_element\"></div>";
     String judgementCSS = "";
     String javaScript = "<script>function scrollTo(o){document.getElementById(o).scrollIntoView()}</script>";
 
@@ -169,6 +157,7 @@ public class JudgementViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
         engine = webViewDocView.getEngine();
 //        webViewDocView.setZoom(webViewDocView.getZoom() * 1.1);
 //        webViewDocView.setZoom(webViewDocView.getZoom() * 1.1);
@@ -977,7 +966,8 @@ public class JudgementViewController implements Initializable {
 
 //            String temp2="<html><head><meta charset=\"UTF-8\">" + javaScript + judgementCSS + "</head><body onkeydown=keyup()>" + htmlHeader + judgementHTML + "</body></html>";
 //            try {
-//                judgementHTML = new String(Files.readAllBytes(Paths.get("D:\\For Print Testing\\37639.htm")));
+//                judgementHTML = new String(Files.readAllBytes(Paths.get("D:\\Projects\\SupremeToday\\SupremeToday\\res\\temp.html")));
+//
 //
 ////                try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 ////                        new FileOutputStream("D:\\Addie\\SupremeToday\\Sample\\64250.htm"), "utf-8"))) {
@@ -987,19 +977,83 @@ public class JudgementViewController implements Initializable {
 //                e.printStackTrace();
 //            }
 
+            com.sun.javafx.webkit.WebConsoleListener.setDefaultListener(
+                    (webView, message, lineNumber, sourceId)-> System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message)
+            );
+
+            File f = new File("D:\\Projects\\SupremeToday\\SupremeToday\\res\\temp.html");
+//            engine.load(f.toURI().toString());
+////            engine.load(f.toURI().toString());
+
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                try {
+                    Desktop.getDesktop().browse(new URI(f.toURI().toString()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
+            }
+//
+////            engine.load("https://translate.google.co.in/");
+////            engine.loadContent(judgementHTML, "text/html");
+//            System.out.println("engine.isJavaScriptEnabled()");
+//            System.out.println(engine.isJavaScriptEnabled());
+
+
             judgementHTML = judgementHTML.replace("<font face=\"Kruti Dev 011\">", "<em class=\"KrutiDev_hindi_text\" style=\"font-family:Kruti Dev 010;\">");
             judgementHTML = judgementHTML.replace("</font>", "</em>");
             judgementHTML = judgementHTML.replace("<a name=\"", "<a id=\"");
 
+            if (googleTranslatorScript.contains("<script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>")){
+                try {
+                    String javaScript = new String(Files.readAllBytes(Paths.get(Queries.GOOGLE_TRANSLATOR_SCRIPT)));
+                    System.out.println(javaScript);
+                    googleTranslatorScript = googleTranslatorScript.replace("<script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>", "<script>" + javaScript + "</script>");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            String _html = "";
             if (isWhiteListExist) {
                 String overruledTitle = "<div align=\"center\">This Judgement has been Overruled, <a href='overruled:"+docId+"'>Click Here to View</a></div>";
-                engine.loadContent("<html><head><meta charset=\"UTF-8\">" + javaScript + judgementCSS + "</head><body onkeydown=keyup()>" + htmlHeader + overruledTitle + judgementHTML + "</body></html>", "text/html");
+                _html = "<html><head><meta charset=\"UTF-8\">" + googleTranslatorScript + javaScript + judgementCSS + "</head><body onkeydown=keyup()>" + htmlHeader + googleTranslatorDiv + overruledTitle + judgementHTML + "</body></html>";
 
+//                engine.loadContent(_html, "text/html");
 //                engine.loadContent("<html><head><meta charset=\"UTF-8\">" + javaScript + judgementCSS + "</head><body onkeydown=keyup()><div style=\"background-color:" + Queries.OVERRULED_BACKGROUND_COLOR + "\">" + htmlHeader + overruledTitle + judgementHTML + "</body></html>", "text/html");
             } else {
-//                webViewDocView.getEngine().load("file:///C:/Users/Addie/Desktop/temp3.html");
-                engine.loadContent("<html><head><meta charset=\"UTF-8\">" + javaScript + judgementCSS + "</head><body onkeydown=keyup()>" + htmlHeader + judgementHTML + "</body></html>", "text/html");
+                _html = "<html><head><meta charset=\"UTF-8\">" + googleTranslatorScript + javaScript + judgementCSS + "</head><body onkeydown=keyup()>" + htmlHeader + googleTranslatorDiv + judgementHTML + "</body></html>";
             }
+
+
+            try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+            new FileOutputStream(Queries.GOOGLE_TRANSLATOR_HTML), "utf-8"))) {
+                writer.write(_html);
+//                File f = new File(Queries.GOOGLE_TRANSLATOR_HTML);
+//                URL url = this.getClass().getResource(Queries.GOOGLE_TRANSLATOR_HTML);
+                System.out.println(f.toURI().toString());
+                engine.load(f.toURI().toString());
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+//                engine.loadContent(_html, "text/html");
+//                try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+//                        new FileOutputStream("D:\\64250.htm"), "utf-8"))) {
+//                    writer.write(_html);
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
 
             judgementId = docId;
             if (checkIfTruePrintAvailable(docId)){

@@ -6,6 +6,8 @@
 package com.project;
 
 import com.project.helper.CommanHelper;
+import com.project.helper.Queries;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -92,8 +94,7 @@ class PrintPreview extends JFrame implements ActionListener, ChangeListener, Ite
 //            tp.setText("<div style=\"width: 400px;text-align: center\" ><img src=\"http://localhost:8989/img/LogoHeader.JPG\" /> </div>" +this.html);
 //            System.out.println(this.html);
 
-//            CommanHelper.writeFile("log.txt", "<html><head><meta charset=\"UTF-8\"></head><body><div style=\"height: 30px;background: #741819;width: 200px;color: white;line-height: 30px;text-align: center;font-weight: bold;font-size: 19px;\">SUPREME TODAY</div>" +this.html+"</body></html>");
-            tp.setText("<html><head><meta charset=\"UTF-8\"></head><body><div style=\"height: 21px;background: #741819;width: 133px;color: white;line-height: 20px;text-align: center;font-weight: bold;font-size: 14px;\">SUPREME TODAY</div>" + this.html + "</body></html>");
+            tp.setText("<html><head><meta charset=\"UTF-8\"></head><body><div style=\"height: 21px;background: #741819;width: 133px;color: white;line-height: 20px;text-align: center;font-weight: bold;font-size: 14px;\">" + Queries.APPLICATION_NAME + "</div>" + this.html + "</body></html>");
         } catch (Exception ex) {
         }
         JButton ps = new JButton("Page Setup"), b = new JButton("Preview Text");

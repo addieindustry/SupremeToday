@@ -7,7 +7,6 @@ package com.project.helper;
 
 import com.project.model.PrintSettingModel;
 
-import java.net.URL;
 import java.nio.file.Paths;
 
 /**
@@ -26,7 +25,13 @@ public class Queries {
     //Apply FALSE instead of TRUE on below line to Enable Copy
     public static final Boolean IS_COPY_DISABLE = Boolean.TRUE;
 
-  //  public static final String CURRENT_PATH = Paths.get("").toString();
+//    public static final Boolean IS_SUPREME_TODAY_APP = Boolean.TRUE;
+//    public static final String APPLICATION_NAME = "Supreme Today";
+
+    public static final Boolean IS_SUPREME_TODAY_APP = Boolean.FALSE;
+    public static final String APPLICATION_NAME = "Indian CaseLaw Finder";
+
+//      public static final String CURRENT_PATH = Paths.get("").toString();
     public static final String CURRENT_PATH = Paths.get("D:", "Projects", "SupremeToday", "SupremeToday").toString();
     public static final String DATA_PATH=Paths.get(CURRENT_PATH, "Data").toString();
     public static final String RESOURCE_PATH=Paths.get(CURRENT_PATH, "res").toString();
@@ -37,6 +42,8 @@ public class Queries {
     public static final String INDEX_PATH=Paths.get(DATA_PATH, "Index").toString();
     public static final String KRUTI_FONT_PATH = Paths.get(RESOURCE_PATH, "K012.TTF").toString();
     public static final String HELP_MANUAL_PATH = Paths.get(RESOURCE_PATH, "help.pdf").toString();
+    public static final String GOOGLE_TRANSLATOR_HTML = Paths.get(RESOURCE_PATH, "temp.html").toString();
+    public static final String GOOGLE_TRANSLATOR_SCRIPT = Paths.get(RESOURCE_PATH, "f.txt").toString();
 
     public static final String JQUERY_UI_CSS_PATH = Paths.get(RESOURCE_PATH, "jquery-ui.css").toString();
     public static final String JQUERY_UI_MIN_JS_PATH = Paths.get(RESOURCE_PATH, "jquery-ui.min.js").toString();
@@ -49,9 +56,10 @@ public class Queries {
     public static String DB_PATH=Paths.get(DATA_PATH, "master_db_desktop.sqlite").toString();
     public static String LOCAL_DB_PATH=Paths.get(DATA_PATH, "local_db.sqlite").toString();
     public static String splashFile = Paths.get(RESOURCE_PATH, "splash_background_small.png").toString();
+    public static String homebackgroundFile = Paths.get(RESOURCE_PATH, "home_background_large.png").toString();
     public static String ERROR_LOG_FILE_PATH = Paths.get(RESOURCE_PATH, "errorLog.txt").toString();
     public static final String LOGO_BASE64_FILE_PATH = Paths.get(RESOURCE_PATH, "logo.txt").toString();
-    public static final String LOGO_PATH_BY_APPLICATION=Paths.get(Paths.get("").toAbsolutePath().toString(), "res", "logo.png").toString();
+    public static final String LOGO_PATH_BY_APPLICATION=Paths.get(RESOURCE_PATH, "logo.png").toString();
     public static final String LOGO_PATH=Paths.get(RESOURCE_PATH, "logo.png").toString();
 
     public static String REMOVE_SPECIAL_CHAR = "[^a-zA-Z0-9\"\\s\\,-]";
@@ -59,9 +67,8 @@ public class Queries {
     //Message Box Dialog Title
     public static String MESSAGE_DELETE_BOOKMARK = "Are you sure to delete bookmark?";
     public static String MESSAGE_LIVE_UPDATE_STARTING = "it will take sometime to update application, Are you sure to update?";
-    public static String MESSAGE_ABOUT_US_ADDRESS = "Supreme Today Contact us";
+    public static String MESSAGE_ABOUT_US_ADDRESS = APPLICATION_NAME + " - Contact us";
     public static String MESSAGE_CONFIRM_TO_EXIT = "Are you sure you want to exit?";
-    public static String TITLE_MAIN_WINDOW = "Supreme Today";
     public static String TITLE_HISTORY_WINDOW = "History";
     public static String TITLE_BOOKMARK_WINDOW = "Bookmark";
     public static String TITLE_ABOUT_US_WINDOW = "About Us";
@@ -149,8 +156,8 @@ public class Queries {
     public static PrintSettingModel PRINT_SETTING_MODEL = new PrintSettingModel("", "Letter", "18", "14", "16", 30.0F, 30.0F, 43.0F, 45.0F, true, false, 0.16F, 0.2F, 0.2F);
 
 
-//   INDEX DATABASE QUERIES // 
-    public static final String GET_ALL_COURTS="SELECT * FROM court_master ORDER BY courtName='Supreme Today' DESC, court_master.courtName ASC";
+//   INDEX DATABASE QUERIES //
+    public static final String GET_ALL_COURTS="SELECT * FROM court_master ORDER BY courtName='Supreme Court' DESC, court_master.courtName ASC";
     public static final String GET_CASES_REFERED_BY_CASEID="SELECT targetCaseId,caseReferred FROM final_casereferred where caseId = '%s'";
     public static final String GET_JUDICIAL_BY_CASEID="SELECT targetCaseId,caseReferred,referredBy FROM final_casereferred where caseId = '%s' AND referredBy IS NOT NULL ORDER BY referredBy";
     public static final String IS_CITATOR_AVAILABLE_BY_CASEID="SELECT COUNT(1) FROM final_casereferred WHERE targetCaseId = '%s'";
@@ -191,7 +198,7 @@ public class Queries {
     public static final String GET_COURTS_BY_IDS="SELECT * FROM court_master WHERE courtId IN (%s)";
     public static final String UPDATE_VERSION="UPDATE version_master SET versionId = %s";
 //    public static final String GET_ACT_LIST="SELECT DISTINCT actTitle FROM act_master";
-    
+
 //    LOCAL DATABASE QUERIES //
     public static final String INSERT_USER_DETAILS="INSERT INTO user_details (agent_code,user_name,organization_name,client_number,client_email,city,lic_key,client_package,sub_id) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s')";
     public static final String GET_USER_DETAILS="SELECT * FROM user_details";
@@ -222,11 +229,14 @@ public class Queries {
 //    public static final String GET_HISTORY_KEYWORD_LIST="SELECT _id,title,query,keyword,search_type,created_date FROM user_history WHERE keyword IS NOT NULL or keyword <> '' ORDER BY created_date DESC";
     public static final String INSERT_HISTORY="INSERT INTO user_history (title,query,keyword,search_type) VALUES ('%s','%s','%s','%s')";
     public static final String INSERT_CITATION="INSERT INTO citation_master (publisher,year,volume,pageNo) VALUES ('%s','%s','%s','%s')";
+//    public static final String DELETE_ACT_TITLE="DELETE FROM centralActs WHERE ID='%s' AND Acts1='%s'";
+//    public static final String INSERT_ACT_TITLE="INSERT INTO centralActs (ID,Acts1) VALUES ('%s','%s')";
+    public static final String INSERT_ACT_TITLE="INSERT INTO centralActs (ID,Acts1) SELECT '%s', '%s' WHERE NOT EXISTS(SELECT 1 FROM centralActs WHERE id = '%s' AND Acts1 = '%s')";
     public static final String INSERT_CASE_REFFERED="INSERT INTO final_casereferred(courtId,caseId,targetCaseId,targetCourtId,caseReferred,caseCitator) VALUES (%s,'%s','%s',%s,'%s','%s')";
     public static final String GET_COURTID_FROM_CASE_REFFERED_BY_BOTH_CASEID="SELECT courtId FROM final_casereferred WHERE caseId = '%s'";
 //    public static final String INSERT_HISTORY="INSERT INTO user_history (title,query,keyword,search_type) VALUES ('%s','%s','%s','%s')";
-    
-    
+
+
     public static final String PROPERTIES = "{\n" +
 "    \"schema\": [\n" +
 "        {\n" +
@@ -309,5 +319,5 @@ public class Queries {
 "        }\n" +
 "    ]\n" +
 "}";
-    
+
 }

@@ -1,5 +1,6 @@
 package com.project.controllers;
 
+import com.project.helper.Queries;
 import com.project.helper.ServiceHelper;
 import com.project.utils.Utils;
 import javafx.fxml.FXML;
@@ -34,7 +35,7 @@ public class DialogSendEMailController implements Initializable {
         btnSend.setOnAction(event -> {
             //judgementHTML to be send in Email
             String toEmailId = textFieldEmailID.getText().trim();
-            new Utils().showDialogAlert(ServiceHelper.sendEmail(toEmailId, "todaysupreme@gmail.com", "Supreme Today Judgement", judgementHTML));
+            new Utils().showDialogAlert(ServiceHelper.sendEmail(toEmailId, "todaysupreme@gmail.com", Queries.APPLICATION_NAME + " Judgement", judgementHTML));
         });
     }
 

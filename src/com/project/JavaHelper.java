@@ -21,6 +21,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -64,10 +65,18 @@ public class JavaHelper {
             CommanHelper.setCurrentValue(Queries.INDEX_PATH + "/_segment001", "D", Queries.PDF_COUNT);
 
             try {
+                String base64 = "";
+                try {
+                    base64 = new String(Files.readAllBytes(Paths.get(Queries.LOGO_BASE64_FILE_PATH)));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+//                new Utils().showDialogAlert(Queries.LOGO_PATH_BY_APPLICATION);
                 Date today = new Date();
                 SimpleDateFormat dt1 = new SimpleDateFormat("MMM dd yyyy");
                 String judgementCSS = "<style>@font-face {font-family: 'KrutiDev';src: url('"+kruti_font+"') format('truetype');-fs-pdf-font-embed: embed;-fs-pdf-font-encoding: Identity-H;}body {font-size:"+Queries.PRINT_SETTING_MODEL.getPrintFontSize()+"px;}@page{@top-center{content:\"" + dt1.format(today) + "\"}}@page{@top-right{content:\"Page \"counter(page) \" of \" counter(pages)}}</style>";
-                data = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">"+judgementCSS+"</head><body><br/><div style=\"width: 100%;text-align: center\" ><img src=\""+Queries.LOGO_PATH_BY_APPLICATION+"\" /> </div>"+ ServiceHelper.getLicText() +"<br/>" + data + "</body></html>";
+                data = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">"+judgementCSS+"</head><body><br/><div style=\"width: 100%;text-align: left\" ><img src='"+base64+"'/> </div>"+ ServiceHelper.getLicText() +"<br/>" + data + "</body></html>";
+//                data = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">"+judgementCSS+"</head><body><br/><div style=\"width: 100%;text-align: center\" ><img src=\""+Queries.LOGO_PATH_BY_APPLICATION+"\" /> </div>"+ ServiceHelper.getLicText() +"<br/>" + data + "</body></html>";
                 data = data.replaceAll("font-family: Kruti Dev 012", "font-family: KrutiDev");
                 data = data.replaceAll("font-family:Kruti Dev 010;", "font-family: KrutiDev");
 
@@ -219,7 +228,7 @@ public class JavaHelper {
             if (Queries.PRINT_SETTING_MODEL.getPrintLogo() == false) {
                 data = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">" + script + judgementCSS + "</head><body onload=\"printpr();\">" + data + "</body></html>";
             } else {
-                data = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">" + script + judgementCSS + "</head><body onload=\"printpr();\"><br/><div style=\"width: 100%;text-align: center\" ><img src=\"" + Queries.LOGO_PATH_BY_APPLICATION + "\" /> </div><br/>" + licText + data + "</body></html>";
+                data = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">" + script + judgementCSS + "</head><body onload=\"printpr();\"><br/><div style=\"width: 100%;text-align: left\" ><img src=\"" + Queries.LOGO_PATH_BY_APPLICATION + "\" /> </div><br/>" + licText + data + "</body></html>";
             }
 
             try {
@@ -239,7 +248,7 @@ public class JavaHelper {
             WebBrowser webBrowser = new WebBrowser();
             webBrowser.setSize(screenWidth, screenHeight);
 
-            JFrame frame = new JFrame("Supreme Today Print Priview");
+            JFrame frame = new JFrame(Queries.APPLICATION_NAME + " Print Preview");
             Container contentPane = frame.getContentPane();
             contentPane.add(webBrowser, BorderLayout.CENTER);
             frame.pack();

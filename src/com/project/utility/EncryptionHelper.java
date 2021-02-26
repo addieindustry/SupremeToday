@@ -172,53 +172,53 @@ public class EncryptionHelper {
     }
 
     public static String Decrypt(StringBuilder sb, String key) {
-            if (sb.toString().trim().isEmpty() || sb.toString().trim().equals(sep)) {
-                return "";
-            }
-            StringBuilder sb_html = new StringBuilder("");
-            StringBuilder sb_img = new StringBuilder("");
-            if (sb.toString().contains(sep_img)){
-                String[] strTemp = sb.toString().split(sep_img);
-                sb_html = new StringBuilder(strTemp[0].toString());
-                sb_img = new StringBuilder(strTemp[1].toString());
-            }else{
-                sb_html = sb;
-            }
+        if (sb.toString().trim().isEmpty() || sb.toString().trim().equals(sep)) {
+            return "";
+        }
+        StringBuilder sb_html = new StringBuilder("");
+        StringBuilder sb_img = new StringBuilder("");
+        if (sb.toString().contains(sep_img)){
+            String[] strTemp = sb.toString().split(sep_img);
+            sb_html = new StringBuilder(strTemp[0].toString());
+            sb_img = new StringBuilder(strTemp[1].toString());
+        }else{
+            sb_html = sb;
+        }
 
-            String[] str = sb_html.toString().split(sep);
-            StringBuilder sb1 = new StringBuilder(str[0].toString());
-            StringBuilder sb2 = new StringBuilder(str[1].toString());
+        String[] str = sb_html.toString().split(sep);
+        StringBuilder sb1 = new StringBuilder(str[0].toString());
+        StringBuilder sb2 = new StringBuilder(str[1].toString());
 
-            int iii = 0;
-            int i = 0;
-            for (i = 0; i <= key.length() - 1; i++) {
-                iii += Integer.parseInt(key.charAt(i) + "");
+        int iii = 0;
+        int i = 0;
+        for (i = 0; i <= key.length() - 1; i++) {
+            iii += Integer.parseInt(key.charAt(i) + "");
+        }
+        StringBuilder cs = new StringBuilder();
+        String spltStr = "\\" + (char) (iii - 1) + "";
+        String spltStr2 = (char) (iii - 1) + "";
+        if(((char)iii-1)=='0'){
+            spltStr = (char) (iii - 1) + "";
+        }
+        if (sb2.toString().split(spltStr).length==1){
+            spltStr=spltStr2;
+        }
+        String[] temp = sb2.toString().split(spltStr);
+        for (i = 0; i <= sb1.length() - 1; i++) {
+            int int_Renamed = ((int) (sb1.charAt(i)));
+            if (temp.length > int_Renamed)                {
+                cs.append(getdecstr(temp[int_Renamed], iii));
             }
-            StringBuilder cs = new StringBuilder();
-            String spltStr = "\\" + (char) (iii - 1) + "";
-            String spltStr2 = (char) (iii - 1) + "";
-            if(((char)iii-1)=='0'){
-                spltStr = (char) (iii - 1) + "";
-            }
-            if (sb2.toString().split(spltStr).length==1){
-                spltStr=spltStr2;
-            }
-            String[] temp = sb2.toString().split(spltStr);
-            for (i = 0; i <= sb1.length() - 1; i++) {
-                int int_Renamed = ((int) (sb1.charAt(i)));
-                if (temp.length > int_Renamed)                {
-                    cs.append(getdecstr(temp[int_Renamed], iii));
-                }
-            }
+        }
 
-            String[] tempImg = sb_img.toString().split("[|]");
-            for (i = 0; i <= tempImg.length - 1; i++) {
-                if (cs.toString().contains("<IMAGE" + (i + 1) + ">")){
-                    cs.replace(cs.indexOf("<IMAGE" + (i + 1) + ">"), cs.indexOf("<IMAGE" + (i + 1) + ">") + ("<IMAGE" + (i + 1) + ">").length(), tempImg[i].toString());
-                }
+        String[] tempImg = sb_img.toString().split("[|]");
+        for (i = 0; i <= tempImg.length - 1; i++) {
+            if (cs.toString().contains("<IMAGE" + (i + 1) + ">")){
+                cs.replace(cs.indexOf("<IMAGE" + (i + 1) + ">"), cs.indexOf("<IMAGE" + (i + 1) + ">") + ("<IMAGE" + (i + 1) + ">").length(), tempImg[i].toString());
             }
+        }
 
-            return cs.toString();
+        return cs.toString();
     }
 
     private static String getencstr(String str, int iii) {
@@ -458,7 +458,7 @@ public class EncryptionHelper {
                 default:
 //                    stb.append((char) (i + iii + (((int) (str.substring(i, i + 1).toString()))) + 100));
                     stb.append((char) (i + iii + (((int) (str.charAt(i)))) + 100));
-                // stb.Append(Convert.ToChar(i + iii + Convert.ToInt32(str.ToCharArray(i, 1)) + 100));break;
+                    // stb.Append(Convert.ToChar(i + iii + Convert.ToInt32(str.ToCharArray(i, 1)) + 100));break;
             }
         }
         return stb.toString();

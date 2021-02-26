@@ -7,19 +7,6 @@ package com.project;
 import com.project.controllers.DialogLiveUpdateController;
 import com.project.controllers.TabViewController;
 import com.project.helper.*;
-import java.awt.*;
-import java.awt.MenuItem;
-import java.awt.event.ActionListener;
-import java.io.*;
-import java.lang.ref.WeakReference;
-import java.lang.reflect.InvocationTargetException;
-import java.net.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.concurrent.CountDownLatch;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -40,14 +27,30 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.*;
 import javafx.util.Duration;
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.dialog.Dialogs;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import sun.misc.BASE64Decoder;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.io.*;
+import java.lang.ref.WeakReference;
+import java.lang.reflect.InvocationTargetException;
+import java.net.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.UUID;
+import java.util.concurrent.CountDownLatch;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static com.project.helper.ServiceHelper.getUserDetails;
 
@@ -79,12 +82,15 @@ public class Main extends Application {
 //            sun.util.logging.PlatformLogger platformLogger = PlatformLogger.getLogger("java.util.prefs");
 //            platformLogger.setLevel(PlatformLogger.Level.OFF);
 
+            System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
+
             BASE64Decoder decoder = new BASE64Decoder();
             InputStream is = new FileInputStream(Queries.splashFile);
             ImageView splash = new ImageView(new Image(is));
             splashLayout = new VBox();
             splashLayout.getChildren().addAll(splash);
             if (isAutoUpdateApplication){
+//                startAutoUpdateScreen();
                 runSingleInstantApplication();
             }
         } catch (Exception ex) {
@@ -158,10 +164,15 @@ public class Main extends Application {
                 if (new File(Queries.INDEX_PATH).exists()) {
                     Queries.PRINT_COUNT = CommanHelper.getCurrentValue(Queries.INDEX_PATH + "/_segment001", "P");
                     Queries.PDF_COUNT = CommanHelper.getCurrentValue(Queries.INDEX_PATH + "/_segment001", "D");
-                    //TEMPORARY
-                    //                    PropertyHelper.read_property_file();
+                    PropertyHelper.read_property_file();
+                    //System.out.println("PRINT_COUNT::" + Queries.PRINT_COUNT);
+//                launch(args);
                     if (LicenseHelper.isLicenseAvail()) {
                         int ret= LicenseHelper.isLicenseValid();
+//                    int ret=1;
+//                    if (!isAutoUpdateApplication){
+//                        ret= LicenseHelper.isLicenseValid();
+//                    }
                         if (ret == 1) {
                             //System.out.println("App Start");
 
@@ -169,8 +180,7 @@ public class Main extends Application {
                                 appStart(initStage);
                             }else{
                                 PropertyHelper.create_property_file();
-                                //TEMPORARY
-//                                Dialogs.create().owner(initStage).title("Error Dialog").masthead("configuration file not exits!").message(null).showError();
+                                Dialogs.create().owner(initStage).title("Error Dialog").masthead("configuration file not exits!").message(null).showError();
                             }
                         } else if (ret == 2) {
                             Dialogs.create().owner(initStage).title("Error Dialog").masthead("Dongle is not connected please connect your dongle!").message(null).showError();
@@ -178,10 +188,18 @@ public class Main extends Application {
                             Dialogs.create().owner(initStage).title("Error Dialog").masthead("Invalid License Key!").message(null).showError();
                             licenseFormStart(initStage);
                         }
+//                    if (LicenseHelper.isLicenseValid()) {
+//                        //System.out.println("App Start");
+//                        ServiceHelper.getPrintSetting();
+//                        appStart(initStage);
+//                    } else {
+//                        Dialogs.create().owner(initStage).title("Error Dialog").masthead("Invalid License Key!").message(null).showError();
+//                        licenseFormStart(initStage);
+//                    }
+
                     } else {
                         try {
-                            //TEMPORARY
-//                            Dialogs.create().owner(initStage).title("Information Dialog").masthead("Not Activated!!!").message(null).showInformation();
+                            Dialogs.create().owner(initStage).title("Information Dialog").masthead("Not Activated!!!").message(null).showInformation();
                             licenseFormStart(initStage);
 //                        Dialogs.create().owner(initStage).title("Information Dialog").masthead("Not Activated!!!").message(null).showInformation();
 //                        licenseFormStart(initStage);
@@ -264,9 +282,9 @@ public class Main extends Application {
             Parent root = fxmlLoader.load();
             String _expireInfo = getExpireInfo();
             if (_expireInfo.length() > 0){
-                mainStage.setTitle(Queries.TITLE_MAIN_WINDOW + " " +  Queries.APPLICATION_VERSION + " - " +  getExpireInfo());
+                mainStage.setTitle(Queries.APPLICATION_NAME + " " +  Queries.APPLICATION_VERSION + " - " +  getExpireInfo());
             }else{
-                mainStage.setTitle(Queries.TITLE_MAIN_WINDOW + " " +  Queries.APPLICATION_VERSION);
+                mainStage.setTitle(Queries.APPLICATION_NAME + " " +  Queries.APPLICATION_VERSION);
             }
             mainStage.getIcons().add(new Image(getClass().getResourceAsStream("resources/logo.png")));
             mainStage.setScene(new Scene(root));
@@ -383,7 +401,7 @@ public class Main extends Application {
             DialogLiveUpdateController controller = new DialogLiveUpdateController();
             fxmlLoader.setController(controller);
             Parent root = fxmlLoader.load();
-            mainStage.setTitle("Supreme Today - Live Update");
+            mainStage.setTitle(Queries.APPLICATION_NAME + " - Live Update");
             mainStage.getIcons().add(new Image(getClass().getResourceAsStream("resources/logo.png")));
             mainStage.initModality(Modality.WINDOW_MODAL);
             Scene scene = new Scene(root);
@@ -477,7 +495,7 @@ public class Main extends Application {
         }
     }
     public void showProgramIsMinimizedMsg() {
-        trayIcon.displayMessage("Supreme Today - Auto Update",
+        trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
                 "Double Click to Maximize",
                 TrayIcon.MessageType.INFO);
     }

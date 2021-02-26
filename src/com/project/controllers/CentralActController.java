@@ -131,6 +131,15 @@ public class CentralActController implements Initializable {
         split_pane.setResizableWithParent(result_view_pane, false);
         split_pane.setDividerPositions(split_pan_length);
 
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+            btnFullAct.setStyle("-fx-background-color: steelblue");
+            btnZoomIn.setStyle("-fx-background-color: steelblue");
+            btnZoomOut.setStyle("-fx-background-color: steelblue");
+            btnMail.setStyle("-fx-background-color: steelblue");
+            btnPrint.setStyle("-fx-background-color: steelblue");
+            btnIndexView.setStyle("-fx-background-color: steelblue");
+        }
+
         engine = webViewContent.getEngine();
         webViewContent.setContextMenuEnabled(false);
 

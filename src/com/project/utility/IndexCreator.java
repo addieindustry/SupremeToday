@@ -286,7 +286,7 @@ public void delete(String queryString){
             writer.addDocument(facetConfig.build(taxoWriter, doc));
         } catch (Exception e) {
             LogHelper.add(e.toString() + "###############\n");
-            ////System.out.println(e.toString());
+//            System.out.println(e.toString());
         }
     }
 

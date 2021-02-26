@@ -32,7 +32,7 @@ public class SendMailHelper {
         String to = email;//change accordingly
 
         // Sender's email ID needs to be mentioned
-        String from = "Supreme Today <todaysupreme@gmail.com>";//change accordingly
+        String from = Queries.APPLICATION_NAME + " <todaysupreme@gmail.com>";//change accordingly
 //        final char[] usernameChar = "todaysupreme@gmail.com".toCharArray();
 //        final char[] passwordChar = "st#5845@256".toCharArray();//change accordingly
 //        final String username = "todaysupreme@gmail.com";//change accordingly
@@ -75,7 +75,7 @@ public class SendMailHelper {
             }
             else
             {
-                message.setSubject("Supreme Today: A Case Has been referred to You");
+                message.setSubject(Queries.APPLICATION_NAME + ": A Case Has been referred to You");
             }
 
             // Create the message part

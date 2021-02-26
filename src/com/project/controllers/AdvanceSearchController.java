@@ -158,6 +158,16 @@ public class AdvanceSearchController implements Initializable {
         split_pane.setResizableWithParent(result_view_pane, false);
         split_pane.setDividerPositions(split_pan_length);
 
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+            textFieldwordWithin.setVisible(Boolean.FALSE);
+            cbHeadnote.setVisible(Boolean.FALSE);
+            btnHistory.setStyle("-fx-background-color: steelblue");
+            btnAddAct.setStyle("-fx-background-color: steelblue");
+            btnJudgeAdd.setStyle("-fx-background-color: steelblue");
+            btnSearch.setStyle("-fx-background-color: steelblue");
+            btnReset.setStyle("-fx-background-color: steelblue");
+        }
+
         autoFillTextFreeText.prefWidthProperty().bind(advance_search_pane.widthProperty().multiply(0.50));
         textFieldwordWithin.prefWidthProperty().bind(advance_search_pane.widthProperty().multiply(0.20));
 

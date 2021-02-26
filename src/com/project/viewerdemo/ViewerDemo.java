@@ -654,7 +654,7 @@ public final class ViewerDemo extends JFrame implements
             try {
                 outStream = new BufferedOutputStream(new FileOutputStream(propertiesFile));
 
-                userPreferences.store(outStream, "Supreme Today");
+                userPreferences.store(outStream, Queries.APPLICATION_NAME);
 
             } catch (Exception ex) {
                 propertiesFile.delete();
@@ -2504,7 +2504,7 @@ public final class ViewerDemo extends JFrame implements
 
         docPath = fileToBeLoaded.getAbsolutePath();
         recentDir = fileToBeLoaded.getParentFile();
-        setTitle("Supreme Today");
+        setTitle(Queries.APPLICATION_NAME);
 //        setTitle("Gnostice PDFOne");
 
 //      Show the Progress
@@ -2734,7 +2734,7 @@ public final class ViewerDemo extends JFrame implements
 
         vd.setSize(screenWidth, screenHeight);
         vd.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        vd.setTitle("Supreme Today");
+        vd.setTitle(Queries.APPLICATION_NAME);
 //        vd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         vd.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         vd.setVisible(true);

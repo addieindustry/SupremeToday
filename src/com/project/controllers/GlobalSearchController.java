@@ -46,7 +46,7 @@ public class GlobalSearchController implements Initializable {
     private SplitPane split_pane;
 
     @FXML
-    private Label labSearch;
+    private Label labSearch, lbSearchInLabel;
 
     @FXML
     private RadioButton rbJudgementText, rbHeadnote;
@@ -97,6 +97,19 @@ public class GlobalSearchController implements Initializable {
         split_pane.setResizableWithParent(root, false);
         split_pane.setResizableWithParent(result_view_pane, false);
         split_pane.setDividerPositions(split_pan_length);
+
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+            textFieldwordWithin.setVisible(Boolean.FALSE);
+            autoFillTextAnyWords.setVisible(Boolean.FALSE);
+            autoFillTextNoneWords.setVisible(Boolean.FALSE);
+            rbJudgementText.setVisible(Boolean.FALSE);
+            rbHeadnote.setVisible(Boolean.FALSE);
+            lbSearchInLabel.setVisible(Boolean.FALSE);
+            btnHistory.setStyle("-fx-background-color: steelblue");
+            btnSearch.setStyle("-fx-background-color: steelblue");
+            btnReset.setStyle("-fx-background-color: steelblue");
+        }
+
 
 //        System.out.println(global_search_pane.heightProperty().doubleValue());
 //        split_pane.heightProperty().addListener(new ChangeListener<Number>() {

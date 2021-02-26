@@ -104,6 +104,14 @@ public class TabViewController implements Initializable {//, ClickEventHandler {
     public void initialize(URL location, ResourceBundle resources) {
         ServiceHelper.alterPrintSetting();
         ServiceHelper.getPrintSetting();
+
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+            hpDictionary.setVisible(Boolean.FALSE);
+            hpCauseList.setVisible(Boolean.FALSE);
+        }
+
+
+
 //        if (ServiceHelper.isCommentaryHide()!=1)
 //        {
 //            tabpan.getTabs().remove(3);
@@ -123,35 +131,12 @@ public class TabViewController implements Initializable {//, ClickEventHandler {
             e.printStackTrace();
         }
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/year_wise.fxml"));
-//            YearWiseController controller = new YearWiseController();
-            loader.setController(new YearWiseController());
-            Tab tab = new Tab("YEAR WISE");
-            tab.setContent(loader.load());
-            tabpan.getTabs().add(tab);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/central_act.fxml"));
-            CentralActController controller = new CentralActController();
-            loader.setController(controller);
-            Tab tab = new Tab("BARE ACTS");
-            tab.setContent(loader.load());
-            tabpan.getTabs().add(tab);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if (ServiceHelper.isCommentaryHide()==1)
-        {
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.TRUE){
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/commentary.fxml"));
-                CommentaryController controller = new CommentaryController();
-                loader.setController(controller);
-                Tab tab = new Tab("COMMENTARY");
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/year_wise.fxml"));
+//            YearWiseController controller = new YearWiseController();
+                loader.setController(new YearWiseController());
+                Tab tab = new Tab("YEAR WISE");
                 tab.setContent(loader.load());
                 tabpan.getTabs().add(tab);
             } catch (IOException e) {
@@ -159,26 +144,61 @@ public class TabViewController implements Initializable {//, ClickEventHandler {
             }
         }
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/word_phrases.fxml"));
-            WordPhrasesController controller = new WordPhrasesController();
-            loader.setController(controller);
-            Tab tab = new Tab("WORD PHRASES");
-            tab.setContent(loader.load());
-            tabpan.getTabs().add(tab);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.TRUE){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/central_act.fxml"));
+                CentralActController controller = new CentralActController();
+                loader.setController(controller);
+                Tab tab = new Tab("BARE ACTS");
+                tab.setContent(loader.load());
+                tabpan.getTabs().add(tab);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/overruled.fxml"));
-            OverRuledController controller = new OverRuledController();
-            loader.setController(controller);
-            Tab tab = new Tab("OVERRULED");
-            tab.setContent(loader.load());
-            tabpan.getTabs().add(tab);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.TRUE){
+            if (ServiceHelper.isCommentaryHide()==1)
+            {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/commentary.fxml"));
+                    CommentaryController controller = new CommentaryController();
+                    loader.setController(controller);
+                    Tab tab = new Tab("COMMENTARY");
+                    tab.setContent(loader.load());
+                    tabpan.getTabs().add(tab);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.TRUE){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/word_phrases.fxml"));
+                WordPhrasesController controller = new WordPhrasesController();
+                loader.setController(controller);
+                Tab tab = new Tab("WORD PHRASES");
+                tab.setContent(loader.load());
+                tabpan.getTabs().add(tab);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.TRUE){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/overruled.fxml"));
+                OverRuledController controller = new OverRuledController();
+                loader.setController(controller);
+                Tab tab = new Tab("OVERRULED");
+                tab.setContent(loader.load());
+                tabpan.getTabs().add(tab);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         try {
@@ -201,6 +221,19 @@ public class TabViewController implements Initializable {//, ClickEventHandler {
             tabpan.getTabs().add(tab);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/central_act.fxml"));
+                CentralActController controller = new CentralActController();
+                loader.setController(controller);
+                Tab tab = new Tab("BARE ACTS");
+                tab.setContent(loader.load());
+                tabpan.getTabs().add(tab);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
            /*Hyperlink click events*/
@@ -742,7 +775,7 @@ public class TabViewController implements Initializable {//, ClickEventHandler {
             loader.setController(controller);
             AnchorPane page = loader.load();
             Stage dialogStage = new Stage();
-            dialogStage.setTitle(Queries.TITLE_MAIN_WINDOW);
+            dialogStage.setTitle(Queries.APPLICATION_NAME);
             dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/project/resources/logo.png")));
             dialogStage.initModality(Modality.WINDOW_MODAL);
 //            dialogStage.initOwner(primaryStage);
@@ -851,7 +884,7 @@ public class TabViewController implements Initializable {//, ClickEventHandler {
             loader.setController(controller);
             AnchorPane page = loader.load();
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Supreme Today - Live Update");
+            dialogStage.setTitle(Queries.APPLICATION_NAME + " - Live Update");
             dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/project/resources/logo.png")));
             dialogStage.initModality(Modality.WINDOW_MODAL);
 //            dialogStage.initOwner(primaryStage);

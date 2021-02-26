@@ -108,7 +108,7 @@ public class TrayTest extends Application {
     }
 
     public void showProgramIsMinimizedMsg() {
-        trayIcon.displayMessage("Supreme Today - Auto Update",
+        trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
                 "Double Click to Maximize",
                 TrayIcon.MessageType.INFO);
     }

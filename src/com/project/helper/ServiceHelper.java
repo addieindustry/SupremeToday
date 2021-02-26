@@ -283,7 +283,6 @@ public class ServiceHelper {
     public static ObservableList<String> getCentralActTypeById(String text) {
         String query = "(DocType:BareActs)", sortBy = "caseId_sort STRING ASC",facet_fields = "",
                 fields = "id,Type", hl_fields = "", filter_query = "id:\"" + text + "\"";
-
         ObservableList<String> list = FXCollections.observableArrayList();
 
         SearchUtility searchUtility = new SearchUtility(Queries.INDEX_PATH);
@@ -295,7 +294,7 @@ public class ServiceHelper {
                 for (JsonElement ele : jData) {
                     JsonObject obj = (JsonObject) ele;
                     list.add(obj.get("Type").getAsString());
-//                    System.out.println(obj.get("caseId").getAsString());
+                    System.out.println(obj.get("Type").getAsString());
                 }
             }
         } catch (Exception ex) {
@@ -1218,7 +1217,9 @@ public class ServiceHelper {
                     }
                 }
                 if(_refBy != null) {
-                    stbTemp.append(_caserefer_id.get(_caseId).toString());
+                    try {
+                        stbTemp.append(_caserefer_id.get(_caseId).toString());
+                    } catch (Exception ex) {}
                 }
                 _refByCounter += 1;
             }
@@ -1626,7 +1627,15 @@ public class ServiceHelper {
                     break;
                 }
             }
-            UpdateHelper.update(url, path, fileName, indexPath, propData);
+
+            PropertyMaster.TableMaster actPropData = null;
+            for (PropertyMaster.TableMaster table : pm.getSchema()) {
+                if (table.getTableName().equals("BareActs")) {
+                    actPropData = table;
+                    break;
+                }
+            }
+            UpdateHelper.update(url, path, fileName, indexPath, propData, actPropData);
             return new ResponseMaster("Sucess", 200);
         } catch (Exception e) {
             new Utils().showErrorDialog(e);

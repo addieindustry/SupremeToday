@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package com.project.helper;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -12,7 +11,6 @@ import com.google.gson.JsonParser;
 import com.project.extrautility.PropertyMaster;
 import com.project.utility.DocMaster;
 import com.project.utility.IndexCreator;
-
 import com.project.utility.SearchUtility;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -41,7 +39,7 @@ import java.util.zip.ZipInputStream;
  */
 public class UpdateHelper {
 
-    public static boolean update(String url, String path, String fileName, String indexPath, PropertyMaster.TableMaster propData) throws Exception {
+    public static boolean update(String url, String path, String fileName, String indexPath, PropertyMaster.TableMaster propData, PropertyMaster.TableMaster actPropData) throws Exception {
 
         new File(path).mkdir();
         path = path + File.separator;
@@ -69,7 +67,9 @@ public class UpdateHelper {
                 ArrayList<HashMap<String, String>> dataCaseAll = (ArrayList<HashMap<String, String>>) liveData.get("casesAll");
                 ArrayList<HashMap<String, String>> dataCaseRefered = (ArrayList<HashMap<String, String>>) liveData.get("caseRefered");
                 HashMap<String, Integer> distinctCaseRefered = (HashMap<String, Integer>) liveData.get("distinctCaseRefered");
-//                //System.out.println(new Gson().toJson(liveData));
+                ArrayList<HashMap<String, String>> dataActAll = (ArrayList<HashMap<String, String>>) liveData.get("actsAll");
+
+                //                //System.out.println(new Gson().toJson(liveData));
                 IndexCreator creator = new IndexCreator(indexPath, true);
                 creator.open(false);
                 SqliteHelper sqliteHelper = new SqliteHelper(Queries.DB_PATH, false);
@@ -98,6 +98,7 @@ public class UpdateHelper {
                     }
                 }
                 sqliteHelper.close();
+
                 for (HashMap<String, String> liveDataObj : dataCaseAll) {
                     List<DocMaster> docs = new ArrayList<DocMaster>();
                     for (PropertyMaster.ColumnMaster col : propData.getCols()) {
@@ -120,15 +121,32 @@ public class UpdateHelper {
                                 year = citationArray[0];
                                 volume = citationArray[1];
                                 pageNo = citationArray[3];
-//                                System.out.println(liveDataObj.get("caseId"));
                                 String q = String.format(Queries.INSERT_CITATION, publisher, year, volume, pageNo);
-//                                System.out.println(q);
                                 int rs = sqliteHelper.insert(q);
                             }
                         } catch (Exception e) {
 //                            //System.out.println(e.toString());
                         }
                     }
+                    sqliteHelper.close();
+                    if (!docs.isEmpty()) {
+                        creator.delete("+caseId:" + liveDataObj.get("caseId"));
+                        creator.create(docs);
+                    }
+                }
+
+                for (HashMap<String, String> liveDataObj : dataActAll) {
+                    List<DocMaster> docs = new ArrayList<DocMaster>();
+                    for (PropertyMaster.ColumnMaster col : actPropData.getCols()) {
+                        docs.add(new DocMaster(col.getTitle(), liveDataObj.get(col.getTitle()), col.isIsIndex(),
+                                col.isIsStore(), col.isIsFacet(),
+                                col.getFieldType(), col.isIsSort(),
+                                col.isIsEncrypt(), col.isHl()));
+                    }
+                    String actId = liveDataObj.get("id");
+                    String actTitleData = liveDataObj.get("title");
+                    sqliteHelper.open();
+                    int rs = sqliteHelper.insert(String.format(Queries.INSERT_ACT_TITLE, actId, actTitleData, actId, actTitleData));
                     sqliteHelper.close();
                     if (!docs.isEmpty()) {
                         creator.delete("+caseId:" + liveDataObj.get("caseId"));
@@ -148,10 +166,11 @@ public class UpdateHelper {
     public static HashMap<String, Object> getLiveData(String f) throws Exception {
         ArrayList<HashMap<String, String>> dataCaseAll = new ArrayList<HashMap<String, String>>();
         ArrayList<HashMap<String, String>> dataCaseRefered = new ArrayList<HashMap<String, String>>();
+        ArrayList<HashMap<String, String>> dataActAll = new ArrayList<HashMap<String, String>>();
         HashMap<String, Object> dataAll = new HashMap<String, Object>();
         HashMap<String, Integer> distinctCaseRefered = new HashMap<String, Integer>();
 
-//            String f = "F:\\iconflux\\projects\\supreme_desktop\\Builds\\Data\\LiveUpdate.json";
+//        f = "D:\\Supreme(1)\\Supreme\\Version\\2549_Desktop\\45.Json";
         JsonParser parser = new JsonParser();
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(
@@ -161,6 +180,8 @@ public class UpdateHelper {
         JsonElement jsonElement = parser.parse(in);
         JsonArray casesAllJsonArray = jsonElement.getAsJsonObject().get("AllCases").getAsJsonArray();
         JsonArray casesReferedJsonArray = jsonElement.getAsJsonObject().get("AllCaseReffered").getAsJsonArray();
+        JsonArray actAllJsonArray = jsonElement.getAsJsonObject().get("AllActs").getAsJsonArray();
+
 //        JsonArray jsonArray = jsonElement.getAsJsonArray();
 //            //System.out.println(jsonArray.toString());
 
@@ -181,6 +202,25 @@ public class UpdateHelper {
                 dataCaseAll.add(data);
             }
         }
+
+        for (int i = 0; i < actAllJsonArray.size(); i++) {
+            JsonElement ele = actAllJsonArray.get(i);
+            JsonObject obj = (JsonObject) ele;
+            Set<Map.Entry<String, JsonElement>> entrySet = obj.entrySet();
+
+            HashMap<String, String> data = new HashMap<String, String>();
+            for (Map.Entry<String, JsonElement> entrySet1 : entrySet) {
+                String key = entrySet1.getKey();
+                JsonElement value = entrySet1.getValue();
+                if (value != null && !value.isJsonNull()) {
+                    data.put(key, value.getAsString());
+                }
+            }
+            if (data.keySet().size() > 0) {
+                dataActAll.add(data);
+            }
+        }
+
         for (int i = 0; i < casesReferedJsonArray.size(); i++) {
             JsonElement ele = casesReferedJsonArray.get(i);
             JsonObject obj = (JsonObject) ele;
@@ -204,6 +244,7 @@ public class UpdateHelper {
         dataAll.put("casesAll", dataCaseAll);
         dataAll.put("caseRefered", dataCaseRefered);
         dataAll.put("distinctCaseRefered", distinctCaseRefered);
+        dataAll.put("actsAll", dataActAll);
         return dataAll;
     }
 
