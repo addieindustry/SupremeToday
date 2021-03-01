@@ -114,6 +114,15 @@
                                     <!--<Label id="label" fx:id="labelJudHeadnoteSwap" text="Jud. / Headnote" />-->
                                     <Region HBox.hgrow="ALWAYS" />
 
+                                    <Button id="button_simple" fx:id="btnGoogleTranslator" mnemonicParsing="false" minHeight="25.0" minWidth="88.0" text="G" >
+                                        <tooltip>
+                                            <Tooltip text="Click for Google Translator View" />
+                                        </tooltip>
+                                        <HBox.margin>
+                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                        </HBox.margin>
+                                    </Button>
+
                                     <Button id="button_simple" fx:id="btnTruePrint" mnemonicParsing="false" minHeight="25.0" minWidth="88.0" text="BookPrint" >
                                         <tooltip>
                                             <Tooltip text="Click to view Book Print Copy" />

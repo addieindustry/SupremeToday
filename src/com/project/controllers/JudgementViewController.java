@@ -73,7 +73,7 @@ public class JudgementViewController implements Initializable {
     private WebView webViewDocView;
 
     @FXML
-    private Button btnBookMark, btnHighlightPre, btnHighlightNext, btnPreviousDoc, btnNextDoc, btnHeadNote, btnFullCase, btnAnalysis, btnCitator, btnJudicial, btnZoomPlus, btnZoomMinus, btnPDF, btnMail, btnPrint, btnTruePrint;
+    private Button btnGoogleTranslator, btnBookMark, btnHighlightPre, btnHighlightNext, btnPreviousDoc, btnNextDoc, btnHeadNote, btnFullCase, btnAnalysis, btnCitator, btnJudicial, btnZoomPlus, btnZoomMinus, btnPDF, btnMail, btnPrint, btnTruePrint;
 
     @FXML
     private TextField textFieldHighlight;
@@ -103,6 +103,7 @@ public class JudgementViewController implements Initializable {
     String judgementHTML = "";
     String googleTranslatorScript = "<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en'},'google_translate_element');}</script> <script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>";
     String googleTranslatorDiv = "<div id=\"google_translate_element\"></div>";
+//    String googleTranslatorDiv = "";
     String judgementCSS = "";
     String javaScript = "<script>function scrollTo(o){document.getElementById(o).scrollIntoView()}</script>";
 
@@ -179,6 +180,30 @@ public class JudgementViewController implements Initializable {
                     focusTextInBrowser(engine, textFieldHighlight.getText());
                 }
             }
+        });
+
+        btnGoogleTranslator.setOnAction(event -> {
+            String _html = (String) engine.executeScript("document.documentElement.outerHTML");
+            try {
+                try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                        new FileOutputStream(Paths.get(Queries.RESOURCE_PATH, "temp.html").toString()), "utf-8"))) {
+                    writer.write(_html);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            File f = new File(Paths.get(Queries.RESOURCE_PATH, "temp.html").toString());
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                try {
+                    Desktop.getDesktop().browse(new URI(f.toURI().toString()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
+            }
+//            showBookmarkAddDialogWindow();
         });
 
         btnTruePrint.setOnAction(event -> {
@@ -976,44 +1001,28 @@ public class JudgementViewController implements Initializable {
 //            } catch (IOException e) {
 //                e.printStackTrace();
 //            }
-
-            com.sun.javafx.webkit.WebConsoleListener.setDefaultListener(
-                    (webView, message, lineNumber, sourceId)-> System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message)
-            );
-
-            File f = new File("D:\\Projects\\SupremeToday\\SupremeToday\\res\\temp.html");
-//            engine.load(f.toURI().toString());
-////            engine.load(f.toURI().toString());
-
-            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-                try {
-                    Desktop.getDesktop().browse(new URI(f.toURI().toString()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }
-            }
+//            com.sun.javafx.webkit.WebConsoleListener.setDefaultListener(
+//                    (webView, message, lineNumber, sourceId)-> System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message)
+//            );
 //
 ////            engine.load("https://translate.google.co.in/");
 ////            engine.loadContent(judgementHTML, "text/html");
 //            System.out.println("engine.isJavaScriptEnabled()");
 //            System.out.println(engine.isJavaScriptEnabled());
 
-
             judgementHTML = judgementHTML.replace("<font face=\"Kruti Dev 011\">", "<em class=\"KrutiDev_hindi_text\" style=\"font-family:Kruti Dev 010;\">");
             judgementHTML = judgementHTML.replace("</font>", "</em>");
             judgementHTML = judgementHTML.replace("<a name=\"", "<a id=\"");
 
-            if (googleTranslatorScript.contains("<script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>")){
-                try {
-                    String javaScript = new String(Files.readAllBytes(Paths.get(Queries.GOOGLE_TRANSLATOR_SCRIPT)));
-                    System.out.println(javaScript);
-                    googleTranslatorScript = googleTranslatorScript.replace("<script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>", "<script>" + javaScript + "</script>");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+//            if (googleTranslatorScript.contains("<script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>")){
+//                try {
+//                    String javaScript = new String(Files.readAllBytes(Paths.get(Queries.GOOGLE_TRANSLATOR_SCRIPT)));
+//                    System.out.println(javaScript);
+//                    googleTranslatorScript = googleTranslatorScript.replace("<script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>", "<script>" + javaScript + "</script>");
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
 
             String _html = "";
             if (isWhiteListExist) {
@@ -1027,22 +1036,22 @@ public class JudgementViewController implements Initializable {
             }
 
 
-            try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-            new FileOutputStream(Queries.GOOGLE_TRANSLATOR_HTML), "utf-8"))) {
-                writer.write(_html);
-//                File f = new File(Queries.GOOGLE_TRANSLATOR_HTML);
-//                URL url = this.getClass().getResource(Queries.GOOGLE_TRANSLATOR_HTML);
-                System.out.println(f.toURI().toString());
-                engine.load(f.toURI().toString());
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+//            new FileOutputStream(Queries.GOOGLE_TRANSLATOR_HTML), "utf-8"))) {
+//                writer.write(_html);
+////                File f = new File(Queries.GOOGLE_TRANSLATOR_HTML);
+////                URL url = this.getClass().getResource(Queries.GOOGLE_TRANSLATOR_HTML);
+//                System.out.println(f.toURI().toString());
+//                engine.load(f.toURI().toString());
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 
-//                engine.loadContent(_html, "text/html");
+                engine.loadContent(_html, "text/html");
 //                try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 //                        new FileOutputStream("D:\\64250.htm"), "utf-8"))) {
 //                    writer.write(_html);
