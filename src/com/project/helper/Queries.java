@@ -25,11 +25,11 @@ public class Queries {
     //Apply FALSE instead of TRUE on below line to Enable Copy
     public static final Boolean IS_COPY_DISABLE = Boolean.TRUE;
 
-//    public static final Boolean IS_SUPREME_TODAY_APP = Boolean.TRUE;
-//    public static final String APPLICATION_NAME = "Supreme Today";
+    public static final Boolean IS_SUPREME_TODAY_APP = Boolean.TRUE;
+    public static final String APPLICATION_NAME = "Supreme Today";
 
-    public static final Boolean IS_SUPREME_TODAY_APP = Boolean.FALSE;
-    public static final String APPLICATION_NAME = "Indian CaseLaw Finder";
+//    public static final Boolean IS_SUPREME_TODAY_APP = Boolean.FALSE;
+//    public static final String APPLICATION_NAME = "Indian CaseLaw Finder";
 
 //      public static final String CURRENT_PATH = Paths.get("").toString();
     public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "SupremeToday-2.0").toString();
