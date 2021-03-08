@@ -6,8 +6,10 @@
 package com.project.helper;
 
 import com.project.model.PrintSettingModel;
+import com.project.utility.EncryptionHelperLatest;
 
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
  *
@@ -48,6 +50,8 @@ public class Queries {
     public static final String JQUERY_UI_CSS_PATH = Paths.get(RESOURCE_PATH, "jquery-ui.css").toString();
     public static final String JQUERY_UI_MIN_JS_PATH = Paths.get(RESOURCE_PATH, "jquery-ui.min.js").toString();
     public static final String JQUERY_MIN_JS_PATH = Paths.get(RESOURCE_PATH, "jquery.min.js").toString();
+
+    public static final List<String> SUPREME_DICTIONARY = EncryptionHelperLatest.ReadObjectToFile();
 
 //    public static final String JQUERY_UI_PATH = Paths.get(CURRENT_PATH, "jquery.tooltip").toString();
 //    public static final String JQUERY_TOOLTIP_JS_PATH = Paths.get(CURRENT_PATH, "jquery.tooltip.js").toString();

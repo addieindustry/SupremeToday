@@ -6,6 +6,7 @@
 package com.project.utility;
 import com.license4j.util.FileUtils;
 import com.project.AES;
+import com.project.helper.Queries;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -32,13 +33,17 @@ public class EncryptionHelperLatest {
 
     public static String end_tag = "|";
 
-    public static String plain_keyword  = "D:\\Projects\\SupremeToday\\plain_keyword.txt";
+    public static String plain_keyword  = Paths.get(Queries.RESOURCE_PATH, "plain_keyword.txt").toString();
 
-    public static String st_keyword  = "D:\\Projects\\SupremeToday\\st_keyword.txt";
+    public static String st_keyword  = Paths.get(Queries.RESOURCE_PATH, "st_keyword.txt").toString();
 
-    public static List<String> supreme_dictionary  = ReadObjectToFile();
+//    public static String plain_keyword  = "C:\\plain_keyword.txt";
+//    public static String st_keyword  = "C:\\st_keyword.txt";
+
+//    public static List<String> supreme_dictionary  = ReadObjectToFile();
 
     public static List<String> ReadObjectToFile(){
+        System.out.println("READING");
 //        File f = new File(supreme_dictionary_index_file_path);
         List<String> supreme_dictionary_init = new ArrayList<>();
 //        supreme_dictionary_init.add("");
@@ -134,8 +139,8 @@ public class EncryptionHelperLatest {
             String[] temp = stemp.toString().split("[ ]", -1);
 
             for (i = 0; i <= temp.length - 1; i++) {
-                if (supreme_dictionary.indexOf(temp[i]) >= 0){
-                    int dictionary_index = supreme_dictionary.indexOf(temp[i]);
+                if (Queries.SUPREME_DICTIONARY.indexOf(temp[i]) >= 0){
+                    int dictionary_index = Queries.SUPREME_DICTIONARY.indexOf(temp[i]);
 //                    System.out.println("ENC | " + dictionary_index + " | " + temp[i]);
                     acs.append((char) (dictionary_index));
                 }else{
@@ -155,9 +160,6 @@ public class EncryptionHelperLatest {
     }
 
     public static String decrypt(StringBuilder sb, String key) {
-//            if (sb.toString().trim().isEmpty() || sb.toString().trim().equals(sep)) {
-//                return "";
-//            }
             StringBuilder sb_html = new StringBuilder("");
             StringBuilder sb_img = new StringBuilder("");
             if (sb.toString().contains(sep_img)){
@@ -168,41 +170,50 @@ public class EncryptionHelperLatest {
                 sb_html = sb;
             }
 
-//            String[] str = sb_html.toString().split(sep);
-//            StringBuilder sb1 = new StringBuilder(str[0].toString());
-//            StringBuilder sb2 = new StringBuilder(str[1].toString());
-
             StringBuilder sb1 = new StringBuilder(sb_html.toString());
 
-//            int iii = 0;
             int i = 0;
-//            for (i = 0; i <= key.length() - 1; i++) {
-//                iii += Integer.parseInt(key.charAt(i) + "");
-//            }
             StringBuilder cs = new StringBuilder();
 
             Boolean skipPlainText = Boolean.FALSE;
             for (i = 0; i <= sb1.length() - 1; i++) {
-                if (start_tag.equals(String.valueOf(sb1.charAt(i)))){
+                char tempCh = sb1.charAt(i);
+                String tempChar = String.valueOf(tempCh);
+                if (start_tag.equals(tempChar)){
                     skipPlainText = Boolean.TRUE;
-                    System.out.println(skipPlainText.toString() + " | " + sb1.charAt(i));
                     cs.append(" ");
-                }else if (end_tag.equals(String.valueOf(sb1.charAt(i)))){
+                }else if (end_tag.equals(tempChar)){
                     skipPlainText = Boolean.FALSE;
-                    System.out.println(skipPlainText.toString() + " | " + sb1.charAt(i));
                     cs.append(" ");
                 }else{
                     if (skipPlainText == Boolean.FALSE){
-                        int int_Renamed = ((int) (sb1.charAt(i)));
-                        if (supreme_dictionary.stream().count() > int_Renamed){
-                            System.out.println("DEC | " + int_Renamed +  " | " + supreme_dictionary.get(int_Renamed));
-                            cs.append(" " + supreme_dictionary.get(int_Renamed));
-                        }
+                        int int_Renamed = ((int) (tempCh));
+                        cs.append(" " + Queries.SUPREME_DICTIONARY.get(int_Renamed));
+//                        if (Queries.SUPREME_DICTIONARY.stream().count() > int_Renamed){
+//                            cs.append(" " + Queries.SUPREME_DICTIONARY.get(int_Renamed));
+//                        }
                     }else{
-                        cs.append(String.valueOf(sb1.charAt(i)));
-//                        cs.append(String.valueOf(sb1.charAt(i)).replace(start_tag, " ").replace(end_tag, " "));
+                        cs.append(tempChar);
                     }
                 }
+
+
+//                if (start_tag.equals(String.valueOf(sb1.charAt(i)))){
+//                    skipPlainText = Boolean.TRUE;
+//                    cs.append(" ");
+//                }else if (end_tag.equals(String.valueOf(sb1.charAt(i)))){
+//                    skipPlainText = Boolean.FALSE;
+//                    cs.append(" ");
+//                }else{
+//                    if (skipPlainText == Boolean.FALSE){
+//                        int int_Renamed = ((int) (sb1.charAt(i)));
+//                        if (Queries.SUPREME_DICTIONARY.stream().count() > int_Renamed){
+//                            cs.append(" " + Queries.SUPREME_DICTIONARY.get(int_Renamed));
+//                        }
+//                    }else{
+//                        cs.append(String.valueOf(sb1.charAt(i)));
+//                    }
+//                }
             }
 
             String[] tempImg = sb_img.toString().split("[|]");
@@ -216,102 +227,102 @@ public class EncryptionHelperLatest {
     }
 
 
-    public static String encrypt_old(StringBuilder stemp, String key) {
-        if (stemp.toString().trim().isEmpty()) {
-            return "";
-        }
-
-        Pattern p = Pattern.compile("<img.*>");
-        Matcher m = p.matcher(stemp.toString());
-        StringBuilder sbImg = new StringBuilder("");
-        int _counter = 1;
-        while (m.find()) {
-            String s = m.group(0);
-            stemp.replace(stemp.indexOf(s), stemp.indexOf(s) + s.length(), "<IMAGE" + _counter + ">");
-            _counter+=1;
-            sbImg.append(s + "|");
-        }
-
-        try {
-            int iii = 0;
-            int i = 0;
-            for (i = 0; i <= key.length() - 1; i++) {
-                iii += Integer.parseInt(key.substring(i, i + 1).toString());
-            }
-
-            ArrayList arr = new ArrayList();
-            StringBuilder cs = new StringBuilder();
-            StringBuilder acs = new StringBuilder();
-            String[] temp = stemp.toString().split("[ ]", -1);
-
-            for (i = 0; i <= temp.length - 1; i++) {
-                if (supreme_dictionary.indexOf(temp[i]) < 0){
-                    supreme_dictionary.add(temp[i]);
-                }
-                int dictionary_index = supreme_dictionary.indexOf(temp[i]);
-                System.out.println("ENC | " + dictionary_index + " | " + temp[i]);
-                acs.append((char) (dictionary_index));
-            }
-//            WriteObjectToFile(supreme_dictionary);
-            if (sbImg.toString().length() > 0){
-                return acs.toString() + sep_img + sbImg.toString();
-            }else{
-                return acs.toString();
-            }
-        } catch (RuntimeException ex) {
-            throw ex;
-        }
-    }
-
-    public static String decrypt_old(StringBuilder sb, String key) {
-//            if (sb.toString().trim().isEmpty() || sb.toString().trim().equals(sep)) {
-//                return "";
-//            }
-        StringBuilder sb_html = new StringBuilder("");
-        StringBuilder sb_img = new StringBuilder("");
-        if (sb.toString().contains(sep_img)){
-            String[] strTemp = sb.toString().split(sep_img);
-            sb_html = new StringBuilder(strTemp[0].toString());
-            sb_img = new StringBuilder(strTemp[1].toString());
-        }else{
-            sb_html = sb;
-        }
-
-//            String[] str = sb_html.toString().split(sep);
-//            StringBuilder sb1 = new StringBuilder(str[0].toString());
-//            StringBuilder sb2 = new StringBuilder(str[1].toString());
-
-        StringBuilder sb1 = new StringBuilder(sb_html.toString());
-
+//    public static String encrypt_old(StringBuilder stemp, String key) {
+//        if (stemp.toString().trim().isEmpty()) {
+//            return "";
+//        }
+//
+//        Pattern p = Pattern.compile("<img.*>");
+//        Matcher m = p.matcher(stemp.toString());
+//        StringBuilder sbImg = new StringBuilder("");
+//        int _counter = 1;
+//        while (m.find()) {
+//            String s = m.group(0);
+//            stemp.replace(stemp.indexOf(s), stemp.indexOf(s) + s.length(), "<IMAGE" + _counter + ">");
+//            _counter+=1;
+//            sbImg.append(s + "|");
+//        }
+//
+//        try {
 //            int iii = 0;
-        int i = 0;
+//            int i = 0;
 //            for (i = 0; i <= key.length() - 1; i++) {
-//                iii += Integer.parseInt(key.charAt(i) + "");
+//                iii += Integer.parseInt(key.substring(i, i + 1).toString());
 //            }
-        StringBuilder cs = new StringBuilder();
-
-        for (i = 0; i <= sb1.length() - 1; i++) {
-            int int_Renamed = ((int) (sb1.charAt(i)));
-
-            if (supreme_dictionary.stream().count() > int_Renamed){
-                System.out.println("DEC | " + int_Renamed +  " | " + supreme_dictionary.get(int_Renamed));
-                cs.append(" " + supreme_dictionary.get(int_Renamed));
-            }
-//                cs.append(" " + supreme_dictionary.get(int_Renamed));
-//                if (sb2.toString().length() > int_Renamed){
-//                    cs.append(" " + supreme_dictionary.get(int_Renamed));
+//
+//            ArrayList arr = new ArrayList();
+//            StringBuilder cs = new StringBuilder();
+//            StringBuilder acs = new StringBuilder();
+//            String[] temp = stemp.toString().split("[ ]", -1);
+//
+//            for (i = 0; i <= temp.length - 1; i++) {
+//                if (supreme_dictionary.indexOf(temp[i]) < 0){
+//                    supreme_dictionary.add(temp[i]);
 //                }
-        }
-
-        String[] tempImg = sb_img.toString().split("[|]");
-        for (i = 0; i <= tempImg.length - 1; i++) {
-            if (cs.toString().contains("<IMAGE" + (i + 1) + ">")){
-                cs.replace(cs.indexOf("<IMAGE" + (i + 1) + ">"), cs.indexOf("<IMAGE" + (i + 1) + ">") + ("<IMAGE" + (i + 1) + ">").length(), tempImg[i].toString());
-            }
-        }
-
-        return cs.toString();
-    }
+//                int dictionary_index = supreme_dictionary.indexOf(temp[i]);
+////                System.out.println("ENC | " + dictionary_index + " | " + temp[i]);
+//                acs.append((char) (dictionary_index));
+//            }
+////            WriteObjectToFile(supreme_dictionary);
+//            if (sbImg.toString().length() > 0){
+//                return acs.toString() + sep_img + sbImg.toString();
+//            }else{
+//                return acs.toString();
+//            }
+//        } catch (RuntimeException ex) {
+//            throw ex;
+//        }
+//    }
+//
+//    public static String decrypt_old(StringBuilder sb, String key) {
+////            if (sb.toString().trim().isEmpty() || sb.toString().trim().equals(sep)) {
+////                return "";
+////            }
+//        StringBuilder sb_html = new StringBuilder("");
+//        StringBuilder sb_img = new StringBuilder("");
+//        if (sb.toString().contains(sep_img)){
+//            String[] strTemp = sb.toString().split(sep_img);
+//            sb_html = new StringBuilder(strTemp[0].toString());
+//            sb_img = new StringBuilder(strTemp[1].toString());
+//        }else{
+//            sb_html = sb;
+//        }
+//
+////            String[] str = sb_html.toString().split(sep);
+////            StringBuilder sb1 = new StringBuilder(str[0].toString());
+////            StringBuilder sb2 = new StringBuilder(str[1].toString());
+//
+//        StringBuilder sb1 = new StringBuilder(sb_html.toString());
+//
+////            int iii = 0;
+//        int i = 0;
+////            for (i = 0; i <= key.length() - 1; i++) {
+////                iii += Integer.parseInt(key.charAt(i) + "");
+////            }
+//        StringBuilder cs = new StringBuilder();
+//
+//        for (i = 0; i <= sb1.length() - 1; i++) {
+//            int int_Renamed = ((int) (sb1.charAt(i)));
+//
+//            if (supreme_dictionary.stream().count() > int_Renamed){
+////                System.out.println("DEC | " + int_Renamed +  " | " + supreme_dictionary.get(int_Renamed));
+//                cs.append(" " + supreme_dictionary.get(int_Renamed));
+//            }
+////                cs.append(" " + supreme_dictionary.get(int_Renamed));
+////                if (sb2.toString().length() > int_Renamed){
+////                    cs.append(" " + supreme_dictionary.get(int_Renamed));
+////                }
+//        }
+//
+//        String[] tempImg = sb_img.toString().split("[|]");
+//        for (i = 0; i <= tempImg.length - 1; i++) {
+//            if (cs.toString().contains("<IMAGE" + (i + 1) + ">")){
+//                cs.replace(cs.indexOf("<IMAGE" + (i + 1) + ">"), cs.indexOf("<IMAGE" + (i + 1) + ">") + ("<IMAGE" + (i + 1) + ">").length(), tempImg[i].toString());
+//            }
+//        }
+//
+//        return cs.toString();
+//    }
 
     //    public static ArrayList<Integer> encrypt_binary(StringBuilder stemp, String key) {
 ////        if (stemp.toString().trim().isEmpty()) {

@@ -271,7 +271,7 @@ public void delete(String queryString){
                         doc.add(new SortedDocValuesField(sourceDoc.getKey() + "_sort", new BytesRef(sourceDoc.getData())));
                     }
                     if (sourceDoc.isIsEncrypt()) {
-                        doc.add(new StoredField(sourceDoc.getKey(), CompressionTools.compressString(EncryptionHelper.encrypt(new StringBuilder(sourceDoc.getData()), caseId))));
+                        doc.add(new StoredField(sourceDoc.getKey(), CompressionTools.compressString(EncryptionHelperLatest.encrypt(new StringBuilder(sourceDoc.getData()), caseId))));
 //                        doc.add(new StoredField(sourceDoc.getKey(), EncryptionHelper.encrypt(new StringBuilder(sourceDoc.getData()), caseId)));
                     } else {
                         if (sourceDoc.isHl()) {

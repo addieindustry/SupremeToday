@@ -322,7 +322,7 @@ public class SearchUtility {
                                 String text = "";
                                 if (hl_field.contains("_store")) {
 //                                    text = EncryptionHelper.Decrypt(new StringBuilder(doc.get(hl_field)), doc.get("caseId"));
-                                    text = EncryptionHelper.Decrypt(new StringBuilder(CompressionTools.decompressString(doc.getBinaryValue(hl_field)).toString()), doc.get("caseId"));
+                                    text = EncryptionHelperLatest.decrypt(new StringBuilder(CompressionTools.decompressString(doc.getBinaryValue(hl_field)).toString()), doc.get("caseId"));
                                 } else {
                                     text = doc.get(hl_field);
                                 }
@@ -357,11 +357,11 @@ public class SearchUtility {
                             String strContentHighlight = "";
 //                            COMMENTTED BELOW TO STOP HLTAG IN ALL FIELDS
                             if (rows == 1 && isHl) {
-                                strContentHighlight = MakeContentHighlight(EncryptionHelper.Decrypt(new StringBuilder(CompressionTools.decompressString(doc.getBinaryValue(ifld.name())).toString()), doc.get("caseId")), ifld.name(), hlAnalyzer, highlighter, hl_fields, hlQuery);
+                                strContentHighlight = MakeContentHighlight(EncryptionHelperLatest.decrypt(new StringBuilder(CompressionTools.decompressString(doc.getBinaryValue(ifld.name())).toString()), doc.get("caseId")), ifld.name(), hlAnalyzer, highlighter, hl_fields, hlQuery);
 //                                strContentHighlight = MakeContentHighlight(CompressionTools.decompressString(doc.getBinaryValue(ifld.name())).toString(), ifld.name(), hlAnalyzer, highlighter, hl_fields, hlQuery);
 //                                strContentHighlight = MakeContentHighlight(EncryptionHelper.Decrypt(new StringBuilder(doc.get(ifld.name())), doc.get("caseId")), ifld.name(), hlAnalyzer, highlighter, hl_fields, hlQuery);
                             } else {
-                                strContentHighlight = EncryptionHelper.Decrypt(new StringBuilder(CompressionTools.decompressString(doc.getBinaryValue(ifld.name())).toString()), doc.get("caseId"));
+                                strContentHighlight = EncryptionHelperLatest.decrypt(new StringBuilder(CompressionTools.decompressString(doc.getBinaryValue(ifld.name())).toString()), doc.get("caseId"));
 //                                strContentHighlight = CompressionTools.decompressString(doc.getBinaryValue(ifld.name())).toString();
 //                                strContentHighlight = doc.get(ifld.name());
 //                                strContentHighlight = EncryptionHelper.Decrypt(new StringBuilder(doc.get(ifld.name())), doc.get("caseId"));
