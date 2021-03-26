@@ -154,6 +154,19 @@ public class AdvanceSearchResultViewController implements Initializable {
         });
 
 
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+            btnFirst.setStyle("-fx-background-color: steelblue");
+            btnLast.setStyle("-fx-background-color: steelblue");
+            btnPrevious.setStyle("-fx-background-color: steelblue");
+            btnNext.setStyle("-fx-background-color: steelblue");
+            btnFilter.setStyle("-fx-background-color: steelblue");
+            btnFilterReset.setStyle("-fx-background-color: steelblue");
+            btnFullCollapse.setStyle("-fx-background-color: steelblue");
+            btnZoomPlus.setStyle("-fx-background-color: steelblue");
+            btnZoomMinus.setStyle("-fx-background-color: steelblue");
+        }
+
+
 
 //        webViewDocView.setZoom(webViewDocView.getZoom() * 1.1);
 //        engine = webViewDocView.getEngine();

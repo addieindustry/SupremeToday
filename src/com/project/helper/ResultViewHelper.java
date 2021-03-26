@@ -168,6 +168,10 @@ public class ResultViewHelper {
 
 
             String facet_fields = "DocType,courttitle,finalyear,acts,judge,bench,result";
+            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                facet_fields = "DocType,courttitle,finalyear";
+            }
+
             String fields = "title,decisionDate,Type,DocType,courttitle,cited,bench,caseId,impNotes_store,summary,summary_store,acts_store,whitelist,overruled,isoverruled";
 
 
@@ -429,7 +433,11 @@ public class ResultViewHelper {
 
                         if (summary.length()>3)
                         {
-                            stb.append("<a href=\"#\" data-tooltip=\""+srNo+"h\" style=\"float:right;background-color:darkred;color:white;padding: 2px 5px 2px 5px;border-style: solid;border-width: 2px;font-weight:bold\">HN</a>");
+                            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                                stb.append("<a href=\"#\" data-tooltip=\""+srNo+"h\" style=\"float:right;background-color:steelblue;color:white;padding: 2px 5px 2px 5px;border-style: solid;border-width: 2px;font-weight:bold\">HN</a>");
+                            }else{
+                                stb.append("<a href=\"#\" data-tooltip=\""+srNo+"h\" style=\"float:right;background-color:darkred;color:white;padding: 2px 5px 2px 5px;border-style: solid;border-width: 2px;font-weight:bold\">HN</a>");
+                            }
                             stbTooltip.append("<div class=\"tooltip\" id=\"open\" data-tooltip=\""+srNo+"h\">"+summary+"</div>");
                         }
 

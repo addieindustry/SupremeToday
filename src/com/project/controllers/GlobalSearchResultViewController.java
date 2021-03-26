@@ -163,6 +163,18 @@ public class GlobalSearchResultViewController implements Initializable {
             }
         });
 
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+            btnFirst.setStyle("-fx-background-color: steelblue");
+            btnLast.setStyle("-fx-background-color: steelblue");
+            btnPrevious.setStyle("-fx-background-color: steelblue");
+            btnNext.setStyle("-fx-background-color: steelblue");
+            btnFilter.setStyle("-fx-background-color: steelblue");
+            btnFilterReset.setStyle("-fx-background-color: steelblue");
+            btnFullCollapse.setStyle("-fx-background-color: steelblue");
+//            btnZoomPlus.setStyle("-fx-background-color: steelblue");
+//            btnZoomMinus.setStyle("-fx-background-color: steelblue");
+        }
+
         /*ZOOM IN BUTTON*/
         btnZoomPlus.setOnAction(event -> {
             ServiceHelper.updateResultFontInPrintSetting( Integer.parseInt(Queries.PRINT_SETTING_MODEL.getResultFontSize()) + 2);

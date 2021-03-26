@@ -164,6 +164,26 @@ public class JudgementViewController implements Initializable {
 //        webViewDocView.setZoom(webViewDocView.getZoom() * 1.1);
 //        webViewDocView.setZoom(webViewDocView.getZoom() * 1.1);
 
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+            btnGoogleTranslator.setStyle("-fx-background-color: steelblue");
+//            btnBookMark.setStyle("-fx-background-color: steelblue");
+//            btnHighlightPre.setStyle("-fx-background-color: steelblue");
+//            btnHighlightNext.setStyle("-fx-background-color: steelblue");
+//            btnPreviousDoc.setStyle("-fx-background-color: steelblue");
+//            btnNextDoc.setStyle("-fx-background-color: steelblue");
+            btnHeadNote.setStyle("-fx-background-color: steelblue");
+            btnFullCase.setStyle("-fx-background-color: steelblue");
+            btnAnalysis.setStyle("-fx-background-color: steelblue");
+            btnCitator.setStyle("-fx-background-color: steelblue");
+            btnJudicial.setStyle("-fx-background-color: steelblue");
+//            btnZoomPlus.setStyle("-fx-background-color: steelblue");
+//            btnZoomMinus.setStyle("-fx-background-color: steelblue");
+//            btnPDF.setStyle("-fx-background-color: steelblue");
+//            btnMail.setStyle("-fx-background-color: steelblue");
+//            btnPrint.setStyle("-fx-background-color: steelblue");
+            btnTruePrint.setStyle("-fx-background-color: steelblue");
+        }
+
         String base64 = "";
         try {
             base64 = new String(Files.readAllBytes(Paths.get(Queries.LOGO_BASE64_FILE_PATH)));
@@ -645,13 +665,21 @@ public class JudgementViewController implements Initializable {
                 if (ServiceHelper.isCitatorAvailableByCaseId(obj.get("caseId").getAsString())){
                     btnCitator.setStyle("-fx-background-color: #4169e1;");
                 }else{
-                    btnCitator.setStyle("-fx-background-color: darkred;");
+                    if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                        btnCitator.setStyle("-fx-background-color: steelblue");
+                    }else{
+                        btnCitator.setStyle("-fx-background-color: darkred;");
+                    }
                 }
 
                 if (ServiceHelper.isJudicialCitatorAvailableByCaseId(obj.get("caseId").getAsString())){
                     btnJudicial.setStyle("-fx-background-color: #4169e1;");
                 }else{
-                    btnJudicial.setStyle("-fx-background-color: darkred;");
+                    if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                        btnJudicial.setStyle("-fx-background-color: steelblue");
+                    }else{
+                        btnJudicial.setStyle("-fx-background-color: darkred;");
+                    }
                 }
 
                 if (displayOnly.equals("FullCase")) {
