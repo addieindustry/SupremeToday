@@ -1,0 +1,66 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/bcmail-jdk14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bcprov-jdk14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bcprov-jdk15on-1.56.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/common-lang3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-net-3.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/controlsfx-8.20.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/fxsampler-1.0.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/google-collect-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/gson-2.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/html2pdf-2.1.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/httpclient-4.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/httpclient-4.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/io-7.1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/itextpdf-5.5.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jasperreports-4.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jasypt-1.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/java-mail-1.4.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-autocomplete-field-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jdic-0.9.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-all-9.2.10.v20150310.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/json-simple-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jsoup-1.11.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/junrar-0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/kernel-7.1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/layout-7.1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lc_hd.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/logback.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-analyzers-common-5.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-backward-codecs-5.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-core-5.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-facet-5.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-highlighter-5.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-join-5.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-memory-5.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-queries-5.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-queryparser-5.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-spellchecker-3.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-spellchecker-3.6.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lucene-suggest-5.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/org-apache-commons-logging.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/out.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/PDFOne.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/rockey2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/servlet-api-3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/sqlite-jdbc-3.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/sqljdbc4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/styled-xml-parser-7.1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/svg-7.1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/WhitespaceTokenizer-2.3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/xmlworker-5.5.8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/lib" />
+    </NATIVE>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/common-lang3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/sqlite-jdbc-3.7.2.jar!/" />
+    </SOURCES>
+  </library>
+</component>
