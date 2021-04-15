@@ -33,37 +33,21 @@ public class EncryptionHelperLatest {
 
     public static String end_tag = "|";
 
-    public static String plain_keyword  = Paths.get(Queries.RESOURCE_PATH, "plain_keyword.txt").toString();
+//    public static String plain_keyword  = Paths.get(Queries.RESOURCE_PATH, "plain_keyword.txt").toString();
+//    public static String st_keyword  = Paths.get(Queries.RESOURCE_PATH, "st_keyword.txt").toString();
 
-    public static String st_keyword  = Paths.get(Queries.RESOURCE_PATH, "st_keyword.txt").toString();
-
-//    public static String plain_keyword  = "C:\\plain_keyword.txt";
-//    public static String st_keyword  = "C:\\st_keyword.txt";
+    public static String plain_keyword  = "D:\\Projects\\SupremeToday\\SupremeToday\\res\\plain_keyword.txt";
+    public static String st_keyword  = "D:\\Projects\\SupremeToday\\SupremeToday\\res\\st_keyword.txt";
 
 //    public static List<String> supreme_dictionary  = ReadObjectToFile();
-
-    public static List<String> ReadObjectToFile(){
-        System.out.println("READING");
-//        File f = new File(supreme_dictionary_index_file_path);
-        List<String> supreme_dictionary_init = new ArrayList<>();
-//        supreme_dictionary_init.add("");
-
-        try {
-            String inputFile = new String(Files.readAllBytes(Paths.get(st_keyword)));
-            String lines[] = inputFile.split("\\n");
-            for(int i=0; i<lines.length; i++){
-                supreme_dictionary_init.add(AES.decrypt(lines[i].trim().toString(), secret_key));
-//                supreme_dictionary_init.add(lines[i].trim().toString());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return supreme_dictionary_init;
-    }
 
     public static void EncryptDictionary(){
         List<String> supreme_dictionary_init = new ArrayList<>();
         supreme_dictionary_init.add("");
+
+        plain_keyword  = Paths.get(Queries.RESOURCE_PATH, "plain_keyword.txt").toString();
+
+        st_keyword  = Paths.get(Queries.RESOURCE_PATH, "st_keyword.txt").toString();
 
         try {
             String inputFile = new String(Files.readAllBytes(Paths.get(plain_keyword)));
@@ -108,6 +92,27 @@ public class EncryptionHelperLatest {
 
 
 //        return supreme_dictionary_init;
+    }
+
+
+    public static List<String> ReadObjectToFile(){
+        System.out.println("READING");
+
+//        File f = new File(supreme_dictionary_index_file_path);
+        List<String> supreme_dictionary_init = new ArrayList<>();
+//        supreme_dictionary_init.add("");
+        System.out.println(st_keyword);
+        try {
+            String inputFile = new String(Files.readAllBytes(Paths.get(st_keyword)));
+            String lines[] = inputFile.split("\\n");
+            for(int i=0; i<lines.length; i++){
+                supreme_dictionary_init.add(AES.decrypt(lines[i].trim().toString(), secret_key));
+//                supreme_dictionary_init.add(lines[i].trim().toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return supreme_dictionary_init;
     }
 
     public static String encrypt(StringBuilder stemp, String key) {

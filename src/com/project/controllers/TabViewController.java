@@ -188,18 +188,31 @@ public class TabViewController implements Initializable {//, ClickEventHandler {
         }
 
 
-        if (Queries.IS_SUPREME_TODAY_APP == Boolean.TRUE){
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/overruled.fxml"));
-                OverRuledController controller = new OverRuledController();
-                loader.setController(controller);
-                Tab tab = new Tab("OVERRULED");
-                tab.setContent(loader.load());
-                tabpan.getTabs().add(tab);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//        if (Queries.IS_SUPREME_TODAY_APP == Boolean.TRUE){
+//            try {
+//                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/overruled.fxml"));
+//                OverRuledController controller = new OverRuledController();
+//                loader.setController(controller);
+//                Tab tab = new Tab("OVERRULED");
+//                tab.setContent(loader.load());
+//                tabpan.getTabs().add(tab);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+//        if (Queries.IS_SUPREME_TODAY_APP == Boolean.TRUE){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/overruled.fxml"));
+            OverRuledController controller = new OverRuledController();
+            loader.setController(controller);
+            Tab tab = new Tab("OVERRULED");
+            tab.setContent(loader.load());
+            tabpan.getTabs().add(tab);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+//        }
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/global_search.fxml"));

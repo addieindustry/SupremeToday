@@ -1418,6 +1418,8 @@ public class ServiceHelper {
         params.put("email", email);
         params.put("title", subject);
         params.put("content", content);
+//        System.out.println("content");
+//        System.out.println(content);
         StringBuilder postData = new StringBuilder();
         for (Map.Entry<String,Object> param : params.entrySet()) {
             if (postData.length() != 0) postData.append('&');

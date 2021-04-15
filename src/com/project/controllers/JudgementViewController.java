@@ -1235,12 +1235,6 @@ public class JudgementViewController implements Initializable {
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
-
-//            if (!controller.isOkClicked()) {
-//
-//            }
-
-//            return controller.isOkClicked();
             return true;
         } catch (IOException e) {
             // Exception gets thrown if the fxml file could not be loaded

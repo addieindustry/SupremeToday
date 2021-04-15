@@ -32,7 +32,8 @@ public class Test {
     }
 
     public static void main (String[] arg) {
-//        EncryptionHelperLatest.EncryptDictionary();
+//        EncryptionHelperLatest e = new EncryptionHelperLatest();
+//        e.EncryptDictionary();
 
         String KEY = "1234567890";
         String INPUT_TEXT = "HELLO addie, How are you Addie";
