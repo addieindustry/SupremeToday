@@ -68,6 +68,13 @@ public class BookmarkController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+            btnDelete.setStyle("-fx-background-color: steelblue");
+            btnImport.setStyle("-fx-background-color: steelblue");
+            btnExport.setStyle("-fx-background-color: steelblue");
+            btnClose.setStyle("-fx-background-color: steelblue");
+        }
+
         columnId.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<BookmarkModel, String>, ObservableValue<String>>() {
             public ObservableValue<String> call(TableColumn.CellDataFeatures<BookmarkModel, String> p) {
                 // p.getValue() returns the Person instance for a particular TableView row

@@ -707,6 +707,10 @@ public class JudgementViewController implements Initializable {
                         String _mainCitation = GetCrossCitationFromCitations(_citation,  true);
                         String _crossCitation = GetCrossCitationFromCitations(_citation, false);
 
+                        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                            _mainCitation = _mainCitation.replace("Supreme(", "ICLF(");
+                        }
+
                         stb.append("<div style=\"color:blue\"><center><strong>" + _mainCitation + "</strong></center></div>");
                         stb.append("<div><center><strong>" + _crossCitation + "</strong></center></div>");
 //                        stb.append("<center><strong>" + _citation + "</strong></center>" + "<br/>");
@@ -752,7 +756,7 @@ public class JudgementViewController implements Initializable {
                                 hlCount += 1;
                             }
                             html = html.replace("<p align=\"justify\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>", "");
-                            stb.append("<strong>" + html + "</strong>");
+                            stb.append("<p align=\"justify\"><strong>" + html + "</strong></p>");
                         }
                     }
 

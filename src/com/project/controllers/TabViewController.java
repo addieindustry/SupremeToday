@@ -108,6 +108,16 @@ public class TabViewController implements Initializable {//, ClickEventHandler {
         if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
             hpDictionary.setVisible(Boolean.FALSE);
             hpCauseList.setVisible(Boolean.FALSE);
+            hpDictionary.setStyle("-fx-text-fill: steelblue");
+            hpBookmarks.setStyle("-fx-text-fill: steelblue");
+            hpHistory.setStyle("-fx-text-fill: steelblue");
+            hpFeedBack.setStyle("-fx-text-fill: steelblue");
+            hpHelpManual.setStyle("-fx-text-fill: steelblue");
+            hpSupremeCourtofIndia.setStyle("-fx-text-fill: steelblue");
+            hpCauseList.setStyle("-fx-text-fill: steelblue");
+            hpAbout.setStyle("-fx-text-fill: steelblue");
+            hpPrintSetting.setStyle("-fx-text-fill: steelblue");
+            hpLiveUpdate.setStyle("-fx-text-fill: steelblue");
         }
 
 
@@ -363,11 +373,15 @@ public class TabViewController implements Initializable {//, ClickEventHandler {
         new CentralActController().setJudgementSearchFromAct(new JudgementSearchFromAct() {
             @Override
             public void openAdvanceSearchView(String actTitle, String sectionTitle) {
-                if (ServiceHelper.isCommentaryHide()!=1)
-                {
-                    tabpan.getSelectionModel().select(6);
+                if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                    tabpan.getSelectionModel().select(3);
                 }else{
-                    tabpan.getSelectionModel().select(7);
+                    if (ServiceHelper.isCommentaryHide()!=1)
+                    {
+                        tabpan.getSelectionModel().select(6);
+                    }else{
+                        tabpan.getSelectionModel().select(7);
+                    }
                 }
             }
         });

@@ -72,9 +72,10 @@ public class JavaHelper {
                     e.printStackTrace();
                 }
 //                new Utils().showDialogAlert(Queries.LOGO_PATH_BY_APPLICATION);
-                Date today = new Date();
-                SimpleDateFormat dt1 = new SimpleDateFormat("MMM dd yyyy");
-                String judgementCSS = "<style>@font-face {font-family: 'KrutiDev';src: url('"+kruti_font+"') format('truetype');-fs-pdf-font-embed: embed;-fs-pdf-font-encoding: Identity-H;}body {font-size:"+Queries.PRINT_SETTING_MODEL.getPrintFontSize()+"px;}@page{@top-center{content:\"" + dt1.format(today) + "\"}}@page{@top-right{content:\"Page \"counter(page) \" of \" counter(pages)}}</style>";
+//                Date today = new Date();
+//                SimpleDateFormat dt1 = new SimpleDateFormat("MMM dd yyyy");
+//                String judgementCSS = "<style>@font-face {font-family: 'KrutiDev';src: url('"+kruti_font+"') format('truetype');-fs-pdf-font-embed: embed;-fs-pdf-font-encoding: Identity-H;}body {font-size:"+Queries.PRINT_SETTING_MODEL.getPrintFontSize()+"px;}@page{@top-center{content:\"" + dt1.format(today) + "\"}}@page{@top-right{content:\"Page \"counter(page) \" of \" counter(pages)}}</style>";
+                String judgementCSS = "<style>@font-face {font-family: 'KrutiDev';src: url('"+kruti_font+"') format('truetype');-fs-pdf-font-embed: embed;-fs-pdf-font-encoding: Identity-H;}body {font-size:"+Queries.PRINT_SETTING_MODEL.getPrintFontSize()+"px;}@page{@top-right{content:\"Page \"counter(page) \" of \" counter(pages)}}</style>";
                 data = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">"+judgementCSS+"</head><body><br/><div style=\"width: 100%;text-align: left\" ><img src='"+base64+"'/> </div>"+ ServiceHelper.getLicText() +"<br/>" + data + "</body></html>";
 //                data = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">"+judgementCSS+"</head><body><br/><div style=\"width: 100%;text-align: center\" ><img src=\""+Queries.LOGO_PATH_BY_APPLICATION+"\" /> </div>"+ ServiceHelper.getLicText() +"<br/>" + data + "</body></html>";
                 data = data.replaceAll("font-family: Kruti Dev 012", "font-family: KrutiDev");

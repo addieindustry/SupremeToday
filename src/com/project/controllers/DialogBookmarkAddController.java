@@ -1,5 +1,6 @@
 package com.project.controllers;
 
+import com.project.helper.Queries;
 import com.project.helper.ServiceHelper;
 import com.project.utils.Utils;
 import javafx.beans.value.ChangeListener;
@@ -32,6 +33,11 @@ public class DialogBookmarkAddController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+            btnOk.setStyle("-fx-background-color: steelblue");
+            btnCancel.setStyle("-fx-background-color: steelblue");
+            btnAddCategory.setStyle("-fx-background-color: steelblue");
+        }
 
         comboboxCategory.setEditable(true);
         comboboxCategory.setItems(ServiceHelper.getAllBookmarkCategory());
