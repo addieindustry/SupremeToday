@@ -27,15 +27,15 @@ public class Queries {
     //Apply FALSE instead of TRUE on below line to Enable Copy
     public static final Boolean IS_COPY_DISABLE = Boolean.TRUE;
 
-    public static final Boolean IS_SUPREME_TODAY_APP = Boolean.TRUE;
-    public static final String APPLICATION_NAME = "Supreme Today";
+//    public static final Boolean IS_SUPREME_TODAY_APP = Boolean.TRUE;
+//    public static final String APPLICATION_NAME = "Supreme Today";
 
-//    public static final Boolean IS_SUPREME_TODAY_APP = Boolean.FALSE;
-//    public static final String APPLICATION_NAME = "Indian CaseLaw Finder";
+    public static final Boolean IS_SUPREME_TODAY_APP = Boolean.FALSE;
+    public static final String APPLICATION_NAME = "Indian CaseLaw Finder";
 
 //      public static final String CURRENT_PATH = Paths.get("").toString();
-//    public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "SupremeToday-2.0").toString();
-    public static final String CURRENT_PATH = Paths.get("D:", "Projects", "SupremeToday", "SupremeToday").toString();
+    public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "SupremeToday-2.0").toString();
+  //  public static final String CURRENT_PATH = Paths.get("D:", "Projects", "SupremeToday", "SupremeToday").toString();
     public static final String DATA_PATH=Paths.get(CURRENT_PATH, "Data").toString();
     public static final String RESOURCE_PATH=Paths.get(CURRENT_PATH, "res").toString();
     public static final String TEMP_FILE_PATH=Paths.get(CURRENT_PATH, "lib", "temp.html").toString();
@@ -52,7 +52,7 @@ public class Queries {
     public static final String JQUERY_UI_MIN_JS_PATH = Paths.get(RESOURCE_PATH, "jquery-ui.min.js").toString();
     public static final String JQUERY_MIN_JS_PATH = Paths.get(RESOURCE_PATH, "jquery.min.js").toString();
 
-    public static final List<String> SUPREME_DICTIONARY = EncryptionHelperLatest.ReadObjectToFile();
+//    public static final List<String> SUPREME_DICTIONARY = EncryptionHelperLatest.ReadObjectToFile();
 
 //    public static final String JQUERY_UI_PATH = Paths.get(CURRENT_PATH, "jquery.tooltip").toString();
 //    public static final String JQUERY_TOOLTIP_JS_PATH = Paths.get(CURRENT_PATH, "jquery.tooltip.js").toString();

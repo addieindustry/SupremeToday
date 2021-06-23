@@ -144,14 +144,14 @@ public class EncryptionHelperLatest {
             String[] temp = stemp.toString().split("[ ]", -1);
 
             for (i = 0; i <= temp.length - 1; i++) {
-                if (Queries.SUPREME_DICTIONARY.indexOf(temp[i]) >= 0){
-                    int dictionary_index = Queries.SUPREME_DICTIONARY.indexOf(temp[i]);
-//                    System.out.println("ENC | " + dictionary_index + " | " + temp[i]);
-                    acs.append((char) (dictionary_index));
-                }else{
-//                    acs.append(temp[i]);
-                    acs.append(start_tag + temp[i] + end_tag);
-                }
+//                if (Queries.SUPREME_DICTIONARY.indexOf(temp[i]) >= 0){
+//                    int dictionary_index = Queries.SUPREME_DICTIONARY.indexOf(temp[i]);
+////                    System.out.println("ENC | " + dictionary_index + " | " + temp[i]);
+//                    acs.append((char) (dictionary_index));
+//                }else{
+////                    acs.append(temp[i]);
+//                    acs.append(start_tag + temp[i] + end_tag);
+//                }
             }
 //            WriteObjectToFile(supreme_dictionary);
             if (sbImg.toString().length() > 0){
@@ -193,7 +193,7 @@ public class EncryptionHelperLatest {
                 }else{
                     if (skipPlainText == Boolean.FALSE){
                         int int_Renamed = ((int) (tempCh));
-                        cs.append(" " + Queries.SUPREME_DICTIONARY.get(int_Renamed));
+//                        cs.append(" " + Queries.SUPREME_DICTIONARY.get(int_Renamed));
 //                        if (Queries.SUPREME_DICTIONARY.stream().count() > int_Renamed){
 //                            cs.append(" " + Queries.SUPREME_DICTIONARY.get(int_Renamed));
 //                        }
