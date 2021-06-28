@@ -83,7 +83,12 @@ public class ServiceHelper {
             ResultSet rs = sqliteHelper.select(Queries.GET_ALL_PUBLISHERS_FROM_CITATION);
 
             while (rs.next()) {
-                list.add(rs.getString("publisher"));
+                if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                    list.add(rs.getString("publisher").replace("Supreme", "ICLF"));
+                }else{
+                    list.add(rs.getString("publisher"));
+                }
+//                list.add(rs.getString("publisher"));
             }
             sqliteHelper.close();
         } catch (ClassNotFoundException ex) {
@@ -99,6 +104,9 @@ public class ServiceHelper {
         try {
             SqliteHelper sqliteHelper = new SqliteHelper(Queries.DB_PATH, false);
             sqliteHelper.open();
+            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                publisher = publisher.replace("ICLF", "Supreme");
+            }
             String q = String.format(Queries.GET_YEAR_FROM_CITATION_BY_PUBLISHERS, publisher);
             ResultSet rs = sqliteHelper.select(q);
 
@@ -119,6 +127,9 @@ public class ServiceHelper {
         try {
             SqliteHelper sqliteHelper = new SqliteHelper(Queries.DB_PATH, false);
             sqliteHelper.open();
+            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                publisher = publisher.replace("ICLF", "Supreme");
+            }
             String q = String.format(Queries.GET_VOLUME_FROM_CITATION_BY_PUBLISHERS_YEAR, publisher, year);
             ResultSet rs = sqliteHelper.select(q);
 
@@ -139,6 +150,9 @@ public class ServiceHelper {
         try {
             SqliteHelper sqliteHelper = new SqliteHelper(Queries.DB_PATH, false);
             sqliteHelper.open();
+            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                publisher = publisher.replace("ICLF", "Supreme");
+            }
             String q = String.format(Queries.GET_PAGE_FROM_CITATION_BY_PUBLISHERS_YEAR_VOLUME, publisher, year, volume);
             ResultSet rs = sqliteHelper.select(q);
 

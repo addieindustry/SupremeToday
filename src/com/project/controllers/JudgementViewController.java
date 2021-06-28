@@ -711,7 +711,7 @@ public class JudgementViewController implements Initializable {
                         String _crossCitation = GetCrossCitationFromCitations(_citation, false);
 
                         if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-                            _mainCitation = _mainCitation.replace("Supreme(", "ICLF(");
+                            _mainCitation = _mainCitation.replace("Supreme", "ICLF");
                         }
 
                         stb.append("<div style=\"color:blue\"><center><strong>" + _mainCitation + "</strong></center></div>");

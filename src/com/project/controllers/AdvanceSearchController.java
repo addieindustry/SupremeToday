@@ -798,7 +798,11 @@ public class AdvanceSearchController implements Initializable {
 
         String pubCitation = "";
         if (comboboxPublisher.getSelectionModel().getSelectedItem() != null) {
-            pubCitation = pubCitation + comboboxPublisher.getValue().toString() + " ";
+            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                pubCitation = pubCitation + comboboxPublisher.getValue().toString().replace("ICLF", "Supreme") + " ";
+            }else{
+                pubCitation = pubCitation + comboboxPublisher.getValue().toString() + " ";
+            }
         }
         if (comboboxYear.getSelectionModel().getSelectedItem() != null) {
             pubCitation = pubCitation + comboboxYear.getValue().toString() + " ";
