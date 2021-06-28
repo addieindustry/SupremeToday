@@ -213,3 +213,6 @@ java.lang.NullPointerException at ResultViewHelper.loadTableData():506
 
 19/02/2020 16:08:31
 java.lang.NullPointerException at ResultViewHelper.loadTableData():506
+
+23/06/2021 12:26:36
+java.lang.NullPointerException at ResultViewHelper.loadTableData():514

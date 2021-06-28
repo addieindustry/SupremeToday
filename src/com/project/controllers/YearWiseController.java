@@ -2,6 +2,7 @@ package com.project.controllers;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import com.project.helper.Queries;
 import com.project.helper.ServiceHelper;
 import com.project.interfaces.ClickEventHandler;
 import com.project.interfaces.ResetClickEventHandler;
@@ -84,6 +85,24 @@ public class YearWiseController implements Initializable {
         split_pane.setResizableWithParent(root, false);
         split_pane.setResizableWithParent(result_view_pane, false);
         split_pane.setDividerPositions(0.08);
+
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+            hpAll.setStyle("-fx-text-fill: steelblue");
+            hpJan.setStyle("-fx-text-fill: steelblue");
+            hpFeb.setStyle("-fx-text-fill: steelblue");
+            hpMar.setStyle("-fx-text-fill: steelblue");
+            hpApr.setStyle("-fx-text-fill: steelblue");
+            hpMay.setStyle("-fx-text-fill: steelblue");
+            hpJun.setStyle("-fx-text-fill: steelblue");
+            hpJul.setStyle("-fx-text-fill: steelblue");
+            hpAug.setStyle("-fx-text-fill: steelblue");
+            hpSep.setStyle("-fx-text-fill: steelblue");
+            hpOct.setStyle("-fx-text-fill: steelblue");
+            hpNov.setStyle("-fx-text-fill: steelblue");
+            hpDec.setStyle("-fx-text-fill: steelblue");
+            btnReset.setStyle("-fx-background-color: steelblue");
+        }
+
 
         comboboxCourt.setConverter(new StringConverter<CourtModel>() {
             @Override

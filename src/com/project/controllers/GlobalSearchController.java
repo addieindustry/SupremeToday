@@ -398,7 +398,7 @@ public class GlobalSearchController implements Initializable {
             dialogStage.showAndWait();
 
             if (!controller.isOkClicked()) {
-
+                System.out.println("CLICKED");
             }
 
             return controller.isOkClicked();

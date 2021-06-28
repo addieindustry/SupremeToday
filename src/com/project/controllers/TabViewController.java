@@ -141,18 +141,23 @@ public class TabViewController implements Initializable {//, ClickEventHandler {
             e.printStackTrace();
         }
 
-        if (Queries.IS_SUPREME_TODAY_APP == Boolean.TRUE){
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/year_wise.fxml"));
+//        if (Queries.IS_SUPREME_TODAY_APP == Boolean.TRUE){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/year_wise.fxml"));
 //            YearWiseController controller = new YearWiseController();
-                loader.setController(new YearWiseController());
-                Tab tab = new Tab("YEAR WISE");
-                tab.setContent(loader.load());
-                tabpan.getTabs().add(tab);
-            } catch (IOException e) {
-                e.printStackTrace();
+            loader.setController(new YearWiseController());
+            Tab tab;
+            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                tab = new Tab("LATEST CASE");
+            }else{
+                tab = new Tab("YEAR WISE");
             }
+            tab.setContent(loader.load());
+            tabpan.getTabs().add(tab);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+//        }
 
         if (Queries.IS_SUPREME_TODAY_APP == Boolean.TRUE){
             try {
@@ -401,34 +406,61 @@ public class TabViewController implements Initializable {//, ClickEventHandler {
         tabpan.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> ov, Number oldValue, Number newValue) {
-                if (ServiceHelper.isCommentaryHide()!=1) {
-                    if (newValue.equals(5)) {
-                        Queries.GLOBAL_OR_ADVANCE = "GLOBAL";
-
-//                        for (ResetClickEventOnGlobalSearchListener listner : globalSearchResetListeners) {
-//                            listner.clickResetListener();
-//                        }
-
-                    }else if (newValue.equals(6)){
-                        Queries.GLOBAL_OR_ADVANCE="ADVANCE";
-
-//                        for (ResetClickEventOnAdvanceSearchListener listner : advanceSearchListeners) {
-//                            listner.clickResetListener();
-//                        }
+                if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                    if (ServiceHelper.isCommentaryHide()!=1) {
+                        if (newValue.equals(3)) {
+                            Queries.GLOBAL_OR_ADVANCE = "GLOBAL";
+                        }else if (newValue.equals(4)){
+                            Queries.GLOBAL_OR_ADVANCE="ADVANCE";
+                        }else{
+                            Queries.GLOBAL_OR_ADVANCE="YEAR";
+                        }
                     }else{
-                        Queries.GLOBAL_OR_ADVANCE="YEAR";
+                        if (newValue.equals(4)){
+                            Queries.GLOBAL_OR_ADVANCE="GLOBAL";
+                        }else if (newValue.equals(5)){
+                            Queries.GLOBAL_OR_ADVANCE="ADVANCE";
+                        }else{
+                            Queries.GLOBAL_OR_ADVANCE="YEAR";
+                        }
                     }
                 }else{
-                    if (newValue.equals(6)){
-                        Queries.GLOBAL_OR_ADVANCE="GLOBAL";
-                        System.out.print("GLOBAL");
-                    }else if (newValue.equals(7)){
-                        Queries.GLOBAL_OR_ADVANCE="ADVANCE";
+                    if (ServiceHelper.isCommentaryHide()!=1) {
+                        if (newValue.equals(5)) {
+                            Queries.GLOBAL_OR_ADVANCE = "GLOBAL";
+                        }else if (newValue.equals(6)){
+                            Queries.GLOBAL_OR_ADVANCE="ADVANCE";
+                        }else{
+                            Queries.GLOBAL_OR_ADVANCE="YEAR";
+                        }
                     }else{
-                        Queries.GLOBAL_OR_ADVANCE="YEAR";
+                        if (newValue.equals(6)){
+                            Queries.GLOBAL_OR_ADVANCE="GLOBAL";
+                        }else if (newValue.equals(7)){
+                            Queries.GLOBAL_OR_ADVANCE="ADVANCE";
+                        }else{
+                            Queries.GLOBAL_OR_ADVANCE="YEAR";
+                        }
                     }
-//                    tabpan.getSelectionModel().select(6);
                 }
+
+//                if (ServiceHelper.isCommentaryHide()!=1) {
+//                    if (newValue.equals(5)) {
+//                        Queries.GLOBAL_OR_ADVANCE = "GLOBAL";
+//                    }else if (newValue.equals(6)){
+//                        Queries.GLOBAL_OR_ADVANCE="ADVANCE";
+//                    }else{
+//                        Queries.GLOBAL_OR_ADVANCE="YEAR";
+//                    }
+//                }else{
+//                    if (newValue.equals(6)){
+//                        Queries.GLOBAL_OR_ADVANCE="GLOBAL";
+//                    }else if (newValue.equals(7)){
+//                        Queries.GLOBAL_OR_ADVANCE="ADVANCE";
+//                    }else{
+//                        Queries.GLOBAL_OR_ADVANCE="YEAR";
+//                    }
+//                }
 
 //                PRE_TAB_NO = oldValue;
 //                ConstantsClass.isSearchInSearch = false;

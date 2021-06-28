@@ -630,6 +630,9 @@ public class JudgementViewController implements Initializable {
         }
 
         judgementCSS = "<style>@font-face {font-family: 'Kruti Dev';src: url('" + kruti_font + "') format('truetype')}.KrutiDev_hindi_text {font-family: Kruti Dev !important;font-size:" + Queries.PRINT_SETTING_MODEL.getDisplayFontSize() + "px !important;}body {font-size:" + Queries.PRINT_SETTING_MODEL.getDisplayFontSize() + "px;}table, th, td {border: 1px solid black;}</style>";
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+            judgementCSS = "<style>@font-face {font-family: 'Kruti Dev';src: url('" + kruti_font + "') format('truetype')}.KrutiDev_hindi_text {font-family: Kruti Dev !important;font-size:" + Queries.PRINT_SETTING_MODEL.getDisplayFontSize() + "px !important;}body {font-size:" + Queries.PRINT_SETTING_MODEL.getDisplayFontSize() + "px;font-family:georgia,garamond,serif;}table, th, td {border: 1px solid black;}</style>";
+        }
 
         SearchUtility searchUtility = new SearchUtility(Queries.INDEX_PATH);
         JsonObject jo = new JsonObject();

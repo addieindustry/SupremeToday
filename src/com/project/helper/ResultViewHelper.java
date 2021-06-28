@@ -322,6 +322,10 @@ public class ResultViewHelper {
             URL JQUERY_UI_CSS_URL = new File(Queries.JQUERY_UI_CSS_PATH).toURI().toURL();
             String styleTag = "<link rel=\"stylesheet prefetch\" href=\""+JQUERY_UI_CSS_URL+"\"><style>.page-wrap,.tooltip{overflow:auto;background:#fff}body{line-height:1.5;font-size:" + Queries.PRINT_SETTING_MODEL.getResultFontSize() + "px;}.page-wrap{padding:2%;position:fixed;height:90%;width:95%}a{position:relative;display:inline-block}.tooltip{display:none;width:600px;height:120px;position:absolute;padding:12px;color:#000;border:2px solid #000}a:link{font-size:18px;color:#8b0000;text-decoration:none;font-weight:700}a:hover{color:#6484d1;text-decoration:underline}::-webkit-scrollbar{width:15px}::-webkit-scrollbar-track{-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);-webkit-border-radius:10px;border-radius:10px}::-webkit-scrollbar-thumb{-webkit-border-radius:10px;border-radius:10px;-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.5)}::-webkit-scrollbar-thumb:window-inactive{background:rgba(192,192,192,.4)}</style>"+
                     "<script>window.console=window.console||function(e){},document.location.search.match(/type=embed/gi)&&window.parent.postMessage(\"resize\",\"*\");</script>";
+            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                styleTag = "<link rel=\"stylesheet prefetch\" href=\""+JQUERY_UI_CSS_URL+"\"><style>.page-wrap,.tooltip{overflow:auto;background:#fff}body{line-height:1.5;font-size:" + Queries.PRINT_SETTING_MODEL.getResultFontSize() + "px;}.page-wrap{padding:2%;position:fixed;height:90%;width:95%}a{position:relative;display:inline-block}.tooltip{display:none;width:600px;height:120px;position:absolute;padding:12px;color:#000;border:2px solid #000}a:link{font-size:18px;color:steelblue;text-decoration:none;font-weight:700}a:hover{color:#6484d1;text-decoration:underline}::-webkit-scrollbar{width:15px}::-webkit-scrollbar-track{-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);-webkit-border-radius:10px;border-radius:10px}::-webkit-scrollbar-thumb{-webkit-border-radius:10px;border-radius:10px;-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.5)}::-webkit-scrollbar-thumb:window-inactive{background:rgba(192,192,192,.4)}</style>"+
+                        "<script>window.console=window.console||function(e){},document.location.search.match(/type=embed/gi)&&window.parent.postMessage(\"resize\",\"*\");</script>";
+            }
             StringBuilder stb = new StringBuilder("");
             StringBuilder stbTooltip = new StringBuilder("");
 
@@ -351,9 +355,17 @@ public class ResultViewHelper {
 
                     if (imp_notes.length()>3){
                         stb.append("<div>("+srNo+") <a style=\"font-size:" + Queries.PRINT_SETTING_MODEL.getResultFontSize() + "px;\" href='"+srNo+"' data-tooltip=\""+srNo+"i\">"+ obj.get("title").getAsString() + " , " + jDate +"</a></div>");
+//                        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+//                            stb.append("<div>("+srNo+") <a style=\"font-size:" + Queries.PRINT_SETTING_MODEL.getResultFontSize() + "px;\" href='"+srNo+"' data-tooltip=\""+srNo+"i\" style=\"background-color:steelblue;color:white;\">"+ obj.get("title").getAsString() + " , " + jDate +"</a></div>");
+//                        }else{
+//                        }
                         stbTooltip.append("<div class=\"tooltip\" id=\"open\" data-tooltip=\""+srNo+"i\">"+imp_notes+"</div>");
                     }else{
                         stb.append("<div>("+srNo+") <a style=\"font-size:" + Queries.PRINT_SETTING_MODEL.getResultFontSize() + "px;\" href='"+srNo+"'>"+ obj.get("title").getAsString() + " , " + jDate +"</a></div>");
+//                        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+//                            stb.append("<div>("+srNo+") <a style=\"font-size:" + Queries.PRINT_SETTING_MODEL.getResultFontSize() + "px;\" href='"+srNo+"' style=\"background-color:steelblue;color:white;\">"+ obj.get("title").getAsString() + " , " + jDate +"</a></div>");
+//                        }else{
+//                        }
                     }
 
 
@@ -453,7 +465,13 @@ public class ResultViewHelper {
                     }
                 }
                 else if (obj.get("DocType").getAsString().equals("WordPhrase")){
-                    stb.append("("+srNo+") <a href='"+srNo+"' id = \"tooltip-2\" title='"+obj.get("title").getAsString()+"'>" + obj.get("title").getAsString() +"</a>");
+                    if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                        stb.append("("+srNo+") <a href='"+srNo+"' id = \"tooltip-2\" title='"+obj.get("title").getAsString()+"' style=\"float:right;background-color:steelblue;color:white;\">" + obj.get("title").getAsString() +"</a>");
+                    }else{
+                        stb.append("("+srNo+") <a href='"+srNo+"' id = \"tooltip-2\" title='"+obj.get("title").getAsString()+"'>" + obj.get("title").getAsString() +"</a>");
+                    }
+
+
 //                    stb.append("("+srNo+") " + obj.get("title").getAsString());
                     if (obj.has("hl"))
                     {
@@ -506,7 +524,13 @@ public class ResultViewHelper {
 //            }
 
 //            webViewDocView.getEngine().load("file:///F:/ST/auto-adjust/auto-adjust.html");
-            webViewDocView.getEngine().loadContent("<html><head><meta charset=\"UTF-8\">"+styleTag+"</head><body translate=\"no\"><div class=\"page-wrap\">" + stb.toString() +"</div>" + stbTooltip.toString() + JavaScript +"</body></html>", "text/html");
+
+            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                webViewDocView.getEngine().loadContent("<html><head><meta charset=\"UTF-8\">"+styleTag+"</head><body translate=\"no\" style=\"font-family:georgia,garamond,serif;font-size:16px;\"><div class=\"page-wrap\">" + stb.toString() +"</div>" + stbTooltip.toString() + JavaScript +"</body></html>", "text/html");
+            }else{
+                webViewDocView.getEngine().loadContent("<html><head><meta charset=\"UTF-8\">"+styleTag+"</head><body translate=\"no\"><div class=\"page-wrap\">" + stb.toString() +"</div>" + stbTooltip.toString() + JavaScript +"</body></html>", "text/html");
+            }
+
 //            TableViewResults.getItems().clear();
 //            TableViewResults.getItems().addAll(data);
         } catch (Exception ex) {
