@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane minHeight="500.0" minWidth="900.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="500.0" minWidth="800.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>
             <BorderPane nodeOrientation="LEFT_TO_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -38,7 +38,7 @@
                                             <Tooltip text="Navigate to Previous" />
                                         </tooltip>
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin>
                                     </Button>
                                     <Button id="btn_next_row" fx:id="btnNextDoc" layoutX="541.0" layoutY="14.0" mnemonicParsing="false" minHeight="30.0" minWidth="50.0">
@@ -46,7 +46,7 @@
                                             <Tooltip text="Navigate to Next" />
                                         </tooltip>
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin>
                                     </Button>
                                     <Button id="button_simple" fx:id="btnHeadNote" layoutX="771.0" layoutY="14.0" mnemonicParsing="false" minHeight="25.0" minWidth="45.0" text="HN">
@@ -54,7 +54,7 @@
                                             <Tooltip text="Display Headnote only" />
                                         </tooltip>
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin>
                                     </Button>
                                     <Button id="button_simple" fx:id="btnFullCase" layoutX="811.0" layoutY="14.0" mnemonicParsing="false" minHeight="25.0" minWidth="80.0" text="FullCase">
@@ -62,7 +62,7 @@
                                             <Tooltip text="Display Full Case" />
                                         </tooltip>
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin>
                                     </Button>
                                     <Button id="button_simple" fx:id="btnAnalysis" mnemonicParsing="false" minHeight="25.0" minWidth="80.0" text="Analysis">
@@ -70,7 +70,7 @@
                                             <Tooltip text="Display Analysis only" />
                                         </tooltip>
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin>
                                     </Button>
                                     <Button id="button_simple" fx:id="btnCitator" mnemonicParsing="false" minHeight="25.0" minWidth="70.0" text="Citator">
@@ -78,7 +78,7 @@
                                             <Tooltip text="Display Citator only" />
                                         </tooltip>
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin>
                                     </Button>
                                     <!--                        <Button id="button_simple" fx:id="btnReferred" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" minWidth="80.0" text="Referred">-->
@@ -95,13 +95,13 @@
                                             <Tooltip text="Display Judicial Analysis only" />
                                         </tooltip>
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin>
                                     </Button>
 
                                     <TextField fx:id="textFieldHighlight" maxWidth="-Infinity" minHeight="25.0" minWidth="120.0" promptText="Press Enter to Focus Text">
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin></TextField>
                                     <!--<Button id="btn_find" fx:id="btnFindText" mnemonicParsing="false" prefHeight="28.0" prefWidth="30.0">-->
                                     <!--<HBox.margin>-->
@@ -119,7 +119,7 @@
                                             <Tooltip text="Click for Google Translator View" />
                                         </tooltip>
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin>
                                     </Button>
 
@@ -128,12 +128,12 @@
                                             <Tooltip text="Click to view Book Print Copy" />
                                         </tooltip>
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin>
                                     </Button>
 
                                     <Separator maxHeight="-Infinity" orientation="VERTICAL" minHeight="27.0">
-                                        <HBox.margin><Insets bottom="2.0" left="2.0" right="2.0" top="2.0" /></HBox.margin>
+                                        <HBox.margin><Insets bottom="1.0" left="1.0" right="1.0" top="1.0" /></HBox.margin>
                                     </Separator>
 
                                     <Button id="btn_zoom_in" fx:id="btnZoomPlus" mnemonicParsing="false" minHeight="25.0" minWidth="45.0">
@@ -141,7 +141,7 @@
                                             <Tooltip text="Zoom In" />
                                         </tooltip>
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin>
                                     </Button>
 
@@ -150,7 +150,7 @@
                                             <Tooltip text="Zoom out" />
                                         </tooltip>
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin>
                                     </Button>
 
@@ -159,26 +159,26 @@
 
                                     <Separator maxHeight="-Infinity" orientation="VERTICAL" minHeight="27.0">
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin></Separator>
                                     <Button id="btn_bookmark" fx:id="btnBookMark" mnemonicParsing="false" minHeight="30.0" minWidth="50.0">
                                         <tooltip>
                                             <Tooltip text="Add to Bookmark" />
                                         </tooltip>
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin>
                                     </Button>
                                     <Separator maxHeight="-Infinity" orientation="VERTICAL" minHeight="27.0">
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin></Separator>
                                     <Button id="btn_pdf" fx:id="btnPDF" mnemonicParsing="false" minHeight="30.0" minWidth="50.0">
                                         <tooltip>
                                             <Tooltip text="Save as PDF" />
                                         </tooltip>
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin>
                                     </Button>
                                     <Button id="btn_folder" fx:id="btnMail" mnemonicParsing="false" minHeight="30.0" minWidth="50.0">
@@ -186,19 +186,19 @@
                                             <Tooltip text="Send email" />
                                         </tooltip>
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin>
                                     </Button>
                                     <Separator layoutX="581.0" layoutY="14.0" maxHeight="-Infinity" orientation="VERTICAL" minHeight="27.0">
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin></Separator>
                                     <Button id="btn_print" fx:id="btnPrint" mnemonicParsing="false" minHeight="30.0" minWidth="50.0">
                                         <tooltip>
                                             <Tooltip text="Print Judgement" />
                                         </tooltip>
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin>
                                     </Button>
                                     <Button id="btn_highlightpre" fx:id="btnHighlightPre" layoutX="501.0" layoutY="14.0" mnemonicParsing="false" minHeight="30.0" minWidth="50.0">
@@ -206,7 +206,7 @@
                                             <Tooltip text="Focus previous highlight" />
                                         </tooltip>
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin>
                                     </Button>
                                     <Button id="btn_highlightnext" fx:id="btnHighlightNext" layoutX="541.0" layoutY="14.0" mnemonicParsing="false" minHeight="30.0" minWidth="50.0">
@@ -214,15 +214,15 @@
                                             <Tooltip text="Focus next highlight" />
                                         </tooltip>
                                         <HBox.margin>
-                                            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin>
                                     </Button>
                                 </children>
                                 <padding>
-                                    <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                 </padding>
                                 <VBox.margin>
-                                    <Insets bottom="2.0" left="2.0" right="2.0" />
+                                    <Insets bottom="1.0" left="1.0" right="1.0" />
                                 </VBox.margin>
                             </HBox>
                         </children>

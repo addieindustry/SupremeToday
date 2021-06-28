@@ -1059,12 +1059,12 @@ public class JudgementViewController implements Initializable {
             String _html = "";
             if (isWhiteListExist) {
                 String overruledTitle = "<div align=\"center\">This Judgement has been Overruled, <a href='overruled:"+docId+"'>Click Here to View</a></div>";
-                _html = "<html><head><meta charset=\"UTF-8\">" + googleTranslatorScript + javaScript + judgementCSS + "</head><body onkeydown=keyup()>" + htmlHeader + googleTranslatorDiv + overruledTitle + judgementHTML + "</body></html>";
+                _html = "<html><head><meta charset=\"UTF-8\">" + googleTranslatorScript + javaScript + judgementCSS + "</head><body style=\"padding-right:20;\" onkeydown=keyup()>" + htmlHeader + googleTranslatorDiv + overruledTitle + judgementHTML + "</body></html>";
 
 //                engine.loadContent(_html, "text/html");
 //                engine.loadContent("<html><head><meta charset=\"UTF-8\">" + javaScript + judgementCSS + "</head><body onkeydown=keyup()><div style=\"background-color:" + Queries.OVERRULED_BACKGROUND_COLOR + "\">" + htmlHeader + overruledTitle + judgementHTML + "</body></html>", "text/html");
             } else {
-                _html = "<html><head><meta charset=\"UTF-8\">" + googleTranslatorScript + javaScript + judgementCSS + "</head><body onkeydown=keyup()>" + htmlHeader + googleTranslatorDiv + judgementHTML + "</body></html>";
+                _html = "<html><head><meta charset=\"UTF-8\">" + googleTranslatorScript + javaScript + judgementCSS + "</head><body style=\"padding-right:20;\" onkeydown=keyup()>" + htmlHeader + googleTranslatorDiv + judgementHTML + "</body></html>";
             }
 
 
