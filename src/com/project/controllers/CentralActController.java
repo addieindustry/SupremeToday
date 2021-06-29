@@ -269,6 +269,7 @@ public class CentralActController implements Initializable {
                     currentCentralActSectionTitle = newValue;
                     htmlContent = ServiceHelper.getCentralActContentById(currentCentralActId, newValue);
                     webViewContent.getEngine().loadContent("<html><head><meta charset=\"UTF-8\">" + javaScript + "</head><body>" + htmlContent + "</body></html>", "text/html");
+//                    engine.loadContent("<html><head><meta charset=\"UTF-8\">" + javaScript + "</head><body>" + htmlContent + "</body></html>", "text/html");
                     _is_index_view = false;
                 }
             }
@@ -332,7 +333,6 @@ public class CentralActController implements Initializable {
 
         btnPrint.setOnAction(event -> {
             try {
-                System.out.println(htmlContent);
                 JavaHelper.print(htmlContent);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
@@ -363,7 +363,6 @@ public class CentralActController implements Initializable {
                     EventListener listener = new EventListener() {
                         public void handleEvent(Event ev) {
                             String href = ((org.w3c.dom.Element) ev.getTarget()).getAttribute("href");
-//                            System.out.println(href);
                             if (!href.isEmpty()) {
                                 String act,section="";
                                 if (href.contains("~")){
@@ -418,7 +417,6 @@ public class CentralActController implements Initializable {
                             itemWebViewCopy.setOnAction(new EventHandler<ActionEvent>() {
                                 @Override
                                 public void handle(ActionEvent event) {
-                                    //                                    System.out.println(selectionStr.length());
                                     StringSelection stringSelection;
                                     if (selectionStr.length() > 3000) {
                                         stringSelection = new StringSelection(selectionStr.substring(0, 3000));

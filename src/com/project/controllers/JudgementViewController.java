@@ -83,7 +83,7 @@ public class JudgementViewController implements Initializable {
     private String docId = "";
     private String docType = "";
 
-    private String search_query = "", filter_query = "", sortBy = "", facet_fields = "", fields = "title, Type, DocType, caseId, id, judge, citation_store, judgementHeader_store,acts_store,impNotes_store,summary_store,content_store,whitelist,advocates,result,decisionDate", hl_fields = "content_store,judgementHeader_store";
+    private String search_query = "", filter_query = "", sortBy = "", facet_fields = "", fields = "title, Type, DocType, caseId, id, judge, citation_store, judgementHeader_store,acts_store,impNotes_store,summary_store,summary_new_store,content_store,whitelist,advocates,result,decisionDate", hl_fields = "content_store,judgementHeader_store";
     private String href_query = "";
     private String open_tab_pre = "FullCase";
     private int start_from = 0;
@@ -750,18 +750,34 @@ public class JudgementViewController implements Initializable {
 //                        stb.append(obj.get("judgementHeader_store").getAsString().replaceAll("#hPreTag#", "<STRONG>").replaceAll("#hPostTag#", "</STRONG>") + "<br/>");
                     }
 
-                    if (!obj.get("summary_store").getAsString().isEmpty()) {
-                        if (obj.get("summary_store").getAsString().trim().length() > 3) {
-                            String html = obj.get("summary_store").getAsString().replace("<#hPreTag#", "<").replace("</#hPreTag#", "</").replace("#hPostTag#>", ">");
-                            while (html.contains(startIndex) && html.contains(endIndex)) {
-                                String hlTag = html.substring(html.indexOf(startIndex), html.indexOf(endIndex, html.indexOf(startIndex) + startIndex.length()) + endIndex.length());
-                                html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:lightblue;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
-                                hlCount += 1;
+                    if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                        if (!obj.get("summary_new_store").getAsString().isEmpty()) {
+                            if (obj.get("summary_new_store").getAsString().trim().length() > 3) {
+                                String html = obj.get("summary_new_store").getAsString().replace("<#hPreTag#", "<").replace("</#hPreTag#", "</").replace("#hPostTag#>", ">");
+                                while (html.contains(startIndex) && html.contains(endIndex)) {
+                                    String hlTag = html.substring(html.indexOf(startIndex), html.indexOf(endIndex, html.indexOf(startIndex) + startIndex.length()) + endIndex.length());
+                                    html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:lightblue;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
+                                    hlCount += 1;
+                                }
+                                html = html.replace("<p align=\"justify\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>", "");
+                                stb.append("<p align=\"justify\"><strong>" + html + "</strong></p>");
                             }
-                            html = html.replace("<p align=\"justify\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>", "");
-                            stb.append("<p align=\"justify\"><strong>" + html + "</strong></p>");
+                        }
+                    }else{
+                        if (!obj.get("summary_store").getAsString().isEmpty()) {
+                            if (obj.get("summary_store").getAsString().trim().length() > 3) {
+                                String html = obj.get("summary_store").getAsString().replace("<#hPreTag#", "<").replace("</#hPreTag#", "</").replace("#hPostTag#>", ">");
+                                while (html.contains(startIndex) && html.contains(endIndex)) {
+                                    String hlTag = html.substring(html.indexOf(startIndex), html.indexOf(endIndex, html.indexOf(startIndex) + startIndex.length()) + endIndex.length());
+                                    html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:lightblue;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
+                                    hlCount += 1;
+                                }
+                                html = html.replace("<p align=\"justify\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>", "");
+                                stb.append("<p align=\"justify\"><strong>" + html + "</strong></p>");
+                            }
                         }
                     }
+
 
                     String casesReferred = ServiceHelper.getCaseReferedByCaseId(obj.get("caseId").getAsString());
                     if (!casesReferred.isEmpty()) {
