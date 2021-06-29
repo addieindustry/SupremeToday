@@ -412,11 +412,6 @@ public class GlobalSearchController implements Initializable {
     }
 
     private String createQuery() {
-//        String content_or_headnote_field = "";
-//        if (rbJudgementText.isSelected())
-//        {content_or_headnote_field = "";}
-//        else{content_or_headnote_field = "+" + Queries.LUCENEFIELD_SUMMARY + ":";}
-
         String allWords = autoFillTextAllWords.getText().replace("/", " ").replace("(", " ").replace(")", " ").replace("'", " ").replace(":", " ").trim();
         String anyWords = autoFillTextAnyWords.getText().replace("/", " ").replace("(", " ").replace(")", " ").replace("'", " ").replace(":", " ").trim();
         String noneWords = autoFillTextNoneWords.getText().replace("/", " ").replace("(", " ").replace(")", " ").replace("'", " ").replace(":", " ").trim();
@@ -438,30 +433,6 @@ public class GlobalSearchController implements Initializable {
             }
             historyModel.setKeyword(allWords);
         }
-
-//        if (!allWords.isEmpty()) {
-//            if (!allWords.contains("~")){
-//                if (!wordWithin.isEmpty()) {
-//                    query = query + content_or_headnote_field + "(\"" + allWords + "\"~" + wordWithin + ") ";
-//                    query_title += content_or_headnote_field + " : " + allWords + "~" + wordWithin;
-//                }else if (allWords.indexOf(8220)>-1 || allWords.indexOf(8221)>-1 || allWords.indexOf(34)>-1){
-//                    query = query + content_or_headnote_field + "(" + allWords + ") ";
-//                    query_title += content_or_headnote_field + " : " + allWords;
-//                }else{
-//                    query = query + content_or_headnote_field + "((\""+allWords+"\"~10^25000) OR (\""+allWords+"\"~25^25000) OR (\""+allWords+"\"~100^12000) OR +("+allWords.replace(" ", " AND ") +"))";
-//                    query_title += content_or_headnote_field + " : " + allWords.replace(" ", " AND ");
-//                }
-//            }else{
-//                allWords = allWords.replace("\"", "");
-//                allWords = allWords.replace(" ~", "~").replace("~ ", "~");
-//                allWords = allWords.replaceAll("(~[0-9]+ )", "$1 AND \"");
-//                allWords = "\"" + allWords.replace("~", "\"~");
-//
-//                query = query + content_or_headnote_field + "(" + allWords + ") ";
-//                query_title += content_or_headnote_field + " : " + allWords;
-//            }
-//            historyModel.setKeyword(allWords);
-//        }
 
         if (!anyWords.isEmpty()) {
             query = query + "(" + anyWords.replace(" ", " OR ") + ") ";
