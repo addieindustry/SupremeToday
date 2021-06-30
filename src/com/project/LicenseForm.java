@@ -40,7 +40,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.controlsfx.dialog.Dialogs;
+//import org.controlsfx.dialog.Dialogs;
 
 /**
  *
@@ -205,13 +205,24 @@ public class LicenseForm {
                     if (isDongle) {
                         if (subId.isEmpty() || client_package == null || agent_code.isEmpty()
                                 || user_name.isEmpty() || client_number.isEmpty() || city.isEmpty() || pkgComboBox.getSelectionModel().getSelectedItem()== null) {
-                            Dialogs.create().owner(primaryStage).title("Warning Dialog").masthead("Empty Fields not allowed!").message(null).showWarning();
+//                            Dialogs.create().owner(primaryStage).title("Warning Dialog").masthead("Empty Fields not allowed!").message(null).showWarning();
+//                            Dialogs.create().owner(primaryStage).title("Warning Dialog").masthead("Empty Fields not allowed!").message(null).showWarning();
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Warning Dialog");
+                            alert.setHeaderText(Queries.APPLICATION_NAME);
+                            alert.setContentText("Empty Fields not allowed!");
+                            alert.showAndWait();
                         } else {
                             try {
 //                            System.out.println("uId:"+uId);
                                 String dongle_id = new DongleRockyHelper().getHardwareId(uId);
                                 if (dongle_id.isEmpty()) {
-                                    Dialogs.create().owner(primaryStage).title("Warning Dialog").masthead("Dongle is not connected!").message(null).showWarning();
+//                                    Dialogs.create().owner(primaryStage).title("Warning Dialog").masthead("Dongle is not connected!").message(null).showWarning();
+                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                                    alert.setTitle("Warning Dialog");
+                                    alert.setHeaderText(Queries.APPLICATION_NAME);
+                                    alert.setContentText("Dongle is not connected!");
+                                    alert.showAndWait();
                                 } else {
                                     HashMap<String, String> params = new HashMap<>();
                                     params.put("sub_id", subId);
@@ -231,7 +242,12 @@ public class LicenseForm {
                                         licenseValid = true;
                                         lic_key = "DNG_" + dongle_id;
                                     } else {
-                                        Dialogs.create().owner(primaryStage).title("Warning Dialog").masthead(res.get("data").getAsString()).message(null).showWarning();
+//                                        Dialogs.create().owner(primaryStage).title("Warning Dialog").masthead(res.get("data").getAsString()).message(null).showWarning();
+                                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                                        alert.setTitle("Warning Dialog");
+                                        alert.setHeaderText(Queries.APPLICATION_NAME);
+                                        alert.setContentText(res.get("data").getAsString());
+                                        alert.showAndWait();
                                     }
 //                                System.out.println(ret1);
                                 }
@@ -241,13 +257,23 @@ public class LicenseForm {
                         }
                     } else {
                         if (subId.isEmpty() || client_package == null || agent_code.isEmpty() || user_name.isEmpty() || client_number.isEmpty() || city.isEmpty() || lic_key.isEmpty()) {
-                            Dialogs.create().owner(primaryStage).title("Warning Dialog").masthead("Empty Fields not allowed!").message(null).showWarning();
+//                            Dialogs.create().owner(primaryStage).title("Warning Dialog").masthead("Empty Fields not allowed!").message(null).showWarning();
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Warning Dialog");
+                            alert.setHeaderText(Queries.APPLICATION_NAME);
+                            alert.setContentText("Empty Fields not allowed!");
+                            alert.showAndWait();
                         } else {
                             if (orgActivationKey.equals(lic_key)) {
                                 licenseValid = true;
 
                             } else {
-                                Dialogs.create().owner(primaryStage).title("Error Dialog").masthead("Invalid Activation Key!").message(null).showError();
+                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                alert.setTitle("Error Dialog");
+                                alert.setHeaderText(Queries.APPLICATION_NAME);
+                                alert.setContentText("Invalid Activation Key!");
+                                alert.showAndWait();
+//                                Dialogs.create().owner(primaryStage).title("Error Dialog").masthead("Invalid Activation Key!").message(null).showError();
 //                        JOptionPane.showMessageDialog(null, "Invalid Activation Key!");
                             }
 
@@ -281,12 +307,14 @@ public class LicenseForm {
                             }
                             //System.out.println(q);
                             sqliteHelper.insert(q);
-
                             sqliteHelper.close();
 
-
-
-                            Dialogs.create().owner(primaryStage).title("Information Dialog").masthead("Activation Successfully done, Please Reopen the application!").message(null).showInformation();
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Information Dialog");
+                            alert.setHeaderText(Queries.APPLICATION_NAME);
+                            alert.setContentText("Activation Successfully done, Please Reopen the application!");
+                            alert.showAndWait();
+                            //Dialogs.create().owner(primaryStage).title("Information Dialog").masthead("Activation Successfully done, Please Reopen the application!").message(null).showInformation();
 //                            JOptionPane.showMessageDialog(null, "Activation Successfully done, Please Reopen the application!");
                             System.exit(0);
                         } catch (ClassNotFoundException ex) {

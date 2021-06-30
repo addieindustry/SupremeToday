@@ -382,8 +382,6 @@ public class JudgementViewController implements Initializable {
 
         webViewDocView.setContextMenuEnabled(false);
         WebEventDispatcher webEventDispatcher = new WebEventDispatcher(webViewDocView.getEventDispatcher());
-//        webViewDocView.getEngine().setJavaScriptEnabled(true);
-//        webViewDocView.getSettings().setJavaScriptEnabled(true);
 
         /*Webview click event*/
         engine.getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>() {
@@ -424,12 +422,8 @@ public class JudgementViewController implements Initializable {
                         Document doc = engine.getDocument();
                         org.w3c.dom.NodeList nodeList = doc.getElementsByTagName("a");
                         for (int i = 0; i < nodeList.getLength(); i++) {
-//                            org.w3c.dom.Node node = nodeList.item(i);
                             org.w3c.dom.events.EventTarget eventTarget = (org.w3c.dom.events.EventTarget) nodeList.item(i);
                             eventTarget.addEventListener("click", listener, false);
-//                            if (!eventTarget.toString().startsWith("#")){
-//                                eventTarget.addEventListener("click", listener, false);
-//                            }
                         }
                     });
                 }

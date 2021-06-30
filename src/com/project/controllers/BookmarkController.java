@@ -31,8 +31,8 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.Dialogs;
+//import org.controlsfx.control.action.Action;
+//import org.controlsfx.dialog.Dialogs;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -139,32 +139,46 @@ public class BookmarkController implements Initializable {
 
         btnDelete.setOnAction(event -> {
             if (!bookMarkId.isEmpty()) {
-                Action response = Dialogs.create()
-                        .title("Confirm Dialog")
-                        .masthead(null)
-                        .message(Queries.MESSAGE_DELETE_BOOKMARK)
-                        .showConfirm();
-                //System.out.println(response.toString());
-
-                if (response.toString().equals("DialogAction.YES")) {
-                    try {
+                ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+                ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Do you want to close the application?", yesButton, noButton);
+                alert.setTitle("Confirm Dialog");
+                alert.setHeaderText(Queries.APPLICATION_NAME);
+//        alert.setContentText("I have a great message for you!");
+                alert.showAndWait().ifPresent(rs -> {
+                    if (rs == ButtonType.OK) {
                         String res = ServiceHelper.removeBookmark(bookMarkId);
                         new Utils().showDialogAlert(res);
                         loadBookmarks();
-//                        System.exit(0);
-//                        Object obj = new Object();
-//                        WeakReference ref = new WeakReference<Object>(obj);
-//                        obj = null;
-//                        while (ref.get() != null) {
-//                            System.out.println(ref.toString());
-//                            System.gc();
-//                        }
-                    } catch (Exception exception) {
-                        exception.printStackTrace();
                     }
-                } else {
-                    event.consume();
-                }
+                });
+
+//                Action response = Dialogs.create()
+//                        .title("Confirm Dialog")
+//                        .masthead(null)
+//                        .message(Queries.MESSAGE_DELETE_BOOKMARK)
+//                        .showConfirm();
+//                //System.out.println(response.toString());
+//
+//                if (response.toString().equals("DialogAction.YES")) {
+//                    try {
+//                        String res = ServiceHelper.removeBookmark(bookMarkId);
+//                        new Utils().showDialogAlert(res);
+//                        loadBookmarks();
+////                        System.exit(0);
+////                        Object obj = new Object();
+////                        WeakReference ref = new WeakReference<Object>(obj);
+////                        obj = null;
+////                        while (ref.get() != null) {
+////                            System.out.println(ref.toString());
+////                            System.gc();
+////                        }
+//                    } catch (Exception exception) {
+//                        exception.printStackTrace();
+//                    }
+//                } else {
+//                    event.consume();
+//                }
 
 
 //                new Utils().confirmationDialog(Queries.MESSAGE_DELETE_BOOKMARK, confirmationInterface);

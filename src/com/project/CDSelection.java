@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -30,7 +31,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.controlsfx.dialog.Dialogs;
+//import org.controlsfx.dialog.Dialogs;
 
 /**
  *
@@ -87,9 +88,19 @@ public class CDSelection {
                     boolean ret = new ExtractArchive().extractArchive(extractFile, destination);
                     if (ret) {
                         new File(tempPath).delete();
-                        Dialogs.create().owner(primaryStage).title("Information Dialog").masthead("Succefully extracted!!").message(null).showInformation();
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Information Dialog");
+                        alert.setHeaderText(Queries.APPLICATION_NAME);
+                        alert.setContentText("Succefully extracted!!");
+                        alert.showAndWait();
+//                        Dialogs.create().owner(primaryStage).title("Information Dialog").masthead("Succefully extracted!!").message(null).showInformation();
                     } else {
-                        Dialogs.create().owner(primaryStage).title("Information Dialog").masthead("Something goes wriong!").message(null).showInformation();
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Information Dialog");
+                        alert.setHeaderText(Queries.APPLICATION_NAME);
+                        alert.setContentText("Something goes wriong!");
+                        alert.showAndWait();
+//                        Dialogs.create().owner(primaryStage).title("Information Dialog").masthead("Something goes wriong!").message(null).showInformation();
 
                     }
                 } catch (RarException ex) {
@@ -126,11 +137,20 @@ public class CDSelection {
                             }
                             boolean ret = new ExtractArchive().extractArchive(selectedFile, destination);
                             if (ret) {
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle("Information Dialog");
+                                alert.setHeaderText(Queries.APPLICATION_NAME);
+                                alert.setContentText("Succefully extracted!!");
+                                alert.showAndWait();
 
-                                Dialogs.create().owner(primaryStage).title("Information Dialog").masthead("Succefully extracted!!").message(null).showInformation();
+//                                Dialogs.create().owner(primaryStage).title("Information Dialog").masthead("Succefully extracted!!").message(null).showInformation();
                             } else {
-                                Dialogs.create().owner(primaryStage).title("Information Dialog").masthead("Something goes wriong!").message(null).showInformation();
-
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle("Information Dialog");
+                                alert.setHeaderText(Queries.APPLICATION_NAME);
+                                alert.setContentText("Something goes wriong!");
+                                alert.showAndWait();
+//                                Dialogs.create().owner(primaryStage).title("Information Dialog").masthead("Something goes wriong!").message(null).showInformation();
                             }
                         
 //                        try {

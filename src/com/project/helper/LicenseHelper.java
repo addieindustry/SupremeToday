@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.controlsfx.dialog.Dialogs;
+//import org.controlsfx.dialog.Dialogs;
 
 /**
  *

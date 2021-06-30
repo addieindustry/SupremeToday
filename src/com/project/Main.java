@@ -19,6 +19,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -27,8 +30,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.*;
 import javafx.util.Duration;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.Dialogs;
+//import org.controlsfx.control.action.Action;
+//import org.controlsfx.dialog.Dialogs;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -180,12 +183,28 @@ public class Main extends Application {
                                 appStart(initStage);
                             }else{
                                 PropertyHelper.create_property_file();
-                                Dialogs.create().owner(initStage).title("Error Dialog").masthead("configuration file not exits!").message(null).showError();
+                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                alert.setTitle("Error Dialog");
+                                alert.setHeaderText(Queries.APPLICATION_NAME);
+                                alert.setContentText("configuration file not exits!");
+                                alert.showAndWait();
+
+//                                Dialogs.create().owner(initStage).title("Error Dialog").masthead("configuration file not exits!").message(null).showError();
                             }
                         } else if (ret == 2) {
-                            Dialogs.create().owner(initStage).title("Error Dialog").masthead("Dongle is not connected please connect your dongle!").message(null).showError();
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Error Dialog");
+                            alert.setHeaderText(Queries.APPLICATION_NAME);
+                            alert.setContentText("Dongle is not connected please connect your dongle!");
+                            alert.showAndWait();
+//                            Dialogs.create().owner(initStage).title("Error Dialog").masthead("Dongle is not connected please connect your dongle!").message(null).showError();
                         } else {
-                            Dialogs.create().owner(initStage).title("Error Dialog").masthead("Invalid License Key!").message(null).showError();
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Error Dialog");
+                            alert.setHeaderText(Queries.APPLICATION_NAME);
+                            alert.setContentText("Invalid License Key!");
+                            alert.showAndWait();
+//                            Dialogs.create().owner(initStage).title("Error Dialog").masthead("Invalid License Key!").message(null).showError();
                             licenseFormStart(initStage);
                         }
 //                    if (LicenseHelper.isLicenseValid()) {
@@ -199,7 +218,12 @@ public class Main extends Application {
 
                     } else {
                         try {
-                            Dialogs.create().owner(initStage).title("Information Dialog").masthead("Not Activated!!!").message(null).showInformation();
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Information Dialog");
+                            alert.setHeaderText(Queries.APPLICATION_NAME);
+                            alert.setContentText("Not Activated!!!");
+                            alert.showAndWait();
+//                            Dialogs.create().owner(initStage).title("Information Dialog").masthead("Not Activated!!!").message(null).showInformation();
                             licenseFormStart(initStage);
 //                        Dialogs.create().owner(initStage).title("Information Dialog").masthead("Not Activated!!!").message(null).showInformation();
 //                        licenseFormStart(initStage);
@@ -516,31 +540,49 @@ public class Main extends Application {
 
 
     private EventHandler<WindowEvent> confirmCloseEventHandler = event -> {
-
-        Action response = Dialogs.create()
-                .owner(mainStage)
-                .title("Confirm Dialog")
-                .masthead(null)
-                .message("Do you want to close the application?")
-                .showConfirm();
-        //System.out.println(response.toString());
-
-        if (response.toString().equals("DialogAction.YES")) {
-                try {
-                    System.exit(0);
-                    Object obj = new Object();
-                    WeakReference ref = new WeakReference<Object>(obj);
-                    obj = null;
-                    while (ref.get() != null) {
-                        System.out.println(ref.toString());
-                        System.gc();
-                    }
-                } catch (Exception exception) {
-                    exception.printStackTrace();
+        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Do you want to close the application?", yesButton, noButton);
+        alert.setTitle("Confirm Dialog");
+        alert.setHeaderText(Queries.APPLICATION_NAME);
+//        alert.setContentText("I have a great message for you!");
+        alert.showAndWait().ifPresent(rs -> {
+            if (rs == ButtonType.OK) {
+                System.exit(0);
+                Object obj = new Object();
+                WeakReference ref = new WeakReference<Object>(obj);
+                obj = null;
+                while (ref.get() != null) {
+                    System.out.println(ref.toString());
+                    System.gc();
                 }
-        } else {
-            event.consume();
-        }
+            }
+        });
+
+//        Action response = Dialogs.create()
+//                .owner(mainStage)
+//                .title("Confirm Dialog")
+//                .masthead(null)
+//                .message("Do you want to close the application?")
+//                .showConfirm();
+//        //System.out.println(response.toString());
+//
+//        if (response.toString().equals("DialogAction.YES")) {
+//                try {
+//                    System.exit(0);
+//                    Object obj = new Object();
+//                    WeakReference ref = new WeakReference<Object>(obj);
+//                    obj = null;
+//                    while (ref.get() != null) {
+//                        System.out.println(ref.toString());
+//                        System.gc();
+//                    }
+//                } catch (Exception exception) {
+//                    exception.printStackTrace();
+//                }
+//        } else {
+//            event.consume();
+//        }
 
 //        Alert closeConfirmation = new Alert(Alert.AlertType.CONFIRMATION, Queries.MESSAGE_CONFIRM_TO_EXIT);
 //        Button exitButton = (Button) closeConfirmation.getDialogPane().lookupButton(ButtonType.OK);

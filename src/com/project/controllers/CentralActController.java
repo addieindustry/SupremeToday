@@ -127,6 +127,9 @@ public class CentralActController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
+        engine = webViewContent.getEngine();
+
         split_pane.setResizableWithParent(root, false);
         split_pane.setResizableWithParent(result_view_pane, false);
         split_pane.setDividerPositions(split_pan_length);
@@ -140,8 +143,8 @@ public class CentralActController implements Initializable {
             btnIndexView.setStyle("-fx-background-color: steelblue");
         }
 
-        engine = webViewContent.getEngine();
-        webViewContent.setContextMenuEnabled(false);
+
+//        webViewContent.setContextMenuEnabled(false);
 
 //        root.prefWidthProperty().bind(split_pane.widthProperty().multiply(0.70));
 
@@ -237,9 +240,9 @@ public class CentralActController implements Initializable {
                 FxUtil.getComboBoxValue(comboboxType);
 
                 htmlContent = ServiceHelper.getCentralActIndexById(currentCentralActId);
-                webViewContent.getEngine().loadContent(htmlContent, "text/html");
+                engine.loadContent(htmlContent, "text/html");
+//                webViewContent.getEngine().loadContent(htmlContent, "text/html");
                 _is_index_view = true;
-
             }
         });
 
@@ -268,8 +271,7 @@ public class CentralActController implements Initializable {
                 if (newValue != null) {
                     currentCentralActSectionTitle = newValue;
                     htmlContent = ServiceHelper.getCentralActContentById(currentCentralActId, newValue);
-                    webViewContent.getEngine().loadContent("<html><head><meta charset=\"UTF-8\">" + javaScript + "</head><body>" + htmlContent + "</body></html>", "text/html");
-//                    engine.loadContent("<html><head><meta charset=\"UTF-8\">" + javaScript + "</head><body>" + htmlContent + "</body></html>", "text/html");
+                    engine.loadContent("<html><head><meta charset=\"UTF-8\">" + javaScript + "</head><body>" + htmlContent + "</body></html>", "text/html");
                     _is_index_view = false;
                 }
             }
@@ -280,7 +282,7 @@ public class CentralActController implements Initializable {
             btnFullAct.setCursor(Cursor.WAIT);
             currentCentralActSectionTitle = "";
             htmlContent = ServiceHelper.getCentralActContentById(currentCentralActId, "");
-            webViewContent.getEngine().loadContent("<html><head><meta charset=\"UTF-8\">" + javaScript + "</head><body>" + htmlContent + "</body></html>", "text/html");
+            engine.loadContent("<html><head><meta charset=\"UTF-8\">" + javaScript + "</head><body>" + htmlContent + "</body></html>", "text/html");
             _is_index_view = false;
             btnFullAct.setCursor(Cursor.DEFAULT);
         });
@@ -290,7 +292,7 @@ public class CentralActController implements Initializable {
             btnIndexView.setCursor(Cursor.WAIT);
             currentCentralActSectionTitle = "";
             htmlContent = ServiceHelper.getCentralActIndexById(currentCentralActId);
-            webViewContent.getEngine().loadContent(htmlContent, "text/html");
+            engine.loadContent(htmlContent, "text/html");
             _is_index_view = true;
             btnIndexView.setCursor(Cursor.DEFAULT);
         });
@@ -302,10 +304,10 @@ public class CentralActController implements Initializable {
 
             if (_is_index_view){
                 htmlContent = ServiceHelper.getCentralActIndexById(currentCentralActId);
-                webViewContent.getEngine().loadContent(htmlContent, "text/html");
+                engine.loadContent(htmlContent, "text/html");
             }else{
                 htmlContent = ServiceHelper.getCentralActContentById(currentCentralActId, currentCentralActSectionTitle);
-                webViewContent.getEngine().loadContent(htmlContent, "text/html");
+                engine.loadContent(htmlContent, "text/html");
             }
 //            webViewContent.setZoom(webViewContent.getZoom() / 1.1);
         });
@@ -317,10 +319,10 @@ public class CentralActController implements Initializable {
 
             if (_is_index_view){
                 htmlContent = ServiceHelper.getCentralActIndexById(currentCentralActId);
-                webViewContent.getEngine().loadContent(htmlContent, "text/html");
+                engine.loadContent(htmlContent, "text/html");
             }else{
                 htmlContent = ServiceHelper.getCentralActContentById(currentCentralActId, currentCentralActSectionTitle);
-                webViewContent.getEngine().loadContent(htmlContent, "text/html");
+                engine.loadContent(htmlContent, "text/html");
             }
 
 //            webViewContent.setZoom(webViewContent.getZoom() * 1.1);
@@ -340,15 +342,7 @@ public class CentralActController implements Initializable {
                 e.printStackTrace();
             }
         });
-
-//        webViewContent.getEngine().getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>() {
-//            public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
-//                if (newState == Worker.State.SUCCEEDED) {
-//                    webViewContent.setEventDispatcher(webEventDispatcher);
-//                }
-//            }
-//        });
-
+        webViewContent.setContextMenuEnabled(false);
         WebEventDispatcher webEventDispatcher = new WebEventDispatcher(webViewContent.getEventDispatcher());
 
         /*Webview click event*/
@@ -356,9 +350,9 @@ public class CentralActController implements Initializable {
             public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
                 if (newState == Worker.State.SUCCEEDED) {
                     webViewContent.setEventDispatcher(webEventDispatcher);
-//                    if (Queries.IS_COPY_DISABLE){
-//                        webViewContent.setEventDispatcher(webEventDispatcher);
-//                    }
+                    if (Queries.IS_COPY_DISABLE){
+                        webViewContent.setEventDispatcher(webEventDispatcher);
+                    }
                     // note next classes are from org.w3c.dom domain
                     EventListener listener = new EventListener() {
                         public void handleEvent(Event ev) {
@@ -368,8 +362,8 @@ public class CentralActController implements Initializable {
                                 if (href.contains("~")){
                                     act = href.substring(0, href.indexOf("~")).replace("act:", "").trim();
                                     section = href.substring(href.indexOf("~") + 1).trim();
+                                    engine.executeScript("alert('" + section + "');");
                                     comboboxType.getSelectionModel().select(section);
-//                                    comboboxType.setSelectionModel(section);
                                 }else{
                                     act = href.replace("act:", "").trim();
                                 }
@@ -392,7 +386,6 @@ public class CentralActController implements Initializable {
                         Document doc = engine.getDocument();
                         org.w3c.dom.NodeList nodeList = doc.getElementsByTagName("a");
                         for (int i = 0; i < nodeList.getLength(); i++) {
-//                            org.w3c.dom.Node node = nodeList.item(i);
                             org.w3c.dom.events.EventTarget eventTarget = (org.w3c.dom.events.EventTarget) nodeList.item(i);
                             eventTarget.addEventListener("click", listener, false);
                         }
@@ -436,6 +429,7 @@ public class CentralActController implements Initializable {
                     }
                 }
         );
+
     }
 
     private boolean showEmailDialogWindow() {
