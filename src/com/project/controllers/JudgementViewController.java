@@ -165,7 +165,7 @@ public class JudgementViewController implements Initializable {
 //        webViewDocView.setZoom(webViewDocView.getZoom() * 1.1);
 
         if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-            btnGoogleTranslator.setStyle("-fx-background-color: steelblue");
+//            btnGoogleTranslator.setStyle("-fx-background-color: steelblue");
 //            btnBookMark.setStyle("-fx-background-color: steelblue");
 //            btnHighlightPre.setStyle("-fx-background-color: steelblue");
 //            btnHighlightNext.setStyle("-fx-background-color: steelblue");
@@ -181,7 +181,8 @@ public class JudgementViewController implements Initializable {
 //            btnPDF.setStyle("-fx-background-color: steelblue");
 //            btnMail.setStyle("-fx-background-color: steelblue");
 //            btnPrint.setStyle("-fx-background-color: steelblue");
-            btnTruePrint.setStyle("-fx-background-color: steelblue");
+//            btnTruePrint.setStyle("-fx-background-color: steelblue");
+            btnTruePrint.setVisible(false);
         }
 
         String base64 = "";
@@ -202,29 +203,29 @@ public class JudgementViewController implements Initializable {
             }
         });
 
-        btnGoogleTranslator.setOnAction(event -> {
-            String _html = (String) engine.executeScript("document.documentElement.outerHTML");
-            try {
-                try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                        new FileOutputStream(Paths.get(Queries.RESOURCE_PATH, "temp.html").toString()), "utf-8"))) {
-                    writer.write(_html);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            File f = new File(Paths.get(Queries.RESOURCE_PATH, "temp.html").toString());
-            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-                try {
-                    Desktop.getDesktop().browse(new URI(f.toURI().toString()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
-                }
-            }
-//            showBookmarkAddDialogWindow();
-        });
+//        btnGoogleTranslator.setOnAction(event -> {
+//            String _html = (String) engine.executeScript("document.documentElement.outerHTML");
+//            try {
+//                try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+//                        new FileOutputStream(Paths.get(Queries.RESOURCE_PATH, "temp.html").toString()), "utf-8"))) {
+//                    writer.write(_html);
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            File f = new File(Paths.get(Queries.RESOURCE_PATH, "temp.html").toString());
+//            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+//                try {
+//                    Desktop.getDesktop().browse(new URI(f.toURI().toString()));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                } catch (URISyntaxException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+////            showBookmarkAddDialogWindow();
+//        });
 
         btnTruePrint.setOnAction(event -> {
             HashMap<String, String> userDetails = (HashMap<String, String>) getUserDetails();

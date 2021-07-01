@@ -429,7 +429,6 @@ public class CentralActController implements Initializable {
                     }
                 }
         );
-
     }
 
     private boolean showEmailDialogWindow() {

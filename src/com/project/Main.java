@@ -547,7 +547,7 @@ public class Main extends Application {
         alert.setHeaderText(Queries.APPLICATION_NAME);
 //        alert.setContentText("I have a great message for you!");
         alert.showAndWait().ifPresent(rs -> {
-            if (rs == ButtonType.OK) {
+            if (rs.getText() == "Yes") {
                 System.exit(0);
                 Object obj = new Object();
                 WeakReference ref = new WeakReference<Object>(obj);
@@ -556,6 +556,8 @@ public class Main extends Application {
                     System.out.println(ref.toString());
                     System.gc();
                 }
+            }else{
+                event.consume();
             }
         });
 
