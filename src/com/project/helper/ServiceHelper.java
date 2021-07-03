@@ -342,6 +342,9 @@ public class ServiceHelper {
     }
 
     public static String getCentralActContentById(String id, String Type) {
+        String googleTranslatorScript = "<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en'},'google_translate_element');}</script> <script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>";
+        String googleTranslatorDiv = "<div id=\"google_translate_element\"></div>";
+
         String query = "DocType:BareActs", sortBy = "",facet_fields = "",
                 fields = "title,Type,summary,content_store", hl_fields = "", filter_query = "id:\"" + id + "\" AND Type:\"" + Type + "\"";
 
@@ -371,7 +374,7 @@ public class ServiceHelper {
                     stb.append(content);
 
                 }
-                return "<html><head><meta charset=\"UTF-8\"><style>body {font-size:" + Queries.PRINT_SETTING_MODEL.getDisplayFontSize() + "px;}</style></head><body>" + stb.toString() + "</body></html>";
+                return "<html><head><meta charset=\"UTF-8\">" + googleTranslatorScript + "<style>body {font-size:" + Queries.PRINT_SETTING_MODEL.getDisplayFontSize() + "px;}</style></head>" + googleTranslatorDiv + "<body>" + stb.toString() + "</body></html>";
             }
         } catch (Exception ex) {
             Logger.getLogger(ServiceHelper.class.getName()).log(Level.SEVERE, null, ex);
@@ -380,6 +383,9 @@ public class ServiceHelper {
     }
 
     public static String getCentralActIndexById(String id) {
+        String googleTranslatorScript = "<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en'},'google_translate_element');}</script> <script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>";
+        String googleTranslatorDiv = "<div id=\"google_translate_element\"></div>";
+
         String query = "DocType:BareActs", sortBy = "caseId_sort STRING ASC",facet_fields = "",
                 fields = "title,Type,summary,content_store", hl_fields = "", filter_query = "id:\"" + id + "\"";
 
@@ -412,7 +418,7 @@ public class ServiceHelper {
                 }
                 stb.append("</ul>");
 //                return stb.toString();
-                return "<html><head><meta charset=\"UTF-8\"><style>body {font-size:" + Queries.PRINT_SETTING_MODEL.getDisplayFontSize() + "px;}</style></head>\n<body>\n" + stb.toString() + "</body>\n</html>\n";
+                return "<html><head><meta charset=\"UTF-8\">" + googleTranslatorScript + "<style>body {font-size:" + Queries.PRINT_SETTING_MODEL.getDisplayFontSize() + "px;}</style></head>\n" + googleTranslatorDiv + "<body>\n" + stb.toString() + "</body>\n</html>\n";
             }
         } catch (Exception ex) {
             Logger.getLogger(ServiceHelper.class.getName()).log(Level.SEVERE, null, ex);

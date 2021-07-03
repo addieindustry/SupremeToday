@@ -395,12 +395,19 @@ public class JudgementViewController implements Initializable {
                     EventListener listener = new EventListener() {
                         public void handleEvent(Event ev) {
                             String href = ((org.w3c.dom.Element) ev.getTarget()).getAttribute("href");
+                            System.out.println("href");
+                            System.out.println(href);
                             if (!href.isEmpty()){
                                 if (href.startsWith("act:")) {
                                     showCentralActsDialogWindow(href);
                                 }else if (href.startsWith("overruled:")) {
-                                    loadOverruledHTML(href.replace("overruled:", ""));
-//                                    showCentralActsDialogWindow(href);
+                                    String search_query="caseId:" + href.replace("overruled:", "");
+                                    String sort_by="";
+                                    String hl_fields="false";
+                                    Multimap<String, String> filterBy = ArrayListMultimap.create();
+                                    resultViewHelper.showJudgementDialogWindow(1, search_query, sort_by, hl_fields, filterBy);
+
+//                                    loadOverruledHTML(href.replace("overruled:", ""));
                                 }else if (href.startsWith("#")) {
                                     ev.preventDefault();
                                     ev.stopPropagation();
@@ -755,7 +762,7 @@ public class JudgementViewController implements Initializable {
                                     hlCount += 1;
                                 }
                                 html = html.replace("<p align=\"justify\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>", "");
-                                stb.append("<p align=\"justify\"><strong>" + html + "</strong></p>");
+                                stb.append("<p align=\"justify\" style=\"color:red\"><strong>" + html + "</strong></p>");
                             }
                         }
                     }else{

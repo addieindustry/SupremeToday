@@ -274,6 +274,8 @@ public class Queries {
 "                {\"title\": \"whitelist\", \"isIndexed\": true, \"isStore\": true,\"isFacet\":false,\"fieldType\":\"INT\",\"isSort\":true,\"isEncrypt\":false,\"hl\":false},\n" +
 "                {\"title\": \"result\", \"isIndexed\": true, \"isStore\": true,\"isFacet\":true,\"fieldType\":\"DOC\",\"isSort\":false,\"isEncrypt\":false,\"hl\":false},\n" +
 "                {\"title\": \"DocType\", \"isIndexed\": true, \"isStore\": true,\"isFacet\":true,\"fieldType\":\"DOC\",\"isSort\":false,\"isEncrypt\":false,\"hl\":false}\n" +
+"                {\"title\": \"summary_new\", \"isIndexed\": true, \"isStore\": false,\"isFacet\":false,\"fieldType\":\"DOC\",\"isSort\":false,\"isEncrypt\":false,\"hl\":true}\n" +
+"                {\"title\": \"summary_new_store\", \"isIndexed\": false, \"isStore\": true,\"isFacet\":false,\"fieldType\":\"DOC\",\"isSort\":false,\"isEncrypt\":true,\"hl\":false}\n" +
 "            ],\n" +
 "            \"where\": \"courtId IN (%s)\"\n" +
 "        }\n" +

@@ -111,11 +111,12 @@ public class TabViewController implements Initializable {//, ClickEventHandler {
             hpDictionary.setStyle("-fx-text-fill: steelblue");
             hpBookmarks.setStyle("-fx-text-fill: steelblue");
             hpHistory.setStyle("-fx-text-fill: steelblue");
-            hpFeedBack.setStyle("-fx-text-fill: steelblue");
-            hpHelpManual.setStyle("-fx-text-fill: steelblue");
-            hpSupremeCourtofIndia.setStyle("-fx-text-fill: steelblue");
+//            hpFeedBack.setStyle("-fx-text-fill: steelblue");
+            hpFeedBack.setVisible(Boolean.FALSE);
+            hpHelpManual.setVisible(Boolean.FALSE);
+            hpSupremeCourtofIndia.setVisible(Boolean.FALSE);
             hpCauseList.setStyle("-fx-text-fill: steelblue");
-            hpAbout.setStyle("-fx-text-fill: steelblue");
+            hpAbout.setVisible(Boolean.FALSE);
             hpPrintSetting.setStyle("-fx-text-fill: steelblue");
             hpLiveUpdate.setStyle("-fx-text-fill: steelblue");
         }

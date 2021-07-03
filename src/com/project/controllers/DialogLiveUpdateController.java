@@ -78,7 +78,7 @@ public class DialogLiveUpdateController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("INITIALIZE");
+//        System.out.println("INITIALIZE");
 
         progressStatus.setVisible(false);
         columnVersion.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<LiveUpdateModel, String>, ObservableValue<String>>() {
@@ -125,16 +125,6 @@ public class DialogLiveUpdateController implements Initializable {
             }
             handleCancel();
         });
-
-//        Task task = new Task<Void>() {
-//            @Override public Void call() {
-//                final int max = 1000000;
-//                for (int i = 1; i <= max; i++) {
-//                    updateProgress(i, max);
-//                }
-//                return null;
-//            }
-//        };
 
         Task longTask = new Task<Void>() {
             @Override public Void call() {

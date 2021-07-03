@@ -45,6 +45,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import org.w3c.dom.Document;
 import org.w3c.dom.events.Event;
@@ -362,22 +363,13 @@ public class CentralActController implements Initializable {
                                 if (href.contains("~")){
                                     act = href.substring(0, href.indexOf("~")).replace("act:", "").trim();
                                     section = href.substring(href.indexOf("~") + 1).trim();
-                                    engine.executeScript("alert('" + section + "');");
-                                    comboboxType.getSelectionModel().select(section);
+//                                    engine.executeScript("alert('" + section + "');");
+//                                    comboboxType.getSelectionModel().select(section);
+                                    showCentralActsDialogWindow(href);
+
                                 }else{
                                     act = href.replace("act:", "").trim();
                                 }
-//                                String htmlContent = ServiceHelper.getCentralActContentById(act, section);
-//                                webViewContent.getEngine().loadContent(htmlContent, "text/html");
-
-//                                if (href.startsWith("act:")) {
-//                                    showCentralActsDialogWindow(href);
-////                                    href_query = "caseId:" + href;
-////                                    loadHTML("FullCase");
-//                                } else {
-//                                    href_query = "caseId:" + href;
-//                                    loadHTML("FullCase");
-//                                }
                             }
                         }
                     };
@@ -429,6 +421,61 @@ public class CentralActController implements Initializable {
                     }
                 }
         );
+    }
+
+    public boolean showCentralActsDialogWindow(String href) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/dialog_central_act.fxml"));
+            DialogCentralActController controller = new DialogCentralActController();
+            loader.setController(controller);
+            AnchorPane page = loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Central Act Dialog");
+            dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/project/resources/logo.png")));
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+//            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            /*disabled maximaize and minimize except close use*/
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+            dialogStage.initStyle(StageStyle.UTILITY);
+            dialogStage.setResizable(false);
+
+//             Set the person into the controller
+//            DialogBookmarkAddController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+
+            controller.initData(href);
+            //            controller.setPerson(person);
+
+
+
+            /*Close window on Escap key press*/
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent evt) {
+                    if (evt.getCode().equals(KeyCode.ESCAPE)) {
+                        dialogStage.close();
+                    }
+                }
+            });
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            if (!controller.isOkClicked()) {
+
+            }
+
+            return controller.isOkClicked();
+//            return true;
+        } catch (IOException e) {
+            // Exception gets thrown if the fxml file could not be loaded
+            e.printStackTrace();
+            new Utils().showErrorDialog(e);
+            return true;
+        }
     }
 
     private boolean showEmailDialogWindow() {

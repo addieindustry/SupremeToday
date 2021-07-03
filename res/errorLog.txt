@@ -216,3 +216,8 @@ java.lang.NullPointerException at ResultViewHelper.loadTableData():506
 
 23/06/2021 12:26:36
 java.lang.NullPointerException at ResultViewHelper.loadTableData():514
+
+01/07/2021 12:45:15
+javafx.fxml.LoadException: 
+/E:/Old_Backup/SupremeToday/SupremeToday/out/production/SupremeToday/com/project/ui/dialog_judgement_view.fxml
+ at ResultViewHelper.showJudgementDialogWindow():143
