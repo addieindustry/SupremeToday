@@ -792,9 +792,11 @@ public class JudgementViewController implements Initializable {
                         stb.append("<span style=\"color:blue\"><strong>" + obj.get("acts_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "</strong></span><br/><br/>");
                     }
 
-                    if (!obj.get("impNotes_store").getAsString().isEmpty()) {
-                        if (obj.get("impNotes_store").getAsString().trim().length() > 3) {
-                            stb.append("<span style=\"color:red\">" + obj.get("impNotes_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "</span><br/><br/>");
+                    if (Queries.IS_SUPREME_TODAY_APP == Boolean.TRUE){
+                        if (!obj.get("impNotes_store").getAsString().isEmpty()) {
+                            if (obj.get("impNotes_store").getAsString().trim().length() > 3) {
+                                stb.append("<span style=\"color:red\">" + obj.get("impNotes_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "</span><br/><br/>");
+                            }
                         }
                     }
 
