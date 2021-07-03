@@ -735,7 +735,12 @@ public class JudgementViewController implements Initializable {
                         String html = obj.get("judgementHeader_store").getAsString().replace("<#hPreTag#", "<").replace("</#hPreTag#", "</").replace("#hPostTag#>", ">");
                         while (html.contains(startIndex) && html.contains(endIndex)) {
                             String hlTag = html.substring(html.indexOf(startIndex), html.indexOf(endIndex, html.indexOf(startIndex) + startIndex.length()) + endIndex.length());
-                            html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:lightblue;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
+                            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                                html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:yellow;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
+                            }else{
+                                html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:lightblue;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
+                            }
+
                             hlCount += 1;
                         }
 //                        html = html.replace("<BR>Versus<BR>", "Versus");
@@ -758,7 +763,7 @@ public class JudgementViewController implements Initializable {
                                 String html = obj.get("summary_new_store").getAsString().replace("<#hPreTag#", "<").replace("</#hPreTag#", "</").replace("#hPostTag#>", ">");
                                 while (html.contains(startIndex) && html.contains(endIndex)) {
                                     String hlTag = html.substring(html.indexOf(startIndex), html.indexOf(endIndex, html.indexOf(startIndex) + startIndex.length()) + endIndex.length());
-                                    html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:lightblue;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
+                                    html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:yellow;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
                                     hlCount += 1;
                                 }
                                 html = html.replace("<p align=\"justify\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>", "");
@@ -817,7 +822,11 @@ public class JudgementViewController implements Initializable {
                         String html = obj.get("content_store").getAsString().replace("<#hPreTag#", "<").replace("</#hPreTag#", "</").replace("#hPostTag#>", ">");
                         while (html.contains(startIndex) && html.contains(endIndex)) {
                             String hlTag = html.substring(html.indexOf(startIndex), html.indexOf(endIndex, html.indexOf(startIndex) + startIndex.length()) + endIndex.length());
-                            html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:lightblue;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
+                            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                                html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:yellow;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
+                            }else{
+                                html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:lightblue;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
+                            }
                             hlCount += 1;
                         }
 

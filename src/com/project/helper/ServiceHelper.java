@@ -1646,6 +1646,7 @@ public class ServiceHelper {
             for (PropertyMaster.TableMaster table : pm.getSchema()) {
                 if (table.getTableName().equals("cases_all")) {
                     propData = table;
+                    System.out.println("break");
                     break;
                 }
             }
@@ -1654,6 +1655,7 @@ public class ServiceHelper {
             for (PropertyMaster.TableMaster table : pm.getSchema()) {
                 if (table.getTableName().equals("BareActs")) {
                     actPropData = table;
+                    System.out.println("break");
                     break;
                 }
             }

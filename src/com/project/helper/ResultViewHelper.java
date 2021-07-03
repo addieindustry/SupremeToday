@@ -349,8 +349,9 @@ public class ResultViewHelper {
                     String jDate = sm.format(format.parse(obj.get("decisionDate").getAsString()));
 
                     if (obj.get("impNotes_store").getAsString().length()>3){
-                        imp_notes = obj.get("impNotes_store").getAsString();
-//                        imp_notes = obj.get("impNotes_store").getAsString().replace("<br/>", System.lineSeparator());
+                        if (Queries.IS_SUPREME_TODAY_APP == Boolean.TRUE){
+                            imp_notes = obj.get("impNotes_store").getAsString();
+                        }
                     }
 
                     if (imp_notes.length()>3){

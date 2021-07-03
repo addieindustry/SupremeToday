@@ -34,9 +34,9 @@ public class Queries {
     public static final String APPLICATION_NAME = "Indian CaseLaw Finder";
 
 //      public static final String CURRENT_PATH = Paths.get("").toString();
-//    public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "SupremeToday-2.0").toString();
+    public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "SupremeToday-2.0").toString();
   //  public static final String CURRENT_PATH = Paths.get("D:", "Projects", "SupremeToday", "SupremeToday").toString();
-    public static final String CURRENT_PATH = Paths.get("E:", "Old_Backup", "SupremeToday", "SupremeToday").toString();
+//    public static final String CURRENT_PATH = Paths.get("E:", "Old_Backup", "SupremeToday", "SupremeToday").toString();
     public static final String DATA_PATH=Paths.get(CURRENT_PATH, "Data").toString();
     public static final String RESOURCE_PATH=Paths.get(CURRENT_PATH, "res").toString();
     public static final String TEMP_FILE_PATH=Paths.get(CURRENT_PATH, "lib", "temp.html").toString();
@@ -275,9 +275,9 @@ public class Queries {
 "                {\"title\": \"benchcounter\", \"isIndexed\": true, \"isStore\": false,\"isFacet\":false,\"fieldType\":\"INT\",\"isSort\":true,\"isEncrypt\":false,\"hl\":false},\n" +
 "                {\"title\": \"whitelist\", \"isIndexed\": true, \"isStore\": true,\"isFacet\":false,\"fieldType\":\"INT\",\"isSort\":true,\"isEncrypt\":false,\"hl\":false},\n" +
 "                {\"title\": \"result\", \"isIndexed\": true, \"isStore\": true,\"isFacet\":true,\"fieldType\":\"DOC\",\"isSort\":false,\"isEncrypt\":false,\"hl\":false},\n" +
-"                {\"title\": \"DocType\", \"isIndexed\": true, \"isStore\": true,\"isFacet\":true,\"fieldType\":\"DOC\",\"isSort\":false,\"isEncrypt\":false,\"hl\":false}\n" +
-"                {\"title\": \"summary_new\", \"isIndexed\": true, \"isStore\": false,\"isFacet\":false,\"fieldType\":\"DOC\",\"isSort\":false,\"isEncrypt\":false,\"hl\":true}\n" +
-"                {\"title\": \"summary_new_store\", \"isIndexed\": false, \"isStore\": true,\"isFacet\":false,\"fieldType\":\"DOC\",\"isSort\":false,\"isEncrypt\":true,\"hl\":false}\n" +
+"                {\"title\": \"DocType\", \"isIndexed\": true, \"isStore\": true,\"isFacet\":true,\"fieldType\":\"DOC\",\"isSort\":false,\"isEncrypt\":false,\"hl\":false},\n" +
+"                {\"title\": \"summary_new\", \"isIndexed\": true, \"isStore\": false, \"isFacet\":false, \"fieldType\":\"DOC\", \"isSort\":false,\"isEncrypt\":false,\"hl\":true},\n" +
+"                {\"title\": \"summary_new_store\", \"isIndexed\": false, \"isStore\": true,\"isFacet\":false, \"fieldType\":\"DOC\", \"isSort\":false,\"isEncrypt\":true,\"hl\":false}\n" +
 "            ],\n" +
 "            \"where\": \"courtId IN (%s)\"\n" +
 "        }\n" +
