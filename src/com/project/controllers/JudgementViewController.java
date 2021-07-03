@@ -780,7 +780,6 @@ public class JudgementViewController implements Initializable {
                         }
                     }
 
-
                     String casesReferred = ServiceHelper.getCaseReferedByCaseId(obj.get("caseId").getAsString());
                     if (!casesReferred.isEmpty()) {
                         if (casesReferred.trim().length() > 3) {

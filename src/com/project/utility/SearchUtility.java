@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.zip.DataFormatException;
 
+import com.project.helper.Queries;
 import com.project.helper.ServiceHelper;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.miscellaneous.PerFieldAnalyzerWrapper;
@@ -87,6 +88,10 @@ public class SearchUtility {
 //            String[] fieldList = new String[]{"judgementHeader","content","summary","acts","result","citation"};
             String[] fieldList = new String[]{"judgementHeader","content","summary","result","citation"};
 
+            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                fieldList = new String[]{"judgementHeader", "content", "summary_new", "result", "citation"};
+            }
+
             BooleanClause.Occur[] flags = new BooleanClause.Occur[fieldList.length];
             for (int i = 0; i < fieldList.length; i++) {
 //                flags[i] = BooleanClause.Occur.MUST;
@@ -99,7 +104,11 @@ public class SearchUtility {
             boosts.put("acts", Float.valueOf(8));
             boosts.put("result", Float.valueOf(8));
             boosts.put("citation", Float.valueOf(8));
-            boosts.put("summary", Float.valueOf(7));
+            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                boosts.put("summary_new", Float.valueOf(7));
+            }else {
+                boosts.put("summary", Float.valueOf(7));
+            }
             boosts.put("judge", Float.valueOf(3));
             boosts.put("advocates", Float.valueOf(3));
             boosts.put("content", Float.valueOf(1));
@@ -135,7 +144,11 @@ public class SearchUtility {
             boosts.put("acts", Float.valueOf(8));
             boosts.put("result", Float.valueOf(8));
             boosts.put("citation", Float.valueOf(8));
-            boosts.put("summary", Float.valueOf(7));
+            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                boosts.put("summary_new", Float.valueOf(7));
+            }else {
+                boosts.put("summary", Float.valueOf(7));
+            }
             boosts.put("judge", Float.valueOf(3));
             boosts.put("advocates", Float.valueOf(3));
             boosts.put("content", Float.valueOf(1));

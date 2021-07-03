@@ -27,11 +27,11 @@ public class Queries {
     //Apply FALSE instead of TRUE on below line to Enable Copy
     public static final Boolean IS_COPY_DISABLE = Boolean.TRUE;
 
-    public static final Boolean IS_SUPREME_TODAY_APP = Boolean.TRUE;
-    public static final String APPLICATION_NAME = "Supreme Today";
+//    public static final Boolean IS_SUPREME_TODAY_APP = Boolean.TRUE;
+//    public static final String APPLICATION_NAME = "Supreme Today";
 
-//    public static final Boolean IS_SUPREME_TODAY_APP = Boolean.FALSE;
-//    public static final String APPLICATION_NAME = "Indian CaseLaw Finder";
+    public static final Boolean IS_SUPREME_TODAY_APP = Boolean.FALSE;
+    public static final String APPLICATION_NAME = "Indian CaseLaw Finder";
 
 //      public static final String CURRENT_PATH = Paths.get("").toString();
 //    public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "SupremeToday-2.0").toString();
@@ -107,6 +107,8 @@ public class Queries {
 
     public static final String LUCENEFIELD_SUMMARY = "summary";
     public static final String LUCENEFIELD_SUMMARY_STORE = "summary_store";
+    public static final String LUCENEFIELD_SUMMARY_NEW = "summary_new";
+    public static final String LUCENEFIELD_SUMMARY_NEW_STORE = "summary_new_store";
     public static final String LUCENEFIELD_CONTENT = "content";
     public static final String LUCENEFIELD_CONTENT_STORE = "content_store";
     public static final String LUCENEFIELD_CITATION = "citation";
