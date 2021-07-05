@@ -380,7 +380,7 @@ public class TabViewController implements Initializable {//, ClickEventHandler {
             @Override
             public void openAdvanceSearchView(String actTitle, String sectionTitle) {
                 if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-                    tabpan.getSelectionModel().select(3);
+                    tabpan.getSelectionModel().select(4);
                 }else{
                     if (ServiceHelper.isCommentaryHide()!=1)
                     {
