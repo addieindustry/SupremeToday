@@ -72,8 +72,8 @@ public class Main extends Application {
     private static final int SPLASH_WIDTH = 518;
     private static final int SPLASH_HEIGHT = 311;
 
-   // private boolean isAutoUpdateApplication = true;
-     private static boolean isAutoUpdateApplication = false;
+//    private boolean isAutoUpdateApplication = true;
+    private static boolean isAutoUpdateApplication = false;
 
     public static void main(String[] args) throws Exception {
         Queries.SESSION = new Date().getTime();
@@ -328,7 +328,7 @@ public class Main extends Application {
                     {
                         try {
                             if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-                                WinRegistry.writeStringValue(WinRegistry.HKEY_CURRENT_USER, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", "ICLFAutoUpdate",  Queries.AUTO_UPDATE_EXE_FILE.replace("SupremeTodayAutoUpdate.exe", "ICLFAutoUpdate.exe"));
+                                WinRegistry.writeStringValue(WinRegistry.HKEY_CURRENT_USER, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", "ICLFAutoUpdate",  Queries.AUTO_UPDATE_EXE_FILE.replaceAll("SupremeTodayAutoUpdate.exe", "ICLFAutoUpdate.exe"));
                             }else{
                                 WinRegistry.writeStringValue(WinRegistry.HKEY_CURRENT_USER, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", "SupremeTodayAutoUpdate",  Queries.AUTO_UPDATE_EXE_FILE);
                             }

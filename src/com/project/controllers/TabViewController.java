@@ -930,8 +930,8 @@ public class TabViewController implements Initializable {//, ClickEventHandler {
         if (OSValidator.isWindows()){
             try {
                 if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-                    Runtime.getRuntime().exec("cmd /c start " + Queries.AUTO_UPDATE_EXE_FILE_SINGLEFILEPATH.replace("SupremeToday", "ICLF"));
-                    Runtime.getRuntime().exec("cmd /c start " + Queries.AUTO_UPDATE_EXE_FILE_SINGLEFILEPATH.replace("SupremeToday", "ICLF"));
+                    Runtime.getRuntime().exec("cmd /c start " + Queries.AUTO_UPDATE_EXE_FILE_SINGLEFILEPATH.replaceAll("SupremeToday", "ICLF"));
+                    Runtime.getRuntime().exec("cmd /c start " + Queries.AUTO_UPDATE_EXE_FILE_SINGLEFILEPATH.replaceAll("SupremeToday", "ICLF"));
                 }else{
                     Runtime.getRuntime().exec("cmd /c start " + Queries.AUTO_UPDATE_EXE_FILE_SINGLEFILEPATH);
                     Runtime.getRuntime().exec("cmd /c start " + Queries.AUTO_UPDATE_EXE_FILE_SINGLEFILEPATH);
