@@ -72,7 +72,7 @@ public class Main extends Application {
     private static final int SPLASH_WIDTH = 518;
     private static final int SPLASH_HEIGHT = 311;
 
-//    private boolean isAutoUpdateApplication = true;
+  //   private boolean isAutoUpdateApplication = true;
     private static boolean isAutoUpdateApplication = false;
 
     public static void main(String[] args) throws Exception {

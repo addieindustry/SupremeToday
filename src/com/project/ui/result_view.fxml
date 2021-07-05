@@ -166,7 +166,7 @@
                                           </FXCollections>
                                        </items>
                                     </ComboBox>
-                                    <Button id="button" fx:id="btnFullCollapse" mnemonicParsing="false" minHeight="25.0" minWidth="60.0" text="Back">
+                                    <Button id="button" fx:id="btnFullCollapse" mnemonicParsing="false" minHeight="25.0" minWidth="60.0" text="Refine">
                                        <tooltip>
                                           <Tooltip text="Click for the Full View" />
                                        </tooltip>
