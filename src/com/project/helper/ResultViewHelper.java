@@ -172,8 +172,7 @@ public class ResultViewHelper {
                 facet_fields = "DocType,courttitle,finalyear";
             }
 
-            String fields = "title,decisionDate,Type,DocType,courttitle,cited,bench,caseId,impNotes_store,summary,summary_store,acts_store,whitelist,overruled,isoverruled";
-
+            String fields = "title,decisionDate,Type,DocType,courttitle,cited,bench,caseId,impNotes_store,summary,summary_store,summary_new_store,acts_store,whitelist,overruled,isoverruled";
 
 //            String fields = "title,decisionDate,Type,DocType,courttitle,cited,bench,caseId,impNotes_store,summary_store,acts_store,whitelist";
 //            String hl_fields = "";
@@ -333,8 +332,6 @@ public class ResultViewHelper {
                 JsonObject obj = (JsonObject) ele;
                 String summary="";
                 String imp_notes = "";
-//                String summary = "Hello World!<br/>testing of summary in tooltip<br/>Hello World!<br/>testing of summary in tooltip<br/>Hello World!<br/>testing of summary in tooltip<br/>Hello World!<br/>testing of summary in tooltip<br/>Hello World!<br/>testing of summary in tooltip<br/>Hello World!<br/>testing of summary in tooltip<br/>Hello World!<br/>testing of summary in tooltip<br/>Hello World!<br/>testing of summary in tooltip<br/>Hello World!<br/>testing of summary in tooltip<br/>Hello World!<br/>testing of summary in tooltip<br/>";
-//                String imp_notes = "Hello World! testing of imp notes in tooltip";
                 String whiteList = "";
 
                 if (obj.get("DocType").getAsString().equals("Judgements")){
@@ -431,38 +428,81 @@ public class ResultViewHelper {
                         stb.append(" | <span style=\"color:red ; font-weight: bold\">Overruled</span>");
                     };
 
-                    if (obj.get("summary_store").getAsString().length()!=0){
-                        summary = obj.get("summary_store").getAsString();
-                        if (summary.contains("<Body>")){
-                            summary = summary.substring(summary.indexOf("<Body>") + 6).trim();
-                        }
-                        if (summary.contains("</body>")){
-                            summary = summary.substring(0, summary.indexOf("</body>")).trim();
-                        }
-//                        summary = summary.replace(System.lineSeparator(), "").replace("/n", "").trim();
-                        summary = summary.replace("</p>", "").replace("<p align=\"justify\">", "");
-//                        summary = summary.replaceAll("<[^>]*>", "");
-                        summary = summary.replace("\t", "");
-
-                        if (summary.length()>3)
-                        {
-                            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-                                stb.append("<a href=\"#\" data-tooltip=\""+srNo+"h\" style=\"float:right;background-color:steelblue;color:white;padding: 2px 5px 2px 5px;border-style: solid;border-width: 2px;font-weight:bold\">HN</a>");
-                            }else{
-                                stb.append("<a href=\"#\" data-tooltip=\""+srNo+"h\" style=\"float:right;background-color:darkred;color:white;padding: 2px 5px 2px 5px;border-style: solid;border-width: 2px;font-weight:bold\">HN</a>");
-                            }
-                            stbTooltip.append("<div class=\"tooltip\" id=\"open\" data-tooltip=\""+srNo+"h\">"+summary+"</div>");
-                        }
-
+//                    if (obj.get("summary_store").getAsString().length()!=0){
+//                        summary = obj.get("summary_store").getAsString();
+//                        if (summary.contains("<Body>")){
+//                            summary = summary.substring(summary.indexOf("<Body>") + 6).trim();
+//                        }
+//                        if (summary.contains("</body>")){
+//                            summary = summary.substring(0, summary.indexOf("</body>")).trim();
+//                        }
+////                        summary = summary.replace(System.lineSeparator(), "").replace("/n", "").trim();
+//                        summary = summary.replace("</p>", "").replace("<p align=\"justify\">", "");
+////                        summary = summary.replaceAll("<[^>]*>", "");
+//                        summary = summary.replace("\t", "");
+//
 //                        if (summary.length()>3)
 //                        {
-//                            stb.append("<div class=\"html-tooltip-demo\" data-tooltip data-options='{\"direction\":\"up\", \"content\": \"" + summary + "\"}'><span style=\"float:right;background-color:darkred;color:white;padding: 2px 5px 2px 5px;border-style: solid;border-width: 2px;font-weight:bold;font-size:14px;\">HN</span></div>");
+//                            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+//                                summary = "";
+//                                if (obj.get("summary_new_store").getAsString().length()!=0){
+//                                    summary = obj.get("summary_new_store").getAsString();
+//                                }
+//                                stb.append("<a href=\"#\" data-tooltip=\""+srNo+"h\" style=\"float:right;background-color:steelblue;color:white;padding: 2px 5px 2px 5px;border-style: solid;border-width: 2px;font-weight:bold\">HN</a>");
+//                                stbTooltip.append("<div class=\"tooltip\" id=\"open\" data-tooltip=\""+srNo+"h\">"+summary+"</div>");
+//                            }else{
+//                                stb.append("<a href=\"#\" data-tooltip=\""+srNo+"h\" style=\"float:right;background-color:darkred;color:white;padding: 2px 5px 2px 5px;border-style: solid;border-width: 2px;font-weight:bold\">HN</a>");
+//                                stbTooltip.append("<div class=\"tooltip\" id=\"open\" data-tooltip=\""+srNo+"h\">"+summary+"</div>");
+//                            }
 //                        }
-//                        stb.append("<a class=\"tooltip tooltip-scroll\"><div class=\"wrapper\"><span class=\"tooltip-text\">" + summary + "</span></div></a>");
+//
+////                        if (summary.length()>3)
+////                        {
+////                            stb.append("<div class=\"html-tooltip-demo\" data-tooltip data-options='{\"direction\":\"up\", \"content\": \"" + summary + "\"}'><span style=\"float:right;background-color:darkred;color:white;padding: 2px 5px 2px 5px;border-style: solid;border-width: 2px;font-weight:bold;font-size:14px;\">HN</span></div>");
+////                        }
+////                        stb.append("<a class=\"tooltip tooltip-scroll\"><div class=\"wrapper\"><span class=\"tooltip-text\">" + summary + "</span></div></a>");
+//
+////                        stb.append("<a class=\"tooltip tooltip-scroll\">HN<div class=\"wrapper\"><span class=\"tooltip-text\">" + summary + "</span></div></a>");
+////                        stb.append("<a title='"+obj.get("summary_store").getAsString()+"'>HN</a>");
+////                        stb.append("<a class=\"tooltip\" data-tool='"+obj.get("summary_store").getAsString()+"'>HN</a>");
+//                    }
 
-//                        stb.append("<a class=\"tooltip tooltip-scroll\">HN<div class=\"wrapper\"><span class=\"tooltip-text\">" + summary + "</span></div></a>");
-//                        stb.append("<a title='"+obj.get("summary_store").getAsString()+"'>HN</a>");
-//                        stb.append("<a class=\"tooltip\" data-tool='"+obj.get("summary_store").getAsString()+"'>HN</a>");
+                    if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                        if (obj.get("summary_new_store").getAsString().length()!=0){
+                            summary = obj.get("summary_new_store").getAsString();
+                            if (summary.contains("<Body>")){
+                                summary = summary.substring(summary.indexOf("<Body>") + 6).trim();
+                            }
+                            if (summary.contains("</body>")){
+                                summary = summary.substring(0, summary.indexOf("</body>")).trim();
+                            }
+                            summary = summary.replace("</p>", "").replace("<p align=\"justify\">", "");
+                            summary = summary.replace("\t", "");
+
+                            if (summary.length()>3)
+                            {
+                                stb.append("<a href=\"#\" data-tooltip=\""+srNo+"h\" style=\"float:right;background-color:steelblue;color:white;padding: 2px 5px 2px 5px;border-style: solid;border-width: 2px;font-weight:bold\">HN</a>");
+                                stbTooltip.append("<div class=\"tooltip\" id=\"open\" data-tooltip=\""+srNo+"h\">"+summary+"</div>");
+                            }
+                        }
+                    }else{
+                        if (obj.get("summary_store").getAsString().length()!=0){
+                            summary = obj.get("summary_store").getAsString();
+                            if (summary.contains("<Body>")){
+                                summary = summary.substring(summary.indexOf("<Body>") + 6).trim();
+                            }
+                            if (summary.contains("</body>")){
+                                summary = summary.substring(0, summary.indexOf("</body>")).trim();
+                            }
+                            summary = summary.replace("</p>", "").replace("<p align=\"justify\">", "");
+                            summary = summary.replace("\t", "");
+
+                            if (summary.length()>3)
+                            {
+                                stb.append("<a href=\"#\" data-tooltip=\""+srNo+"h\" style=\"float:right;background-color:darkred;color:white;padding: 2px 5px 2px 5px;border-style: solid;border-width: 2px;font-weight:bold\">HN</a>");
+                                stbTooltip.append("<div class=\"tooltip\" id=\"open\" data-tooltip=\""+srNo+"h\">"+summary+"</div>");
+                            }
+                        }
                     }
                 }
                 else if (obj.get("DocType").getAsString().equals("WordPhrase")){
