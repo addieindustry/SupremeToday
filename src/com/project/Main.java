@@ -72,8 +72,8 @@ public class Main extends Application {
     private static final int SPLASH_WIDTH = 518;
     private static final int SPLASH_HEIGHT = 311;
 
- //    private boolean isAutoUpdateApplication = true;
-    private static boolean isAutoUpdateApplication = false;
+     private boolean isAutoUpdateApplication = true;
+  //private static boolean isAutoUpdateApplication = false;
 
     public static void main(String[] args) throws Exception {
         Queries.SESSION = new Date().getTime();
@@ -168,6 +168,7 @@ public class Main extends Application {
                 if (new File(Queries.INDEX_PATH).exists()) {
                     Queries.PRINT_COUNT = CommanHelper.getCurrentValue(Queries.INDEX_PATH + "/_segment001", "P");
                     Queries.PDF_COUNT = CommanHelper.getCurrentValue(Queries.INDEX_PATH + "/_segment001", "D");
+//                    PropertyHelper.create_property_file();
                     PropertyHelper.read_property_file();
                     //System.out.println("PRINT_COUNT::" + Queries.PRINT_COUNT);
 //                launch(args);

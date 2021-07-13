@@ -35,7 +35,13 @@ public class PropertyHelper {
             prop.setProperty("database", encryptor.encrypt("localhost"));
             prop.setProperty("emailuser", encryptor.encrypt("apikey"));
             prop.setProperty("emailpassword", encryptor.encrypt("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"));
-            prop.setProperty("dongleurl", encryptor.encrypt("http://supreme-today.com:8080/api/set_dongle_license"));
+//            prop.setProperty("dongleurl", encryptor.encrypt("http://supreme-today.com:8080/api/set_dongle_license"));
+//            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+//                prop.setProperty("dongleurl", encryptor.encrypt("http://supreme-today.com:8080/api/set_dongle_license"));
+//            }else{
+//                prop.setProperty("dongleurl", encryptor.encrypt("http://indiancaselawfinder.com:8080/api/set_dongle_license"));
+//            }
+
 
             // save properties to project root folder
             prop.store(output, null);
@@ -78,7 +84,7 @@ public class PropertyHelper {
 
         Queries.EMAIL_USER_NAME_IN_CHAR = encryptor.decrypt(props.getProperty("emailuser")).toCharArray();
         Queries.EMAIL_PASSWORD_IN_CHAR = encryptor.decrypt(props.getProperty("emailpassword")).toCharArray();
-        Queries.DONGLE_API_URL= encryptor.decrypt(props.getProperty("dongleurl")).toString();
+//        Queries.DONGLE_API_URL= encryptor.decrypt(props.getProperty("dongleurl")).toString();
 //        System.out.println("props.getProperty(\"dongleurl\") : " + props.getProperty("dongleurl"));
 //        System.out.println("encryptor.decrypt(props.getProperty(\"dongleurl\")) : " + encryptor.decrypt(props.getProperty("dongleurl")));
 //        System.out.println("encryptor.decrypt(props.getProperty(\"dongleurl\")).toString() : " + encryptor.decrypt(props.getProperty("dongleurl")).toString());

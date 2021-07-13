@@ -236,6 +236,10 @@ public class LicenseForm {
                                     params.put("client_email", client_email);
 //                            String urlParam = "sub_id=" + URLEncoder.encode("JCZWKH") + "&";
 //                                    System.out.println("Queries.DONGLE_API_URL : " + Queries.DONGLE_API_URL);
+                                    if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                                        Queries.DONGLE_API_URL = Queries.DONGLE_API_URL.replaceAll("supreme-today.com", "indiancaselawfinder.com");
+                                    }
+                                    System.out.println("AFTER Queries.DONGLE_API_URL : " + Queries.DONGLE_API_URL);
                                     String ret1 = HttpClientHelper.excutePost(Queries.DONGLE_API_URL, params);
                                     JsonObject res = (JsonObject) new JsonParser().parse(ret1);
                                     if (res.get("code").getAsInt() == 200) {

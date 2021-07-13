@@ -1575,6 +1575,9 @@ public class ServiceHelper {
             HashMap<String, String> userDetails = (HashMap<String, String>) getUserDetails();
             HashMap<String, String> versionDetails = (HashMap<String, String>) getCurrentVersion().getData();
             String getUpdateQuery = "http://www.supreme-today.com:8080/api/get_desktop_updates?version=" + versionDetails.get("versionId") + "&sub_id=" + userDetails.get("sub_id") + "&lic_key=" + userDetails.get("lic_key");
+            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                getUpdateQuery = getUpdateQuery.replace("www.supreme-today.com", "www.indiancaselawfinder.com");
+            }
             String ret = HttpClientHelper.sendGET(getUpdateQuery);
 
             JsonObject j = (JsonObject) new JsonParser().parse(ret);
