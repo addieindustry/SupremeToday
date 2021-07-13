@@ -246,7 +246,12 @@ public class Main extends Application {
 
     private String getExpireInfo() {
         HashMap<String, String> userDetails = (HashMap<String, String>) getUserDetails();
+
         String url = Queries.LICENSE_EXPIRE_DATE_API + userDetails.get("sub_id");
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+            url = Queries.LICENSE_EXPIRE_DATE_API.replace("http://www.supreme-today.com:8080", "http://www.indiancaselawfinder.com:8080") + userDetails.get("sub_id");
+        }
+
         String license_info = "";
 
         try {
