@@ -358,7 +358,7 @@ public class Main extends Application {
     private static final String SINGLE_INSTANCE_FOCUS_MESSAGE = "focus";
     private static final String instanceId = UUID.randomUUID().toString();
 
-    private static final int FOCUS_REQUEST_PAUSE_MILLIS = 500;
+    private static final int FOCUS_REQUEST_PAUSE_MILLIS = 2000;
 
     public void runSingleInstantApplication() {
         CountDownLatch instanceCheckLatch = new CountDownLatch(1);
@@ -387,10 +387,20 @@ public class Main extends Application {
                     } catch (IOException e) {
                         System.out.println("Single instance listener unable to process focus message from client");
                         e.printStackTrace();
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Live Update Instance already Running!");
+                        alert.setHeaderText(Queries.APPLICATION_NAME);
+                        alert.setContentText("Please Close another Instance and Try here...");
+                        alert.showAndWait();
                     }
                 }
             } catch(java.net.BindException b) {
                 System.out.println("SingleInstanceApp already running");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Live Update Instance already Running!");
+                alert.setHeaderText(Queries.APPLICATION_NAME);
+                alert.setContentText("Please Close another Instance and Try here...");
+                alert.showAndWait();
 
                 try (
                         Socket clientSocket = new Socket(InetAddress.getLocalHost(), SINGLE_INSTANCE_LISTENER_PORT);
@@ -440,7 +450,6 @@ public class Main extends Application {
             mainStage.getIcons().add(new Image(getClass().getResourceAsStream("resources/logo.png")));
             mainStage.initModality(Modality.WINDOW_MODAL);
             Scene scene = new Scene(root);
-            System.out.println("Scene scene = new Scene(root);");
             mainStage.setScene(scene);
             createTrayIcon(mainStage);
             mainStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
