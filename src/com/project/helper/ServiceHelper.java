@@ -1258,6 +1258,32 @@ public class ServiceHelper {
         }
     }
 
+    public static String getOverruledIdByCaseId(String CaseId) {
+        try {
+            SqliteHelper sqliteHelper = new SqliteHelper(Queries.DB_PATH, false);
+            sqliteHelper.open();
+            String q = String.format(Queries.GET_OVERRULED_BY_CASEID, CaseId);
+            ResultSet rs = sqliteHelper.select(q);
+            List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+
+            String _caseIds = "";
+            while (rs.next()) {
+                DecimalFormat decimalFormat = new DecimalFormat("00000000000");
+                _caseIds = decimalFormat.format(Long.parseLong(rs.getString("white")));
+//                _caseIds.append("caseId:\"" + decimalFormat.format(Long.parseLong(rs.getString("white"))) + "\" OR ");
+//                _caseIds.append("caseId:\"" + decimalFormat.format(Integer.parseInt(rs.getString("white"))) + "\" OR ");
+            }
+            sqliteHelper.close();
+            return _caseIds;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ServiceHelper.class.getName()).log(Level.SEVERE, null, ex);
+            return "";
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceHelper.class.getName()).log(Level.SEVERE, null, ex);
+            return "";
+        }
+    }
+
     public static String getOverruledByCaseId(String CaseId) {
         try {
             SqliteHelper sqliteHelper = new SqliteHelper(Queries.DB_PATH, false);

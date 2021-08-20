@@ -401,12 +401,20 @@ public class JudgementViewController implements Initializable {
                                 if (href.startsWith("act:")) {
                                     showCentralActsDialogWindow(href);
                                 }else if (href.startsWith("overruled:")) {
-                                    String search_query="caseId:" + href.replace("overruled:", "");
+//                                    String caseOverruledBy = ServiceHelper.getOverruledByCaseId(href.replace("overruled:", ""));
+//                                    if (!caseOverruledBy.isEmpty()) {
+//                                        StringBuilder stb = new StringBuilder();
+//                                        stb.append("<span style=\"background-color:blue;color:white\"><strong>Overruled By :</strong></span><br/><br/>" + caseOverruledBy + "<br/><br/>");
+//                                        engine.loadContent("<html><head><meta charset=\"UTF-8\">" + javaScript + judgementCSS + "</head><body onkeydown=keyup()>" + htmlHeader + stb.toString() + "</body></html>", "text/html");
+//                                    }
+
+
+
+                                    String search_query="caseId:" + ServiceHelper.getOverruledIdByCaseId(href.replace("overruled:", ""));
                                     String sort_by="";
                                     String hl_fields="false";
                                     Multimap<String, String> filterBy = ArrayListMultimap.create();
                                     resultViewHelper.showJudgementDialogWindow(1, search_query, sort_by, hl_fields, filterBy);
-
 //                                    loadOverruledHTML(href.replace("overruled:", ""));
                                 }else if (href.startsWith("#")) {
                                     ev.preventDefault();
