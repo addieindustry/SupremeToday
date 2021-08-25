@@ -342,7 +342,7 @@ public class ServiceHelper {
     }
 
     public static String getCentralActContentById(String id, String Type) {
-        String googleTranslatorScript = "<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en'},'google_translate_element');}</script> <script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>";
+        String googleTranslatorScript = "<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en',includedLanguages:'en,bn,gu,hi,kn,ml,mr,ta,te,ur'},'google_translate_element');}</script> <script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>";
         String googleTranslatorDiv = "<div id=\"google_translate_element\"></div>";
 
         String query = "DocType:BareActs", sortBy = "",facet_fields = "",
@@ -383,7 +383,7 @@ public class ServiceHelper {
     }
 
     public static String getCentralActIndexById(String id) {
-        String googleTranslatorScript = "<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en'},'google_translate_element');}</script> <script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>";
+        String googleTranslatorScript = "<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en',includedLanguages:'en,bn,gu,hi,kn,ml,mr,ta,te,ur'},'google_translate_element');}</script> <script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>";
         String googleTranslatorDiv = "<div id=\"google_translate_element\"></div>";
 
         String query = "DocType:BareActs", sortBy = "caseId_sort STRING ASC",facet_fields = "",
