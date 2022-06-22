@@ -65,7 +65,7 @@ public class AdvanceSearchResultViewController implements Initializable {
     private WebView webViewDocView;
 
     @FXML
-    private Button btnFirst, btnLast, btnPrevious, btnNext, btnFilter, btnFilterReset, btnFullCollapse, btnZoomPlus, btnZoomMinus;
+    private Button btnFirst, btnLast, btnPrevious, btnNext, btnFilter, btnFilterReset, btnZoomPlus, btnZoomMinus, btnFullCollapse, btnFullCollapseRefresh;
 
     @FXML
     private TreeView TreeViewFacet;
@@ -161,9 +161,10 @@ public class AdvanceSearchResultViewController implements Initializable {
             btnNext.setStyle("-fx-background-color: steelblue");
             btnFilter.setStyle("-fx-background-color: steelblue");
             btnFilterReset.setStyle("-fx-background-color: steelblue");
-            btnFullCollapse.setStyle("-fx-background-color: steelblue");
             btnZoomPlus.setStyle("-fx-background-color: steelblue");
             btnZoomMinus.setStyle("-fx-background-color: steelblue");
+            btnFullCollapse.setStyle("-fx-background-color: steelblue");
+            btnFullCollapseRefresh.setStyle("-fx-background-color: steelblue");
         }
 
 
@@ -227,6 +228,7 @@ public class AdvanceSearchResultViewController implements Initializable {
                 filterBy.put("DocType", "Judgements");
                 search_query=SearchQuery;
                 btnFullCollapse.setVisible(true);
+                btnFullCollapseRefresh.setVisible(true);
                 totalResultCount = resultViewHelper.loadTableData(resultFrom, resultTo, data, webViewDocView, TreeViewFacet, LabelTotalRecords, search_query, sort_by, filterBy, hl_fields, totalResultCount);
 //                spMain.setDividerPositions(Queries.PRINT_SETTING_MODEL.getFilterSplitter());
 //                loadTableData(resultFrom, resultTo, data, TableViewResults, columnBookmark, columnhtml, columnId, columnHN, TreeViewFacet, comboboxSortBy, LabelTotalRecords, search_query, sort_by, filterBy, TotalResultCount);
@@ -302,8 +304,15 @@ public class AdvanceSearchResultViewController implements Initializable {
 
         btnFullCollapse.setOnAction(event -> {
             for (AdvanceSearchFullCollapseListener listner : fullCollapseListeners) {
-                listner.clickFullCollapseListener();
+                listner.clickFullCollapseListener(false);
                 btnFullCollapse.setVisible(false);
+            }
+        });
+
+        btnFullCollapseRefresh.setOnAction(event -> {
+            for (AdvanceSearchFullCollapseListener listner : fullCollapseListeners) {
+                listner.clickFullCollapseListener(true);
+                btnFullCollapseRefresh.setVisible(false);
             }
         });
 

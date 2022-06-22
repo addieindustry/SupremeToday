@@ -84,7 +84,7 @@ public class ServiceHelper {
 
             while (rs.next()) {
                 if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-                    list.add(rs.getString("publisher").replace("Supreme", "ICLF"));
+                    list.add(rs.getString("publisher").replace("Supreme(", "ICLF("));
                 }else{
                     list.add(rs.getString("publisher"));
                 }
@@ -105,7 +105,7 @@ public class ServiceHelper {
             SqliteHelper sqliteHelper = new SqliteHelper(Queries.DB_PATH, false);
             sqliteHelper.open();
             if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-                publisher = publisher.replace("ICLF", "Supreme");
+                publisher = publisher.replace("ICLF(", "Supreme(");
             }
             String q = String.format(Queries.GET_YEAR_FROM_CITATION_BY_PUBLISHERS, publisher);
             ResultSet rs = sqliteHelper.select(q);
@@ -128,7 +128,7 @@ public class ServiceHelper {
             SqliteHelper sqliteHelper = new SqliteHelper(Queries.DB_PATH, false);
             sqliteHelper.open();
             if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-                publisher = publisher.replace("ICLF", "Supreme");
+                publisher = publisher.replace("ICLF(", "Supreme(");
             }
             String q = String.format(Queries.GET_VOLUME_FROM_CITATION_BY_PUBLISHERS_YEAR, publisher, year);
             ResultSet rs = sqliteHelper.select(q);
@@ -151,7 +151,7 @@ public class ServiceHelper {
             SqliteHelper sqliteHelper = new SqliteHelper(Queries.DB_PATH, false);
             sqliteHelper.open();
             if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-                publisher = publisher.replace("ICLF", "Supreme");
+                publisher = publisher.replace("ICLF(", "Supreme(");
             }
             String q = String.format(Queries.GET_PAGE_FROM_CITATION_BY_PUBLISHERS_YEAR_VOLUME, publisher, year, volume);
             ResultSet rs = sqliteHelper.select(q);
@@ -820,7 +820,7 @@ public class ServiceHelper {
             String q = String.format(Queries.GET_HISTORY_LIST);
             ResultSet rs = sqliteHelper.select(q);
             while (rs.next()) {
-                list.add(new HistoryModel(rs.getString("_id"), rs.getString("title"), rs.getString("query"), rs.getString("keyword"), rs.getString("search_type"), rs.getString("created_date")));
+                list.add(new HistoryModel(rs.getString("_id"), rs.getString("title").trim(), rs.getString("query").trim(), rs.getString("keyword").trim(), rs.getString("search_type").trim(), rs.getString("created_date")));
             }
             rs.close();
             sqliteHelper.close();
@@ -1604,6 +1604,7 @@ public class ServiceHelper {
             if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
                 getUpdateQuery = getUpdateQuery.replace("www.supreme-today.com", "www.indiancaselawfinder.com");
             }
+            //System.out.println(getUpdateQuery);
             String ret = HttpClientHelper.sendGET(getUpdateQuery);
 
             JsonObject j = (JsonObject) new JsonParser().parse(ret);

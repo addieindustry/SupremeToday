@@ -73,7 +73,7 @@ public class Main extends Application {
     private static final int SPLASH_HEIGHT = 311;
 
  //   private boolean isAutoUpdateApplication = true;
-      private static boolean isAutoUpdateApplication = false;
+     private static boolean isAutoUpdateApplication = false;
 
     public static void main(String[] args) throws Exception {
         Queries.SESSION = new Date().getTime();
@@ -286,8 +286,8 @@ public class Main extends Application {
                 Date myDate = format.parse(json_data.get("date").toString());
 
                 license_info = "License to " + json_data.get("username").toString() + ", Number : " + json_data.get("clientNumber").toString() + ", Live Facility Till : " + (new SimpleDateFormat("dd MMMM yyyy").format(myDate)).toString();
-            }else if (Integer.parseInt(json.get("code").toString()) == 202){
-                license_info = "License Information Not Exits, Please Contact to the Software Vendor!";
+                          }else if (Integer.parseInt(json.get("code").toString()) == 202){
+                  license_info = "License Information Not Exits, Please Contact to the Software Vendor!";
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();

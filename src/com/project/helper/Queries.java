@@ -27,16 +27,17 @@ public class Queries {
     //Apply FALSE instead of TRUE on below line to Enable Copy
     public static final Boolean IS_COPY_DISABLE = Boolean.TRUE;
 
-    public static final Boolean IS_SUPREME_TODAY_APP = Boolean.TRUE;
-    public static final String APPLICATION_NAME = "Supreme Today";
+   public static final Boolean IS_SUPREME_TODAY_APP = Boolean.TRUE;
+   public static final String APPLICATION_NAME = "Supreme Today";
 
- //  public static final Boolean IS_SUPREME_TODAY_APP = Boolean.FALSE;
-  // public static final String APPLICATION_NAME = "Indian CaseLaw Finder";
+ // public static final Boolean IS_SUPREME_TODAY_APP = Boolean.FALSE;
+   // public static final String APPLICATION_NAME = "Indian CaseLaw Finder";
 
-//    public static final String CURRENT_PATH = Paths.get("").toString();
+   // public static final String CURRENT_PATH = Paths.get("").toString();
+  // public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "IndianCaseLawFinder-1.0").toString();
     public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "SupremeToday-2.0").toString();
  //  public static final String CURRENT_PATH = Paths.get("D:", "Projects", "SupremeToday", "SupremeToday").toString();
-//    public static final String CURRENT_PATH = Paths.get("E:", "Old_Backup", "SupremeToday", "SupremeToday").toString();
+    //public static final String CURRENT_PATH = Paths.get("E:", "Old_Backup", "SupremeToday", "SupremeToday").toString();
     public static final String DATA_PATH=Paths.get(CURRENT_PATH, "Data").toString();
     public static final String RESOURCE_PATH=Paths.get(CURRENT_PATH, "res").toString();
     public static final String TEMP_FILE_PATH=Paths.get(CURRENT_PATH, "lib", "temp.html").toString();
@@ -161,7 +162,7 @@ public class Queries {
 
 
 //    public static PrintSettingModel PRINT_SETTING_MODEL = new PrintSettingModel("", "A4", "16.0", "12.0", 36.0F, 36.0F, 36.0F, 36.0F, true, false);
-    public static PrintSettingModel PRINT_SETTING_MODEL = new PrintSettingModel("", "Letter", "18", "14", "16", 30.0F, 30.0F, 43.0F, 45.0F, true, false, 0.16F, 0.2F, 0.2F);
+    public static PrintSettingModel PRINT_SETTING_MODEL = new PrintSettingModel("", "Letter", "18", "14", "16", 30.0F, 30.0F, 50.0F, 50.0F, true, false, 0.16F, 0.2F, 0.2F);
 
 
 //   INDEX DATABASE QUERIES //

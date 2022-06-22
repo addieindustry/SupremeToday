@@ -27,7 +27,8 @@ public class ITextProperties {
         public ZeroMarginHtmlTagWorker(IElementNode element, ProcessorContext context) {
             super(element, context);
             Document doc = (Document) getElementResult();
-            doc.setMargins(Queries.PRINT_SETTING_MODEL.getMarginLeft(), Queries.PRINT_SETTING_MODEL.getMarginRight(), Queries.PRINT_SETTING_MODEL.getMarginTop(), Queries.PRINT_SETTING_MODEL.getMarginBottom());
+            doc.setMargins(Queries.PRINT_SETTING_MODEL.getMarginTop(), Queries.PRINT_SETTING_MODEL.getMarginRight(), Queries.PRINT_SETTING_MODEL.getMarginBottom(), Queries.PRINT_SETTING_MODEL.getMarginLeft());
+//            doc.setMargins(Queries.PRINT_SETTING_MODEL.getMarginLeft(), Queries.PRINT_SETTING_MODEL.getMarginRight(), Queries.PRINT_SETTING_MODEL.getMarginTop(), Queries.PRINT_SETTING_MODEL.getMarginBottom());
         }
     }
 
