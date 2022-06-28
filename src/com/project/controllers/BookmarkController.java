@@ -146,7 +146,7 @@ public class BookmarkController implements Initializable {
                 alert.setHeaderText(Queries.APPLICATION_NAME);
 //        alert.setContentText("I have a great message for you!");
                 alert.showAndWait().ifPresent(rs -> {
-                    if (rs == ButtonType.OK) {
+                    if (rs.getText() == "Yes") {
                         String res = ServiceHelper.removeBookmark(bookMarkId);
                         new Utils().showDialogAlert(res);
                         loadBookmarks();

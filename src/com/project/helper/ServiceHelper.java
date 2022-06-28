@@ -84,7 +84,7 @@ public class ServiceHelper {
 
             while (rs.next()) {
                 if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-                    list.add(rs.getString("publisher").replace("Supreme", "ICLF"));
+                    list.add(rs.getString("publisher").replace("Supreme(", "ICLF("));
                 }else{
                     list.add(rs.getString("publisher"));
                 }
@@ -105,7 +105,7 @@ public class ServiceHelper {
             SqliteHelper sqliteHelper = new SqliteHelper(Queries.DB_PATH, false);
             sqliteHelper.open();
             if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-                publisher = publisher.replace("ICLF", "Supreme");
+                publisher = publisher.replace("ICLF(", "Supreme(");
             }
             String q = String.format(Queries.GET_YEAR_FROM_CITATION_BY_PUBLISHERS, publisher);
             ResultSet rs = sqliteHelper.select(q);
@@ -128,7 +128,7 @@ public class ServiceHelper {
             SqliteHelper sqliteHelper = new SqliteHelper(Queries.DB_PATH, false);
             sqliteHelper.open();
             if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-                publisher = publisher.replace("ICLF", "Supreme");
+                publisher = publisher.replace("ICLF(", "Supreme(");
             }
             String q = String.format(Queries.GET_VOLUME_FROM_CITATION_BY_PUBLISHERS_YEAR, publisher, year);
             ResultSet rs = sqliteHelper.select(q);
@@ -151,7 +151,7 @@ public class ServiceHelper {
             SqliteHelper sqliteHelper = new SqliteHelper(Queries.DB_PATH, false);
             sqliteHelper.open();
             if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-                publisher = publisher.replace("ICLF", "Supreme");
+                publisher = publisher.replace("ICLF(", "Supreme(");
             }
             String q = String.format(Queries.GET_PAGE_FROM_CITATION_BY_PUBLISHERS_YEAR_VOLUME, publisher, year, volume);
             ResultSet rs = sqliteHelper.select(q);
@@ -342,7 +342,7 @@ public class ServiceHelper {
     }
 
     public static String getCentralActContentById(String id, String Type) {
-        String googleTranslatorScript = "<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en'},'google_translate_element');}</script> <script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>";
+        String googleTranslatorScript = "<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en',includedLanguages:'en,bn,gu,hi,kn,ml,mr,ta,te,ur'},'google_translate_element');}</script> <script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>";
         String googleTranslatorDiv = "<div id=\"google_translate_element\"></div>";
 
         String query = "DocType:BareActs", sortBy = "",facet_fields = "",
@@ -383,7 +383,7 @@ public class ServiceHelper {
     }
 
     public static String getCentralActIndexById(String id) {
-        String googleTranslatorScript = "<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en'},'google_translate_element');}</script> <script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>";
+        String googleTranslatorScript = "<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en',includedLanguages:'en,bn,gu,hi,kn,ml,mr,ta,te,ur'},'google_translate_element');}</script> <script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>";
         String googleTranslatorDiv = "<div id=\"google_translate_element\"></div>";
 
         String query = "DocType:BareActs", sortBy = "caseId_sort STRING ASC",facet_fields = "",
@@ -820,7 +820,7 @@ public class ServiceHelper {
             String q = String.format(Queries.GET_HISTORY_LIST);
             ResultSet rs = sqliteHelper.select(q);
             while (rs.next()) {
-                list.add(new HistoryModel(rs.getString("_id"), rs.getString("title"), rs.getString("query"), rs.getString("keyword"), rs.getString("search_type"), rs.getString("created_date")));
+                list.add(new HistoryModel(rs.getString("_id"), rs.getString("title").trim(), rs.getString("query").trim(), rs.getString("keyword").trim(), rs.getString("search_type").trim(), rs.getString("created_date")));
             }
             rs.close();
             sqliteHelper.close();
@@ -1258,6 +1258,32 @@ public class ServiceHelper {
         }
     }
 
+    public static String getOverruledIdByCaseId(String CaseId) {
+        try {
+            SqliteHelper sqliteHelper = new SqliteHelper(Queries.DB_PATH, false);
+            sqliteHelper.open();
+            String q = String.format(Queries.GET_OVERRULED_BY_CASEID, CaseId);
+            ResultSet rs = sqliteHelper.select(q);
+            List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+
+            String _caseIds = "";
+            while (rs.next()) {
+                DecimalFormat decimalFormat = new DecimalFormat("00000000000");
+                _caseIds = decimalFormat.format(Long.parseLong(rs.getString("white")));
+//                _caseIds.append("caseId:\"" + decimalFormat.format(Long.parseLong(rs.getString("white"))) + "\" OR ");
+//                _caseIds.append("caseId:\"" + decimalFormat.format(Integer.parseInt(rs.getString("white"))) + "\" OR ");
+            }
+            sqliteHelper.close();
+            return _caseIds;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ServiceHelper.class.getName()).log(Level.SEVERE, null, ex);
+            return "";
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceHelper.class.getName()).log(Level.SEVERE, null, ex);
+            return "";
+        }
+    }
+
     public static String getOverruledByCaseId(String CaseId) {
         try {
             SqliteHelper sqliteHelper = new SqliteHelper(Queries.DB_PATH, false);
@@ -1578,6 +1604,7 @@ public class ServiceHelper {
             if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
                 getUpdateQuery = getUpdateQuery.replace("www.supreme-today.com", "www.indiancaselawfinder.com");
             }
+            //System.out.println(getUpdateQuery);
             String ret = HttpClientHelper.sendGET(getUpdateQuery);
 
             JsonObject j = (JsonObject) new JsonParser().parse(ret);

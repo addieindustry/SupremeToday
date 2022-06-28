@@ -77,9 +77,9 @@ public class HistoryController implements Initializable {
             }
         });
 
-//        columnSearchText.setCellValueFactory(new PropertyValueFactory("keyword"));
-//        columnHistoryDate.setCellValueFactory(new PropertyValueFactory("created_date"));
-//        columnSearchType.setCellValueFactory(new PropertyValueFactory("search_type"));
+        columnSearchText.setCellValueFactory(new PropertyValueFactory("title"));
+        columnHistoryDate.setCellValueFactory(new PropertyValueFactory("created_date"));
+        columnSearchType.setCellValueFactory(new PropertyValueFactory("search_type"));
 
         /*Table row double click event */
         tableHistory.setRowFactory(tv -> {

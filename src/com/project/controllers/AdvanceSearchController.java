@@ -262,7 +262,13 @@ public class AdvanceSearchController implements Initializable {
 
         new AdvanceSearchResultViewController().clickFullCollapseListener(new AdvanceSearchFullCollapseListener() {
             @Override
-            public void clickFullCollapseListener() {
+            public void clickFullCollapseListener(boolean isRefresh) {
+                if (isRefresh){
+                    clearAllControls();
+                    for (ResetClickEventHandler listner : listenersReset) {
+                        listner.handleResetClick();
+                    }
+                }
                 split_pane.setDividerPositions(split_pan_length);
 //                if (split_pane.getDividers().get(0).positionProperty().lessThan(0.01).getValue()){
 //                    split_pane.setDividerPositions(0.35);

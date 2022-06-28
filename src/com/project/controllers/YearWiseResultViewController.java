@@ -67,7 +67,7 @@ public class YearWiseResultViewController implements Initializable {
     private SplitPane spMain;
 
     @FXML
-    private Button btnFirst, btnLast, btnPrevious, btnNext, btnFilter, btnFilterReset, btnFullCollapse, btnZoomPlus, btnZoomMinus;
+    private Button btnFirst, btnLast, btnPrevious, btnNext, btnFilter, btnFilterReset, btnFullCollapse, btnZoomPlus, btnZoomMinus, btnFullCollapseRefresh;
 
     @FXML
     private TreeView TreeViewFacet;
@@ -125,6 +125,7 @@ public class YearWiseResultViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         btnFullCollapse.setVisible(false);
+        btnFullCollapseRefresh.setVisible(false);
         Node componentsPane=spMain.getItems().get(0);
         spMain.getItems().remove(componentsPane);
 
