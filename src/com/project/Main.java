@@ -69,11 +69,12 @@ public class Main extends Application {
 
     private Pane splashLayout;
     private Stage mainStage;
+    public static Stage updateStage;
     private static final int SPLASH_WIDTH = 518;
     private static final int SPLASH_HEIGHT = 311;
 
-     private boolean isAutoUpdateApplication = true;
-  //private static boolean isAutoUpdateApplication = false;
+//     private boolean isAutoUpdateApplication = true;
+    private static boolean isAutoUpdateApplication = false;
 
     public static void main(String[] args) throws Exception {
         Queries.SESSION = new Date().getTime();
@@ -93,10 +94,10 @@ public class Main extends Application {
             ImageView splash = new ImageView(new Image(is));
             splashLayout = new VBox();
             splashLayout.getChildren().addAll(splash);
-            if (isAutoUpdateApplication){
-//                startAutoUpdateScreen();
-                runSingleInstantApplication();
-            }
+//            if (isAutoUpdateApplication){
+////                startAutoUpdateScreen();
+//                runSingleInstantApplication();
+//            }
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -149,16 +150,24 @@ public class Main extends Application {
             }
         };
 
-        if (isAutoUpdateApplication){
-            startAutoUpdateScreen();
-        }else{
-            showSplash(
-                    initStage,
-                    friendTask,
-                    () -> startMainScreen()
-            );
-            new Thread(friendTask).start();
-        }
+//        if (isAutoUpdateApplication){
+//            startAutoUpdateScreen();
+//        }else{
+//            showSplash(
+//                    initStage,
+//                    friendTask,
+//                    () -> startMainScreen()
+//            );
+//            new Thread(friendTask).start();
+//        }
+
+        showSplash(
+                initStage,
+                friendTask,
+                () -> startMainScreen()
+        );
+        new Thread(friendTask).start();
+        startAutoUpdateScreen();
     }
 
     @Override
@@ -318,14 +327,33 @@ public class Main extends Application {
                 mainStage.setTitle(Queries.APPLICATION_NAME + " " +  Queries.APPLICATION_VERSION);
             }
             mainStage.getIcons().add(new Image(getClass().getResourceAsStream("resources/logo.png")));
-            mainStage.setScene(new Scene(root));
-            mainStage.setOnCloseRequest(confirmCloseEventHandler);
+            Scene scene = new Scene(root);
+            mainStage.setScene(scene);
+//            mainStage.setScene(new Scene(root));
+//            NEW LINE
+            createTrayIcon(mainStage);
+//            mainStage.setOnCloseRequest(confirmCloseEventHandler);
+            mainStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent t) {
+                    autoHide(mainStage);
+                }
+            });
             //BELOW LINE IS FOR MAC OS X SOLUTION
             if (OSValidator.isMac()){
 //                mainStage.setAlwaysOnTop(true);
             }else{
                 mainStage.setMaximized(true);
             }
+
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent evt) {
+                    if (evt.getCode().equals(KeyCode.ESCAPE)) {
+                        autoHide(mainStage);
+                    }
+                }
+            });
             mainStage.show();
             Platform.runLater(new Runnable() {
                 @Override
@@ -334,10 +362,16 @@ public class Main extends Application {
                     {
                         try {
                             if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-                                WinRegistry.writeStringValue(WinRegistry.HKEY_CURRENT_USER, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", "ICLFAutoUpdate",  Queries.AUTO_UPDATE_EXE_FILE.replaceAll("SupremeTodayAutoUpdate.exe", "ICLFAutoUpdate.exe"));
+                                WinRegistry.writeStringValue(WinRegistry.HKEY_CURRENT_USER, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", "ICLF",  Queries.AUTO_UPDATE_EXE_FILE.replaceAll("SupremeToday.exe", "ICLF.exe"));
                             }else{
-                                WinRegistry.writeStringValue(WinRegistry.HKEY_CURRENT_USER, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", "SupremeTodayAutoUpdate",  Queries.AUTO_UPDATE_EXE_FILE);
+                                WinRegistry.writeStringValue(WinRegistry.HKEY_CURRENT_USER, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", "SupremeToday",  Queries.AUTO_UPDATE_EXE_FILE);
                             }
+
+//                            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+//                                WinRegistry.writeStringValue(WinRegistry.HKEY_CURRENT_USER, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", "ICLFAutoUpdate",  Queries.AUTO_UPDATE_EXE_FILE.replaceAll("SupremeTodayAutoUpdate.exe", "ICLFAutoUpdate.exe"));
+//                            }else{
+//                                WinRegistry.writeStringValue(WinRegistry.HKEY_CURRENT_USER, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", "SupremeTodayAutoUpdate",  Queries.AUTO_UPDATE_EXE_FILE);
+//                            }
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     } catch (InvocationTargetException e) {
@@ -360,75 +394,75 @@ public class Main extends Application {
 
     private static final int FOCUS_REQUEST_PAUSE_MILLIS = 2000;
 
-    public void runSingleInstantApplication() {
-        CountDownLatch instanceCheckLatch = new CountDownLatch(1);
-
-        Thread instanceListener = new Thread(() -> {
-            try (ServerSocket serverSocket = new ServerSocket(SINGLE_INSTANCE_LISTENER_PORT, 10)) {
-                instanceCheckLatch.countDown();
-
-                while (true) {
-                    try (
-                            Socket clientSocket = serverSocket.accept();
-                            BufferedReader in = new BufferedReader(
-                                    new InputStreamReader(clientSocket.getInputStream()))
-                    ) {
-                        String input = in.readLine();
-                        System.out.println("Received single instance listener message: " + input);
-                        if (input.startsWith(SINGLE_INSTANCE_FOCUS_MESSAGE) && mainStage != null) {
-                            Thread.sleep(FOCUS_REQUEST_PAUSE_MILLIS);
-                            Platform.runLater(() -> {
-                                System.out.println("To front " + instanceId);
-                                mainStage.setIconified(false);
-                                mainStage.show();
-                                mainStage.toFront();
-                            });
-                        }
-                    } catch (IOException e) {
-                        System.out.println("Single instance listener unable to process focus message from client");
-                        e.printStackTrace();
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Live Update Instance already Running!");
-                        alert.setHeaderText(Queries.APPLICATION_NAME);
-                        alert.setContentText("Please Close another Instance and Try here...");
-                        alert.showAndWait();
-                    }
-                }
-            } catch(java.net.BindException b) {
-                System.out.println("SingleInstanceApp already running");
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Live Update Instance already Running!");
-                alert.setHeaderText(Queries.APPLICATION_NAME);
-                alert.setContentText("Please Close another Instance and Try here...");
-                alert.showAndWait();
-
-                try (
-                        Socket clientSocket = new Socket(InetAddress.getLocalHost(), SINGLE_INSTANCE_LISTENER_PORT);
-                        PrintWriter out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream()))
-                ) {
-                    System.out.println("Requesting existing app to focus");
-                    out.println(SINGLE_INSTANCE_FOCUS_MESSAGE + " requested by " + instanceId);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                System.out.println("Aborting execution for instance " + instanceId);
-                Platform.exit();
-            } catch(Exception e) {
-                System.out.println(e.toString());
-            } finally {
-                instanceCheckLatch.countDown();
-            }
-        }, "instance-listener");
-        instanceListener.setDaemon(true);
-        instanceListener.start();
-
-        try {
-            instanceCheckLatch.await();
-        } catch (InterruptedException e) {
-            Thread.interrupted();
-        }
-    }
+//    public void runSingleInstantApplication() {
+//        CountDownLatch instanceCheckLatch = new CountDownLatch(1);
+//
+//        Thread instanceListener = new Thread(() -> {
+//            try (ServerSocket serverSocket = new ServerSocket(SINGLE_INSTANCE_LISTENER_PORT, 10)) {
+//                instanceCheckLatch.countDown();
+//
+//                while (true) {
+//                    try (
+//                            Socket clientSocket = serverSocket.accept();
+//                            BufferedReader in = new BufferedReader(
+//                                    new InputStreamReader(clientSocket.getInputStream()))
+//                    ) {
+//                        String input = in.readLine();
+//                        System.out.println("Received single instance listener message: " + input);
+//                        if (input.startsWith(SINGLE_INSTANCE_FOCUS_MESSAGE) && mainStage != null) {
+//                            Thread.sleep(FOCUS_REQUEST_PAUSE_MILLIS);
+//                            Platform.runLater(() -> {
+//                                System.out.println("To front " + instanceId);
+//                                mainStage.setIconified(false);
+//                                mainStage.show();
+//                                mainStage.toFront();
+//                            });
+//                        }
+//                    } catch (IOException e) {
+//                        System.out.println("Single instance listener unable to process focus message from client");
+//                        e.printStackTrace();
+//                        Alert alert = new Alert(Alert.AlertType.ERROR);
+//                        alert.setTitle("Live Update Instance already Running!");
+//                        alert.setHeaderText(Queries.APPLICATION_NAME);
+//                        alert.setContentText("Please Close another Instance and Try here...");
+//                        alert.showAndWait();
+//                    }
+//                }
+//            } catch(java.net.BindException b) {
+//                System.out.println("SingleInstanceApp already running");
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Live Update Instance already Running!");
+//                alert.setHeaderText(Queries.APPLICATION_NAME);
+//                alert.setContentText("Please Close another Instance and Try here...");
+//                alert.showAndWait();
+//
+//                try (
+//                        Socket clientSocket = new Socket(InetAddress.getLocalHost(), SINGLE_INSTANCE_LISTENER_PORT);
+//                        PrintWriter out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream()))
+//                ) {
+//                    System.out.println("Requesting existing app to focus");
+//                    out.println(SINGLE_INSTANCE_FOCUS_MESSAGE + " requested by " + instanceId);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                System.out.println("Aborting execution for instance " + instanceId);
+//                Platform.exit();
+//            } catch(Exception e) {
+//                System.out.println(e.toString());
+//            } finally {
+//                instanceCheckLatch.countDown();
+//            }
+//        }, "instance-listener");
+//        instanceListener.setDaemon(true);
+//        instanceListener.start();
+//
+//        try {
+//            instanceCheckLatch.await();
+//        } catch (InterruptedException e) {
+//            Thread.interrupted();
+//        }
+//    }
 
     private void startAutoUpdateScreen() {
 /*        try {
@@ -441,28 +475,20 @@ public class Main extends Application {
 
         try {
             Platform.setImplicitExit(false);
-            mainStage = new Stage(StageStyle.DECORATED);
+            updateStage = new Stage(StageStyle.DECORATED);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/project/ui/dialog_live_update.fxml"));
             DialogLiveUpdateController controller = new DialogLiveUpdateController();
             fxmlLoader.setController(controller);
             Parent root = fxmlLoader.load();
-            mainStage.setTitle(Queries.APPLICATION_NAME + " - Live Update");
-            mainStage.getIcons().add(new Image(getClass().getResourceAsStream("resources/logo.png")));
-            mainStage.initModality(Modality.WINDOW_MODAL);
+            updateStage.setTitle(Queries.APPLICATION_NAME + " - Live Update");
+            updateStage.getIcons().add(new Image(getClass().getResourceAsStream("resources/logo.png")));
+            updateStage.initModality(Modality.NONE);
             Scene scene = new Scene(root);
-            mainStage.setScene(scene);
-            createTrayIcon(mainStage);
-            mainStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent t) {
-                    autoHide(mainStage);
-                }
-            });
-            mainStage.setResizable(false);
+            updateStage.setScene(scene);
+            updateStage.setResizable(false);
             // Set the person into the controller
-            controller.setDialogStage(mainStage);
+            controller.setDialogStage(updateStage);
 
-               /*Close window on Escap key press*/
             scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent evt) {
@@ -471,11 +497,8 @@ public class Main extends Application {
                     }
                 }
             });
-//            mainStage.show();
-//            autoHide(mainStage);
         } catch (Exception e) {
             System.out.println(e);
-//            new Utils().showErrorDialog(e);
         }
     }
 

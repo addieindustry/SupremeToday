@@ -816,7 +816,9 @@ public class AdvanceSearchController implements Initializable {
 
         pubCitation = pubCitation.trim();
         if (!pubCitation.isEmpty()) {
-            query = query + "+" + Queries.LUCENEFIELD_CITATION + ":\"" + pubCitation + "\" ";
+            if (!query.isEmpty())
+                query = query + Queries.AND;
+            query = query + " +" + Queries.LUCENEFIELD_CITATION + ":\"" + pubCitation + "\" ";
             query_title += " Citation : " + pubCitation;
         }
 

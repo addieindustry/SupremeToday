@@ -2,6 +2,7 @@ package com.project.controllers;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import com.project.Main;
 import com.project.helper.OSValidator;
 import com.project.helper.Queries;
 import com.project.helper.ServiceHelper;
@@ -927,68 +928,116 @@ public class TabViewController implements Initializable {//, ClickEventHandler {
     }
 
     public boolean showLiveUpdateDialogWindow() {
-        if (OSValidator.isWindows()){
-            try {
-                if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-                    Runtime.getRuntime().exec("cmd /c start " + Queries.AUTO_UPDATE_EXE_FILE_SINGLEFILEPATH.replaceAll("SupremeToday", "ICLF"));
-                    Runtime.getRuntime().exec("cmd /c start " + Queries.AUTO_UPDATE_EXE_FILE_SINGLEFILEPATH.replaceAll("SupremeToday", "ICLF"));
-                }else{
-                    Runtime.getRuntime().exec("cmd /c start " + Queries.AUTO_UPDATE_EXE_FILE_SINGLEFILEPATH);
-                    Runtime.getRuntime().exec("cmd /c start " + Queries.AUTO_UPDATE_EXE_FILE_SINGLEFILEPATH);
-                }
-//                Runtime.getRuntime().exec(Queries.AUTO_UPDATE_EXE_FILE);
-//                Runtime.getRuntime().exec(Queries.AUTO_UPDATE_EXE_FILE);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return true;
-        }else{
-            try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/dialog_live_update.fxml"));
-            DialogLiveUpdateController controller = new DialogLiveUpdateController();
-            loader.setController(controller);
-            AnchorPane page = loader.load();
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle(Queries.APPLICATION_NAME + " - Live Update");
-            dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/project/resources/logo.png")));
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-//            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
+        Main.updateStage.show();
+        return true;
 
-            /*disabled maximaize and minimize except close use*/
-            dialogStage.initModality(Modality.APPLICATION_MODAL);
-            dialogStage.setResizable(false);
-
-            // Set the person into the controller
-            controller.setDialogStage(dialogStage);
-
-               /*Close window on Escap key press*/
-            scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-                @Override
-                public void handle(KeyEvent evt) {
-                    if (evt.getCode().equals(KeyCode.ESCAPE)) {
-                        dialogStage.close();
-                    }
-                }
-            });
-
-            // Show the dialog and wait until the user closes it
-            dialogStage.showAndWait();
-
-            if (!controller.isOkClicked()) {
-
-            }
-
-            return controller.isOkClicked();
+        //        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/dialog_live_update.fxml"));
+//            DialogLiveUpdateController controller = new DialogLiveUpdateController();
+//            loader.setController(controller);
+//            AnchorPane page = loader.load();
+//            Stage dialogStage = new Stage();
+//            dialogStage.setTitle(Queries.APPLICATION_NAME + " - Live Update");
+//            dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/project/resources/logo.png")));
+////            dialogStage.initModality(Modality.WINDOW_MODAL);
+////            dialogStage.initOwner(primaryStage);
+//            Scene scene = new Scene(page);
+//            dialogStage.setScene(scene);
+//
+//            /*disabled maximaize and minimize except close use*/
+////            dialogStage.initModality(Modality.APPLICATION_MODAL);
+//            dialogStage.initModality(Modality.NONE);
+//            dialogStage.setResizable(false);
+//
+//            // Set the person into the controller
+//            controller.setDialogStage(dialogStage);
+//
+//            /*Close window on Escap key press*/
+//            scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+//                @Override
+//                public void handle(KeyEvent evt) {
+//                    if (evt.getCode().equals(KeyCode.ESCAPE)) {
+//                        dialogStage.close();
+//                    }
+//                }
+//            });
+//
+//            // Show the dialog and wait until the user closes it
+////            dialogStage.showAndWait();
+//            dialogStage.show();
+//
+//            if (!controller.isOkClicked()) {
+//
+//            }
+//
+//            return controller.isOkClicked();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            new Utils().showErrorDialog(e);
 //            return true;
-        } catch (IOException e) {
-            // Exception gets thrown if the fxml file could not be loaded
-            e.printStackTrace();
-            new Utils().showErrorDialog(e);
-            return true;
-        }
-        }
+//        }
+
+
+
+//        if (OSValidator.isWindows()){
+//            try {
+//                if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+//                    Runtime.getRuntime().exec("cmd /c start " + Queries.AUTO_UPDATE_EXE_FILE_SINGLEFILEPATH.replaceAll("SupremeToday", "ICLF"));
+//                    Runtime.getRuntime().exec("cmd /c start " + Queries.AUTO_UPDATE_EXE_FILE_SINGLEFILEPATH.replaceAll("SupremeToday", "ICLF"));
+//                }else{
+//                    Runtime.getRuntime().exec("cmd /c start " + Queries.AUTO_UPDATE_EXE_FILE_SINGLEFILEPATH);
+//                    Runtime.getRuntime().exec("cmd /c start " + Queries.AUTO_UPDATE_EXE_FILE_SINGLEFILEPATH);
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            return true;
+//        }else{
+//            try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/project/ui/dialog_live_update.fxml"));
+//            DialogLiveUpdateController controller = new DialogLiveUpdateController();
+//            loader.setController(controller);
+//            AnchorPane page = loader.load();
+//            Stage dialogStage = new Stage();
+//            dialogStage.setTitle(Queries.APPLICATION_NAME + " - Live Update");
+//            dialogStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/project/resources/logo.png")));
+//            dialogStage.initModality(Modality.WINDOW_MODAL);
+////            dialogStage.initOwner(primaryStage);
+//            Scene scene = new Scene(page);
+//            dialogStage.setScene(scene);
+//
+//            /*disabled maximaize and minimize except close use*/
+//            dialogStage.initModality(Modality.APPLICATION_MODAL);
+//            dialogStage.setResizable(false);
+//
+//            // Set the person into the controller
+//            controller.setDialogStage(dialogStage);
+//
+//               /*Close window on Escap key press*/
+//            scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+//                @Override
+//                public void handle(KeyEvent evt) {
+//                    if (evt.getCode().equals(KeyCode.ESCAPE)) {
+//                        dialogStage.close();
+//                    }
+//                }
+//            });
+//
+//            // Show the dialog and wait until the user closes it
+//            dialogStage.showAndWait();
+//
+//            if (!controller.isOkClicked()) {
+//
+//            }
+//
+//            return controller.isOkClicked();
+////            return true;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            new Utils().showErrorDialog(e);
+//            return true;
+//        }
+//        }
     }
 
     public boolean showDictionaryDialogWindow() {

@@ -34,8 +34,8 @@ public class Queries {
   public static final String APPLICATION_NAME = "Indian CaseLaw Finder";
 
  //    public static final String CURRENT_PATH = Paths.get("").toString();
-    public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "IndianCaseLawFinder-1.0").toString();
-  //  public static final String CURRENT_PATH = Paths.get("D:", "Projects", "SupremeToday", "SupremeToday").toString();
+//    public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "IndianCaseLawFinder-1.0").toString();
+    public static final String CURRENT_PATH = Paths.get("D:", "Projects", "SupremeToday").toString();
 //    public static final String CURRENT_PATH = Paths.get("E:", "Old_Backup", "SupremeToday", "SupremeToday").toString();
     public static final String DATA_PATH=Paths.get(CURRENT_PATH, "Data").toString();
     public static final String RESOURCE_PATH=Paths.get(CURRENT_PATH, "res").toString();
