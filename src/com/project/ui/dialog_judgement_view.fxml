@@ -173,6 +173,14 @@
                                         <HBox.margin>
                                             <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                         </HBox.margin></Separator>
+                                    <Button id="btn_doc" fx:id="btnDOC" mnemonicParsing="false" minHeight="30.0" minWidth="50.0">
+                                        <tooltip>
+                                            <Tooltip text="Save as DOC" />
+                                        </tooltip>
+                                        <HBox.margin>
+                                            <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                                        </HBox.margin>
+                                    </Button>
                                     <Button id="btn_pdf" fx:id="btnPDF" mnemonicParsing="false" minHeight="30.0" minWidth="50.0">
                                         <tooltip>
                                             <Tooltip text="Save as PDF" />

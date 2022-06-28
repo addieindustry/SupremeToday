@@ -73,7 +73,7 @@ public class JudgementViewController implements Initializable {
     private WebView webViewDocView;
 
     @FXML
-    private Button btnGoogleTranslator, btnBookMark, btnHighlightPre, btnHighlightNext, btnPreviousDoc, btnNextDoc, btnHeadNote, btnFullCase, btnAnalysis, btnCitator, btnJudicial, btnZoomPlus, btnZoomMinus, btnPDF, btnMail, btnPrint, btnTruePrint;
+    private Button btnGoogleTranslator, btnBookMark, btnHighlightPre, btnHighlightNext, btnPreviousDoc, btnNextDoc, btnHeadNote, btnFullCase, btnAnalysis, btnCitator, btnJudicial, btnZoomPlus, btnZoomMinus, btnPDF, btnDOC, btnMail, btnPrint, btnTruePrint;
 
     @FXML
     private TextField textFieldHighlight;
@@ -101,9 +101,9 @@ public class JudgementViewController implements Initializable {
     private String htmlHeader = "";
     private String copyHeader = "";
     String judgementHTML = "";
-    String googleTranslatorScript = "<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en',includedLanguages:'en,bn,gu,hi,kn,ml,mr,ta,te,ur'},'google_translate_element');}</script> <script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>";
+    String googleTranslatorScript = "<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en'},'google_translate_element');}</script> <script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>";
     String googleTranslatorDiv = "<div id=\"google_translate_element\"></div>";
-//    String googleTranslatorDiv = "";
+    //    String googleTranslatorDiv = "";
     String judgementCSS = "";
     String javaScript = "<script>function scrollTo(o){document.getElementById(o).scrollIntoView()}</script>";
 
@@ -143,7 +143,7 @@ public class JudgementViewController implements Initializable {
     }
 
     private void focusTextInBrowser(WebEngine engine, String text) {
-        if (engine.executeScript("window.find('" + text + "',0,0,0,0,0,1);").equals(false)){
+        if (engine.executeScript("window.find('" + text + "',0,0,0,0,0,1);").equals(false)) {
             new Utils().showDialogAlert(text + " keyword finding reached to end of judgement!");
         }
 //        engine.executeScript("window.find('" + text + "',0,0,0,0,0,1);");
@@ -164,7 +164,7 @@ public class JudgementViewController implements Initializable {
 //        webViewDocView.setZoom(webViewDocView.getZoom() * 1.1);
 //        webViewDocView.setZoom(webViewDocView.getZoom() * 1.1);
 
-        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE) {
 //            btnGoogleTranslator.setStyle("-fx-background-color: steelblue");
 //            btnBookMark.setStyle("-fx-background-color: steelblue");
 //            btnHighlightPre.setStyle("-fx-background-color: steelblue");
@@ -191,7 +191,6 @@ public class JudgementViewController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-       // System.out.println(base64);
 
         htmlHeader = "<div style=\"width: 100%;text-align: left\" ><img src='" + base64 + "'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + ServiceHelper.getLicText() + "</div></br>";
 
@@ -274,13 +273,36 @@ public class JudgementViewController implements Initializable {
             showBookmarkAddDialogWindow();
         });
 
+        btnDOC.setOnAction(event -> {
+            DirectoryChooser directoryChooser
+                    = new DirectoryChooser();
+            final File selectedDirectory
+                    = directoryChooser.showDialog(new Stage(StageStyle.DECORATED));
+            if (selectedDirectory != null) {
+                if (Queries.PDF_COUNT < Queries.PDF_LIMIT) {
+
+                    try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                            new FileOutputStream(Queries.GOOGLE_TRANSLATOR_HTML), "utf-8"))) {
+                        writer.write(judgementHTML);
+                        new Utils().showDialogAlert("DOC saved successfully!");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
         btnPDF.setOnAction(event -> {
             DirectoryChooser directoryChooser
                     = new DirectoryChooser();
             final File selectedDirectory
                     = directoryChooser.showDialog(new Stage(StageStyle.DECORATED));
             if (selectedDirectory != null) {
-                if (JavaHelper.createPdf(judgementHTML, selectedDirectory.getAbsolutePath() + File.separator + titleText.replaceAll("/", "_").replaceAll("&", "_").replaceAll(":", "_") + ".pdf")){
+                if (JavaHelper.createPdf(judgementHTML, selectedDirectory.getAbsolutePath() + File.separator + titleText.replaceAll("/", "_").replaceAll("&", "_").replaceAll(":", "_") + ".pdf")) {
                     new Utils().showDialogAlert("PDF saved successfully!");
                 }
             }
@@ -288,74 +310,13 @@ public class JudgementViewController implements Initializable {
         });
 
         btnPrint.setOnAction(event -> {
-            ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
-            ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Do you want to take Judgement with Summary or Without Summary (Click 'No', for Only Judgement)?", yesButton, noButton);
-            alert.setTitle("Confirm Dialog");
-            alert.setHeaderText(Queries.APPLICATION_NAME);
-            alert.showAndWait().ifPresent(rs -> {
-                if (rs.getText() == "Yes") {
-                    try {
-                        judgementHTML = judgementHTML.replaceAll("style=\"background-color:yellow;\">", String.valueOf('>')).replaceAll("style=\"background-color:lightblue;\">", String.valueOf('>'));
-                        JavaHelper.print(judgementHTML);
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    }
-                }else{
-                    try {
-                        loadHTML("FullCase", Boolean.TRUE);
-                        judgementHTML = judgementHTML.replaceAll("style=\"background-color:yellow;\">", String.valueOf('>')).replaceAll("style=\"background-color:lightblue;\">", String.valueOf('>'));
-                        JavaHelper.print(judgementHTML);
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            loadHTML("FullCase", Boolean.FALSE);
-
-
-
-//            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-//                ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
-//                ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-//                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Do you want to take Judgement with Summary or Without Summary (Click 'No', for Only Judgement)?", yesButton, noButton);
-//                alert.setTitle("Confirm Dialog");
-//                alert.setHeaderText(Queries.APPLICATION_NAME);
-//                alert.showAndWait().ifPresent(rs -> {
-//                    if (rs.getText() == "Yes") {
-//                        try {
-//                            JavaHelper.print(judgementHTML);
-//                        } catch (IllegalAccessException e) {
-//                            e.printStackTrace();
-//                        } catch (InvocationTargetException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }else{
-//                        try {
-//                            loadHTML("FullCase", Boolean.TRUE);
-//                            JavaHelper.print(judgementHTML);
-//                        } catch (IllegalAccessException e) {
-//                            e.printStackTrace();
-//                        } catch (InvocationTargetException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                });
-//
-//                loadHTML("FullCase", Boolean.FALSE);
-//            }else{
-//                try {
-//                    JavaHelper.print(judgementHTML);
-//                } catch (IllegalAccessException e) {
-//                    e.printStackTrace();
-//                } catch (InvocationTargetException e) {
-//                    e.printStackTrace();
-//                }
-//            }
+            try {
+                JavaHelper.print(judgementHTML);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
         });
 
         btnMail.setOnAction(event -> {
@@ -367,18 +328,18 @@ public class JudgementViewController implements Initializable {
             if (btnPreviousDoc.getTooltip().getText().equals("Go to MainCase")) {
                 btnPreviousDoc.setTooltip(new Tooltip("Navigate to Previous"));
                 btnNextDoc.setVisible(true);
-                loadHTML("FullCase", Boolean.FALSE);
+                loadHTML("FullCase");
             } else {
                 if (start_from != 0) {
                     start_from -= 1;
-                    loadHTML("FullCase", Boolean.FALSE);
+                    loadHTML("FullCase");
                 }
             }
         });
 
         btnNextDoc.setOnAction(event -> {
             start_from += 1;
-            loadHTML("FullCase", Boolean.FALSE);
+            loadHTML("FullCase");
         });
 
         btnHighlightPre.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -401,38 +362,38 @@ public class JudgementViewController implements Initializable {
 
         /*ZOOM IN BUTTON*/
         btnZoomPlus.setOnAction(event -> {
-            ServiceHelper.updateDisplayFontInPrintSetting( Integer.parseInt(Queries.PRINT_SETTING_MODEL.getDisplayFontSize()) + 2);
+            ServiceHelper.updateDisplayFontInPrintSetting(Integer.parseInt(Queries.PRINT_SETTING_MODEL.getDisplayFontSize()) + 2);
             Queries.PRINT_SETTING_MODEL.setDisplayFontSize(String.valueOf(Integer.parseInt(Queries.PRINT_SETTING_MODEL.getDisplayFontSize()) + 2));
-            loadHTML(open_tab_pre, Boolean.FALSE);
+            loadHTML(open_tab_pre);
 //            webViewDocView.setZoom(webViewDocView.getZoom() * 1.1);
         });
 
         /*ZOOM OUT BUTTON*/
         btnZoomMinus.setOnAction(event -> {
-            ServiceHelper.updateDisplayFontInPrintSetting( Integer.parseInt(Queries.PRINT_SETTING_MODEL.getDisplayFontSize()) - 2);
+            ServiceHelper.updateDisplayFontInPrintSetting(Integer.parseInt(Queries.PRINT_SETTING_MODEL.getDisplayFontSize()) - 2);
             Queries.PRINT_SETTING_MODEL.setDisplayFontSize(String.valueOf(Integer.parseInt(Queries.PRINT_SETTING_MODEL.getDisplayFontSize()) - 2));
-            loadHTML(open_tab_pre, Boolean.FALSE);
+            loadHTML(open_tab_pre);
 //            webViewDocView.setZoom(webViewDocView.getZoom() / 1.1);
         });
 
         btnHeadNote.setOnAction(event -> {
-            loadHTML("HeadNote", Boolean.FALSE);
+            loadHTML("HeadNote");
         });
 
         btnFullCase.setOnAction(event -> {
             if (!btnFullCase.getText().equals("FullAct")) {
-                loadHTML("FullCase", Boolean.FALSE);
+                loadHTML("FullCase");
             } else {
-                loadHTML("FullAct", Boolean.FALSE);
+                loadHTML("FullAct");
             }
         });
 
         btnAnalysis.setOnAction(event -> {
-            loadHTML("Analysis", Boolean.FALSE);
+            loadHTML("Analysis");
         });
 
         btnCitator.setOnAction(event -> {
-            loadHTML("Citator", Boolean.FALSE);
+            loadHTML("Citator");
         });
 
 //        btnReferred.setOnAction(event -> {
@@ -440,7 +401,7 @@ public class JudgementViewController implements Initializable {
 //        });
 
         btnJudicial.setOnAction(event -> {
-            loadHTML("Judicial", Boolean.FALSE);
+            loadHTML("Judicial");
         });
 
         webViewDocView.setContextMenuEnabled(false);
@@ -450,7 +411,7 @@ public class JudgementViewController implements Initializable {
         engine.getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>() {
             public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
                 if (newState == Worker.State.SUCCEEDED) {
-                    if (Queries.IS_COPY_DISABLE){
+                    if (Queries.IS_COPY_DISABLE) {
                         webViewDocView.setEventDispatcher(webEventDispatcher);
                     }
                     // note next classes are from org.w3c.dom domain
@@ -459,33 +420,25 @@ public class JudgementViewController implements Initializable {
                             String href = ((org.w3c.dom.Element) ev.getTarget()).getAttribute("href");
                             System.out.println("href");
                             System.out.println(href);
-                            if (!href.isEmpty()){
+                            if (!href.isEmpty()) {
                                 if (href.startsWith("act:")) {
                                     showCentralActsDialogWindow(href);
-                                }else if (href.startsWith("overruled:")) {
-//                                    String caseOverruledBy = ServiceHelper.getOverruledByCaseId(href.replace("overruled:", ""));
-//                                    if (!caseOverruledBy.isEmpty()) {
-//                                        StringBuilder stb = new StringBuilder();
-//                                        stb.append("<span style=\"background-color:blue;color:white\"><strong>Overruled By :</strong></span><br/><br/>" + caseOverruledBy + "<br/><br/>");
-//                                        engine.loadContent("<html><head><meta charset=\"UTF-8\">" + javaScript + judgementCSS + "</head><body onkeydown=keyup()>" + htmlHeader + stb.toString() + "</body></html>", "text/html");
-//                                    }
-
-
-
-                                    String search_query="caseId:" + ServiceHelper.getOverruledIdByCaseId(href.replace("overruled:", ""));
-                                    String sort_by="";
-                                    String hl_fields="false";
+                                } else if (href.startsWith("overruled:")) {
+                                    String search_query = "caseId:" + href.replace("overruled:", "");
+                                    String sort_by = "";
+                                    String hl_fields = "false";
                                     Multimap<String, String> filterBy = ArrayListMultimap.create();
                                     resultViewHelper.showJudgementDialogWindow(1, search_query, sort_by, hl_fields, filterBy);
+
 //                                    loadOverruledHTML(href.replace("overruled:", ""));
-                                }else if (href.startsWith("#")) {
+                                } else if (href.startsWith("#")) {
                                     ev.preventDefault();
                                     ev.stopPropagation();
                                     engine.executeScript("scrollTo('" + href.replace("#", "") + "');");
                                 } else {
-                                    String search_query="caseId:" + href;
-                                    String sort_by="";
-                                    String hl_fields="false";
+                                    String search_query = "caseId:" + href;
+                                    String sort_by = "";
+                                    String hl_fields = "false";
                                     Multimap<String, String> filterBy = ArrayListMultimap.create();
                                     resultViewHelper.showJudgementDialogWindow(1, search_query, sort_by, hl_fields, filterBy);
 //                                    resultViewHelper.showJudgementDialogWindow(Integer.parseInt(href), search_query, sort_by, hl_fields, filterBy);
@@ -589,10 +542,10 @@ public class JudgementViewController implements Initializable {
                                     String _temp = "";
                                     if (finalSelectionStr4.length() > 5000) {
                                         _temp = "<div style=\"color:darkblue;font-weight: bold;\">" + copyHeader.replace("\r\n", "</br>") + "</div></br><div style=\"text-align:justify\">" + finalSelectionStr4.substring(0, 5000) + "</div>";
-                                    }else{
+                                    } else {
                                         _temp = "<div style=\"color:darkblue;font-weight: bold;\">" + copyHeader.replace("\r\n", "</br>") + "</div></br><div style=\"text-align:justify\">" + finalSelectionStr4 + "</div>";
                                     }
-                                    _temp  = _temp.replace("\n\n", "</br></br>");
+                                    _temp = _temp.replace("\n\n", "</br></br>");
                                     showSupremePadWindow(_temp);
                                 }
                             });
@@ -621,7 +574,7 @@ public class JudgementViewController implements Initializable {
                                 }
                             });
                             contextMenuWebView.show(webViewDocView, e.getScreenX(), e.getScreenY());
-                        }else{
+                        } else {
                             contextMenuWebView.hide();
                         }
                     }
@@ -692,7 +645,7 @@ public class JudgementViewController implements Initializable {
         }
     }
 
-    private void loadHTML(String displayOnly, Boolean skipSummary) {
+    private void loadHTML(String displayOnly) {
         open_tab_pre = displayOnly;
         URL kruti_font = null;
         try {
@@ -702,7 +655,7 @@ public class JudgementViewController implements Initializable {
         }
 
         judgementCSS = "<style>@font-face {font-family: 'Kruti Dev';src: url('" + kruti_font + "') format('truetype')}.KrutiDev_hindi_text {font-family: Kruti Dev !important;font-size:" + Queries.PRINT_SETTING_MODEL.getDisplayFontSize() + "px !important;}body {font-size:" + Queries.PRINT_SETTING_MODEL.getDisplayFontSize() + "px;}table, th, td {border: 1px solid black;}</style>";
-        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE) {
             judgementCSS = "<style>@font-face {font-family: 'Kruti Dev';src: url('" + kruti_font + "') format('truetype')}.KrutiDev_hindi_text {font-family: Kruti Dev !important;font-size:" + Queries.PRINT_SETTING_MODEL.getDisplayFontSize() + "px !important;}body {font-size:" + Queries.PRINT_SETTING_MODEL.getDisplayFontSize() + "px;font-family:georgia,garamond,serif;}table, th, td {border: 1px solid black;}</style>";
         }
 
@@ -737,34 +690,36 @@ public class JudgementViewController implements Initializable {
                 String endIndex = "#hPostTag#";
                 Integer hlCount = 1;
 
-                if (ServiceHelper.isCitatorAvailableByCaseId(obj.get("caseId").getAsString())){
+                if (ServiceHelper.isCitatorAvailableByCaseId(obj.get("caseId").getAsString())) {
                     btnCitator.setStyle("-fx-background-color: #4169e1;");
-                }else{
-                    if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                } else {
+                    if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE) {
                         btnCitator.setStyle("-fx-background-color: steelblue");
-                    }else{
+                    } else {
                         btnCitator.setStyle("-fx-background-color: darkred;");
                     }
                 }
 
-                if (ServiceHelper.isJudicialCitatorAvailableByCaseId(obj.get("caseId").getAsString())){
+                if (ServiceHelper.isJudicialCitatorAvailableByCaseId(obj.get("caseId").getAsString())) {
                     btnJudicial.setStyle("-fx-background-color: #4169e1;");
-                }else{
-                    if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                } else {
+                    if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE) {
                         btnJudicial.setStyle("-fx-background-color: steelblue");
-                    }else{
+                    } else {
                         btnJudicial.setStyle("-fx-background-color: darkred;");
                     }
                 }
 
                 if (displayOnly.equals("FullCase")) {
-                    if (ServiceHelper.getIsOverruled(obj.get("caseId").getAsString())){
+                    if (ServiceHelper.getIsOverruled(obj.get("caseId").getAsString())) {
                         isWhiteListExist = true;
-                    };
+                    }
+                    ;
 
-                    if (ServiceHelper.getIsDistinguished(obj.get("caseId").getAsString())){
+                    if (ServiceHelper.getIsDistinguished(obj.get("caseId").getAsString())) {
                         isGreenListExist = true;
-                    };
+                    }
+                    ;
 
 //                    if (!obj.get("whitelist").getAsString().isEmpty()) {
 //                        if (!obj.get("whitelist").getAsString().equals("0")) {
@@ -776,17 +731,13 @@ public class JudgementViewController implements Initializable {
                         btnPreviousDoc.setTooltip(new Tooltip("Go to MainCase"));
                         btnNextDoc.setVisible(false);
                     }
-
-                    if (!obj.get("title").getAsString().isEmpty()) {
-                        stb.append("<div style=\"color:blue\"><center><strong>" + obj.get("title").getAsString() + "</strong></center></div></br>");
-                    }
                     if (!obj.get("citation_store").getAsString().isEmpty()) {
                         String _citation = obj.get("citation_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "");
 
-                        String _mainCitation = GetCrossCitationFromCitations(_citation,  true);
+                        String _mainCitation = GetCrossCitationFromCitations(_citation, true);
                         String _crossCitation = GetCrossCitationFromCitations(_citation, false);
 
-                        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                        if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE) {
                             _mainCitation = _mainCitation.replace("Supreme", "ICLF");
                         }
 
@@ -802,16 +753,16 @@ public class JudgementViewController implements Initializable {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
-                        copyHeader = obj.get("title").getAsString() + ", " + jDate  + "\r\n" + _citation.trim() + "\r\n";
+                        copyHeader = obj.get("title").getAsString() + ", " + jDate + "\r\n" + _citation.trim() + "\r\n";
                     }
 
                     if (!obj.get("judgementHeader_store").getAsString().isEmpty()) {
                         String html = obj.get("judgementHeader_store").getAsString().replace("<#hPreTag#", "<").replace("</#hPreTag#", "</").replace("#hPostTag#>", ">");
                         while (html.contains(startIndex) && html.contains(endIndex)) {
                             String hlTag = html.substring(html.indexOf(startIndex), html.indexOf(endIndex, html.indexOf(startIndex) + startIndex.length()) + endIndex.length());
-                            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE) {
                                 html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:yellow;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
-                            }else{
+                            } else {
                                 html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:lightblue;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
                             }
 
@@ -821,107 +772,17 @@ public class JudgementViewController implements Initializable {
 //                        html = html.replace("<BR>Decided on", "Decided on");
                         html = html.replace("<p align=\"justify\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>", "");
                         if (isWhiteListExist) {
-                            stb.append("<div style=\"color:"+Queries.OVERRULED_BACKGROUND_COLOR+";\">" + html + "</div>");
-                        }else if (isGreenListExist) {
-                            stb.append("<div style=\"color:"+Queries.DISTINGUISHED_BACKGROUND_COLOR+";\">" + html + "</div>");
-                        }else{
+                            stb.append("<div style=\"color:" + Queries.OVERRULED_BACKGROUND_COLOR + ";\">" + html + "</div>");
+                        } else if (isGreenListExist) {
+                            stb.append("<div style=\"color:" + Queries.DISTINGUISHED_BACKGROUND_COLOR + ";\">" + html + "</div>");
+                        } else {
                             stb.append(html);
                         }
 
 //                        stb.append(obj.get("judgementHeader_store").getAsString().replaceAll("#hPreTag#", "<STRONG>").replaceAll("#hPostTag#", "</STRONG>") + "<br/>");
                     }
 
-                    if (!obj.get("acts_store").getAsString().isEmpty()) {
-                        stb.append("<span style=\"color:blue\"><strong>" + obj.get("acts_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "</strong></span><br/>");
-                    }
-
-                    if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-                        if (skipSummary == Boolean.FALSE){
-                            if (!obj.get("summary_new_store").getAsString().isEmpty()) {
-                                if (obj.get("summary_new_store").getAsString().trim().length() > 3) {
-                                    String html = obj.get("summary_new_store").getAsString().replace("<#hPreTag#", "<").replace("</#hPreTag#", "</").replace("#hPostTag#>", ">");
-                                    while (html.contains(startIndex) && html.contains(endIndex)) {
-                                        String hlTag = html.substring(html.indexOf(startIndex), html.indexOf(endIndex, html.indexOf(startIndex) + startIndex.length()) + endIndex.length());
-                                        html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:yellow;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
-                                        hlCount += 1;
-                                    }
-                                    html = html.replace("<p align=\"justify\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>", "");
-                                    stb.append("<p align=\"justify\" style=\"color:red\"><strong>" + html + "</strong></p>");
-                                }
-                            }
-                        }
-                    }else{
-                        if (skipSummary == Boolean.FALSE){
-                            if (!obj.get("summary_store").getAsString().isEmpty()) {
-                                if (obj.get("summary_store").getAsString().trim().length() > 3) {
-                                    String html = obj.get("summary_store").getAsString().replace("<#hPreTag#", "<").replace("</#hPreTag#", "</").replace("#hPostTag#>", ">");
-                                    while (html.contains(startIndex) && html.contains(endIndex)) {
-                                        String hlTag = html.substring(html.indexOf(startIndex), html.indexOf(endIndex, html.indexOf(startIndex) + startIndex.length()) + endIndex.length());
-                                        html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:lightblue;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
-                                        hlCount += 1;
-                                    }
-                                    html = html.replace("<p align=\"justify\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>", "");
-                                    stb.append("<p align=\"justify\"><strong>" + html + "</strong></p>");
-                                }
-                            }
-                        }
-                    }
-
-                    String casesReferred = ServiceHelper.getCaseReferedByCaseId(obj.get("caseId").getAsString());
-                    if (!casesReferred.isEmpty()) {
-                        if (casesReferred.trim().length() > 3) {
-                            stb.append("<span style=\"background-color:blue;color:white\"><strong>Cases referred:</strong></span><br/><br/>" + casesReferred + "<br/><br/>");
-                        }
-                    }
-
-                    if (Queries.IS_SUPREME_TODAY_APP == Boolean.TRUE){
-                        if (!obj.get("impNotes_store").getAsString().isEmpty()) {
-                            if (obj.get("impNotes_store").getAsString().trim().length() > 3) {
-                                stb.append("<span style=\"color:red\">" + obj.get("impNotes_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "</span><br/><br/>");
-                            }
-                        }
-                    }
-
-                    if (!obj.get("advocates").getAsString().isEmpty()) {
-                        if (obj.get("advocates").getAsString().trim().length() > 3) {
-//                            System.out.println(obj.get("advocates").getAsString());
-                            String _advocate = obj.get("advocates").getAsString();
-                            if (_advocate.contains("\r\n")){
-                                _advocate = _advocate.replace("\r\n", "<br/>");
-                            }else{
-                                _advocate = _advocate.replace("Advocates Appeared :", "Advocates Appeared :<br/>");
-                                _advocate = _advocate.replace(";", "<br/>");
-                            }
-                            stb.append("<span>" + _advocate.replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "</span><br/><br/>");
-                        }
-                    }
-
-                    if (!obj.get("content_store").getAsString().isEmpty()) {
-                        String html = obj.get("content_store").getAsString().replace("<#hPreTag#", "<").replace("</#hPreTag#", "</").replace("#hPostTag#>", ">");
-                        while (html.contains(startIndex) && html.contains(endIndex)) {
-                            String hlTag = html.substring(html.indexOf(startIndex), html.indexOf(endIndex, html.indexOf(startIndex) + startIndex.length()) + endIndex.length());
-                            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
-                                html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:yellow;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
-                            }else{
-                                html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:lightblue;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
-                            }
-                            hlCount += 1;
-                        }
-
-                        stb.append(html + "<br/>");
-                    }
-                }
-                else if (displayOnly.equals("HeadNote")) {
-                    if (!obj.get("citation_store").getAsString().isEmpty()) {
-                        stb.append("<center><strong>" + obj.get("citation_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "</strong></center>" + "<br/>");
-                    }
-
-                    if (!obj.get("judgementHeader_store").getAsString().isEmpty()) {
-                        stb.append(obj.get("judgementHeader_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "<br/>");
-                    }
-
-
-                    if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
+                    if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE) {
                         if (!obj.get("summary_new_store").getAsString().isEmpty()) {
                             if (obj.get("summary_new_store").getAsString().trim().length() > 3) {
                                 String html = obj.get("summary_new_store").getAsString().replace("<#hPreTag#", "<").replace("</#hPreTag#", "</").replace("#hPostTag#>", ">");
@@ -934,20 +795,88 @@ public class JudgementViewController implements Initializable {
                                 stb.append("<p align=\"justify\" style=\"color:red\"><strong>" + html + "</strong></p>");
                             }
                         }
-                    }else{
+                    } else {
                         if (!obj.get("summary_store").getAsString().isEmpty()) {
                             if (obj.get("summary_store").getAsString().trim().length() > 3) {
-                                String html = obj.get("summary_store").getAsString();
+                                String html = obj.get("summary_store").getAsString().replace("<#hPreTag#", "<").replace("</#hPreTag#", "</").replace("#hPostTag#>", ">");
                                 while (html.contains(startIndex) && html.contains(endIndex)) {
                                     String hlTag = html.substring(html.indexOf(startIndex), html.indexOf(endIndex, html.indexOf(startIndex) + startIndex.length()) + endIndex.length());
                                     html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:lightblue;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
                                     hlCount += 1;
                                 }
-                                stb.append("<strong>" + html + "</strong><br/>");
+                                html = html.replace("<p align=\"justify\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>", "");
+                                stb.append("<p align=\"justify\"><strong>" + html + "</strong></p>");
                             }
                         }
                     }
 
+                    String casesReferred = ServiceHelper.getCaseReferedByCaseId(obj.get("caseId").getAsString());
+                    if (!casesReferred.isEmpty()) {
+                        if (casesReferred.trim().length() > 3) {
+                            stb.append("<span style=\"background-color:blue;color:white\"><strong>Cases referred:</strong></span><br/><br/>" + casesReferred + "<br/><br/>");
+                        }
+                    }
+
+                    if (!obj.get("acts_store").getAsString().isEmpty()) {
+                        stb.append("<span style=\"color:blue\"><strong>" + obj.get("acts_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "</strong></span><br/><br/>");
+                    }
+
+                    if (Queries.IS_SUPREME_TODAY_APP == Boolean.TRUE) {
+                        if (!obj.get("impNotes_store").getAsString().isEmpty()) {
+                            if (obj.get("impNotes_store").getAsString().trim().length() > 3) {
+                                stb.append("<span style=\"color:red\">" + obj.get("impNotes_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "</span><br/><br/>");
+                            }
+                        }
+                    }
+
+                    if (!obj.get("advocates").getAsString().isEmpty()) {
+                        if (obj.get("advocates").getAsString().trim().length() > 3) {
+//                            System.out.println(obj.get("advocates").getAsString());
+                            String _advocate = obj.get("advocates").getAsString();
+                            if (_advocate.contains("\r\n")) {
+                                _advocate = _advocate.replace("\r\n", "<br/>");
+                            } else {
+                                _advocate = _advocate.replace("Advocates Appeared :", "Advocates Appeared :<br/>");
+                                _advocate = _advocate.replace(";", "<br/>");
+                            }
+                            stb.append("<span>" + _advocate.replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "</span><br/><br/>");
+                        }
+                    }
+
+                    if (!obj.get("content_store").getAsString().isEmpty()) {
+                        String html = obj.get("content_store").getAsString().replace("<#hPreTag#", "<").replace("</#hPreTag#", "</").replace("#hPostTag#>", ">");
+                        while (html.contains(startIndex) && html.contains(endIndex)) {
+                            String hlTag = html.substring(html.indexOf(startIndex), html.indexOf(endIndex, html.indexOf(startIndex) + startIndex.length()) + endIndex.length());
+                            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE) {
+                                html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:yellow;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
+                            } else {
+                                html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:lightblue;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
+                            }
+                            hlCount += 1;
+                        }
+
+                        stb.append(html + "<br/>");
+                    }
+                } else if (displayOnly.equals("HeadNote")) {
+                    if (!obj.get("citation_store").getAsString().isEmpty()) {
+                        stb.append("<center><strong>" + obj.get("citation_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "</strong></center>" + "<br/>");
+                    }
+
+                    if (!obj.get("judgementHeader_store").getAsString().isEmpty()) {
+                        stb.append(obj.get("judgementHeader_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "<br/>");
+                    }
+
+                    if (!obj.get("summary_store").getAsString().isEmpty()) {
+                        if (obj.get("summary_store").getAsString().trim().length() > 3) {
+                            String html = obj.get("summary_store").getAsString();
+                            while (html.contains(startIndex) && html.contains(endIndex)) {
+                                String hlTag = html.substring(html.indexOf(startIndex), html.indexOf(endIndex, html.indexOf(startIndex) + startIndex.length()) + endIndex.length());
+                                html = html.replaceFirst(hlTag, "<span id=\"hl" + hlCount + "\" style=\"background-color:lightblue;\">" + hlTag.replace(startIndex, "").replace(endIndex, "") + "</span>");
+                                hlCount += 1;
+                            }
+                            stb.append("<strong>" + html + "</strong><br/>");
+                        }
+                    }
 
 //                    if (!obj.get("summary_store").getAsString().isEmpty())
 //                    {stb.append(obj.get("summary_store").getAsString() + "<br/>");}
@@ -959,23 +888,22 @@ public class JudgementViewController implements Initializable {
                     if (!obj.get("impNotes_store").getAsString().isEmpty()) {
                         stb.append(obj.get("impNotes_store").getAsString() + "<br/>");
                     }
-                }
-                else if (displayOnly.equals("Analysis")) {
+                } else if (displayOnly.equals("Analysis")) {
 //                    if (!obj.get("judgementHeader_store").getAsString().isEmpty()) {
 //                        stb.append(obj.get("judgementHeader_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "<br/>");
 //                    }
                     stb.append("<table style=\"text-align:left;\"><col width=\"20%\"><col width=\"80%\">");
                     if (!obj.get("title").getAsString().isEmpty()) {
-                        stb.append("<tr><th style=\"font-weight: bold;background-color: #4286f4;\">Case Name</th><th style=\"font-weight: normal;\">"+obj.get("title").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "")+"</th></tr>");
+                        stb.append("<tr><th style=\"font-weight: bold;background-color: #4286f4;\">Case Name</th><th style=\"font-weight: normal;\">" + obj.get("title").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "</th></tr>");
                     }
                     if (!obj.get("judge").getAsString().isEmpty()) {
-                        stb.append("<tr><th style=\"font-weight: bold;background-color: #5041f4;color:#ffffff;\">Judge Name</th><th style=\"font-weight: normal;\">"+obj.get("judge").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "")+"</th></tr>");
+                        stb.append("<tr><th style=\"font-weight: bold;background-color: #5041f4;color:#ffffff;\">Judge Name</th><th style=\"font-weight: normal;\">" + obj.get("judge").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "</th></tr>");
                     }
                     if (!obj.get("advocates").getAsString().isEmpty()) {
                         String _advocate = obj.get("advocates").getAsString();
-                        if (_advocate.contains("\r\n")){
+                        if (_advocate.contains("\r\n")) {
                             _advocate = _advocate.replace("\r\n", "<br/>");
-                        }else{
+                        } else {
                             _advocate = _advocate.replace("Advocates Appeared :", "Advocates Appeared :<br/>");
                             _advocate = _advocate.replace(";", "<br/>");
                         }
@@ -983,16 +911,16 @@ public class JudgementViewController implements Initializable {
                         stb.append("<tr><th style=\"font-weight: bold;background-color: #5041f4;color:#ffffff;\">Advocates appeared</th><th style=\"font-weight: normal;\">" + _advocate.replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "</th></tr>");
                     }
                     if (!obj.get("result").getAsString().isEmpty()) {
-                        stb.append("<tr><th style=\"font-weight: bold;background-color: #5041f4;color:#ffffff;\">Results</th><th style=\"font-weight: normal;\">"+obj.get("result").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "")+"</th></tr>");
+                        stb.append("<tr><th style=\"font-weight: bold;background-color: #5041f4;color:#ffffff;\">Results</th><th style=\"font-weight: normal;\">" + obj.get("result").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "</th></tr>");
                     }
                     if (!obj.get("citation_store").getAsString().isEmpty()) {
-                        stb.append("<tr><th style=\"font-weight: bold;background-color: #5041f4;color:#ffffff;\">Citations</th><th style=\"font-weight: normal;\">"+obj.get("citation_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "")+"</th></tr>");
+                        stb.append("<tr><th style=\"font-weight: bold;background-color: #5041f4;color:#ffffff;\">Citations</th><th style=\"font-weight: normal;\">" + obj.get("citation_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "</th></tr>");
                     }
                     if (!obj.get("acts_store").getAsString().isEmpty()) {
-                        stb.append("<tr><th style=\"font-weight: bold;background-color: #5041f4;color:#ffffff;\">Acts & Sections</th><th style=\"font-weight: normal;\">"+obj.get("acts_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "")+"</th></tr>");
+                        stb.append("<tr><th style=\"font-weight: bold;background-color: #5041f4;color:#ffffff;\">Acts & Sections</th><th style=\"font-weight: normal;\">" + obj.get("acts_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "</th></tr>");
                     }
                     if (!obj.get("impNotes_store").getAsString().isEmpty()) {
-                        stb.append("<tr><th style=\"font-weight: bold;background-color: #5041f4;color:#ffffff;\">Important Point</th><th style=\"font-weight: normal;\">"+obj.get("impNotes_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "")+"</th></tr>");
+                        stb.append("<tr><th style=\"font-weight: bold;background-color: #5041f4;color:#ffffff;\">Important Point</th><th style=\"font-weight: normal;\">" + obj.get("impNotes_store").getAsString().replaceAll("#hPreTag#", "").replaceAll("#hPostTag#", "") + "</th></tr>");
                     }
                     stb.append("</table>");
 //                    if (!obj.get("citation_store").getAsString().isEmpty()) {
@@ -1014,21 +942,18 @@ public class JudgementViewController implements Initializable {
 //                    if (!obj.get("result").getAsString().isEmpty()) {
 //                        stb.append(obj.get("result").getAsString() + "<br/><br/>");
 //                    }
-                }
-                else if (displayOnly.equals("Citator")) {
+                } else if (displayOnly.equals("Citator")) {
                     String caseCitator = ServiceHelper.getCitatorByCaseId(obj.get("caseId").getAsString());
                     if (!caseCitator.isEmpty()) {
                         int _citedIn = ServiceHelper.getCitatorCountByCaseId(obj.get("caseId").getAsString());
                         stb.append("<span style=\"background-color:blue;color:white\"><strong>Case Citator, <i>Total Count :</i>" + _citedIn + "</strong></span><br/><br/>" + caseCitator + "<br/><br/>");
                     }
-                }
-                else if (displayOnly.equals("Referred")) {
+                } else if (displayOnly.equals("Referred")) {
                     String casesReferred = ServiceHelper.getCaseReferedByCaseId(obj.get("caseId").getAsString());
                     if (!casesReferred.isEmpty()) {
                         stb.append("<span style=\"background-color:blue;color:white\"><strong>Cases referred:</strong></span><br/><br/>" + casesReferred + "<br/><br/>");
                     }
-                }
-                else if (displayOnly.equals("Judicial")) {
+                } else if (displayOnly.equals("Judicial")) {
                     String casesReferred = ServiceHelper.getJudicialCitatorByCaseId(obj.get("caseId").getAsString());
                     if (!casesReferred.isEmpty()) {
                         stb.append("<!DOCTYPE html><html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><style>.accordion{background-color: #eee; color: #444; cursor: pointer; padding: 18px; width: 90%; border: none; text-align: left; outline: none; font-size: 15px; transition: 0.4s;}.active, .accordion:hover{background-color: #ccc;}.panel{padding: 0 18px; display: none; background-color: white; overflow: hidden;}</style></head><body>");
@@ -1046,8 +971,7 @@ public class JudgementViewController implements Initializable {
 ////                        stb.append("<span style=\"background-color:blue;color:white\"><strong>Judicial Analysis:</strong></span><br/><br/>" + casesReferred + "<br/><br/>");
 //                    }
                 }
-            }
-            else if (obj.get("DocType").getAsString().equals("WordPhrase")) {
+            } else if (obj.get("DocType").getAsString().equals("WordPhrase")) {
                 btnHeadNote.setVisible(false);
                 btnFullCase.setVisible(false);
                 btnAnalysis.setVisible(false);
@@ -1072,8 +996,7 @@ public class JudgementViewController implements Initializable {
 
                     stb.append(html + "<br/>");
                 }
-            }
-            else if (obj.get("DocType").getAsString().equals("BareActs")) {
+            } else if (obj.get("DocType").getAsString().equals("BareActs")) {
 
                 btnHeadNote.setVisible(false);
                 btnFullCase.setVisible(true);
@@ -1109,8 +1032,7 @@ public class JudgementViewController implements Initializable {
                         stb.append(html + "<br/>");
                     }
                 }
-            }
-            else if (obj.get("DocType").getAsString().equals("Commentary")) {
+            } else if (obj.get("DocType").getAsString().equals("Commentary")) {
                 btnHeadNote.setVisible(false);
                 btnFullCase.setVisible(true);
                 btnFullCase.setText("FullAct");
@@ -1151,19 +1073,11 @@ public class JudgementViewController implements Initializable {
 //            try {
 //                judgementHTML = new String(Files.readAllBytes(Paths.get("D:\\Projects\\SupremeToday\\SupremeToday\\res\\temp.html")));
 //
-//Modify 21-06-2022
-           //     try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-         //               new FileOutputStream("F:\\Program Files\\SupremeToday-2.0\\64250.htm"), "utf-8"))) {
-         //           writer.write(judgementHTML);
-         //       } catch (UnsupportedEncodingException e) {
-        //            e.printStackTrace();
-         //       } catch (FileNotFoundException e) {
-         //           e.printStackTrace();
-        //        } catch (IOException e) {
-        //
-
-            //           e.printStackTrace();
-         //       }
+//
+////                try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+////                        new FileOutputStream("D:\\Addie\\SupremeToday\\Sample\\64250.htm"), "utf-8"))) {
+////                    writer.write(temp2);
+////                }
 //            } catch (IOException e) {
 //                e.printStackTrace();
 //            }
@@ -1177,7 +1091,6 @@ public class JudgementViewController implements Initializable {
 //            System.out.println(engine.isJavaScriptEnabled());
 
             judgementHTML = judgementHTML.replace("<font face=\"Kruti Dev 011\">", "<em class=\"KrutiDev_hindi_text\" style=\"font-family:Kruti Dev 010;\">");
-            judgementHTML = judgementHTML.replace("<span class=\"Hfont\">", "<span class=\"KrutiDev_hindi_text\" style=\"font-family:Kruti Dev 010;\">");
             judgementHTML = judgementHTML.replace("</font>", "</em>");
             judgementHTML = judgementHTML.replace("<a name=\"", "<a id=\"");
 
@@ -1193,7 +1106,7 @@ public class JudgementViewController implements Initializable {
 
             String _html = "";
             if (isWhiteListExist) {
-                String overruledTitle = "<div align=\"center\">This Judgement has been Overruled, <a href='overruled:"+docId+"'>Click Here to View</a></div>";
+                String overruledTitle = "<div align=\"center\">This Judgement has been Overruled, <a href='overruled:" + docId + "'>Click Here to View</a></div>";
                 _html = "<html><head><meta charset=\"UTF-8\">" + googleTranslatorScript + javaScript + judgementCSS + "</head><body style=\"padding-right:20;\" onkeydown=keyup()>" + htmlHeader + googleTranslatorDiv + overruledTitle + judgementHTML + "</body></html>";
 
 //                engine.loadContent(_html, "text/html");
@@ -1218,7 +1131,7 @@ public class JudgementViewController implements Initializable {
 //                e.printStackTrace();
 //            }
 
-                engine.loadContent(_html, "text/html");
+            engine.loadContent(_html, "text/html");
 //                try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 //                        new FileOutputStream("D:\\64250.htm"), "utf-8"))) {
 //                    writer.write(_html);
@@ -1232,10 +1145,10 @@ public class JudgementViewController implements Initializable {
 //            }
 
             judgementId = docId;
-            if (checkIfTruePrintAvailable(docId)){
+            if (checkIfTruePrintAvailable(docId)) {
 //                System.out.println("btnTruePrint.disableProperty().setValue(false);");
                 btnTruePrint.disableProperty().setValue(false);
-            }else{
+            } else {
 //                System.out.println("btnTruePrint.disableProperty().setValue(true);");
                 btnTruePrint.disableProperty().setValue(true);
             }
@@ -1245,7 +1158,7 @@ public class JudgementViewController implements Initializable {
         href_query = "";
     }
 
-    private boolean checkIfTruePrintAvailable(String id){
+    private boolean checkIfTruePrintAvailable(String id) {
         String url = Queries.IS_TRUE_PRINT_AVAIL_API + id;
 
         URL myurl = null;
@@ -1275,7 +1188,7 @@ public class JudgementViewController implements Initializable {
                 e.printStackTrace();
             }
 
-            if (Boolean.parseBoolean(content_sb.toString().trim()) == true){
+            if (Boolean.parseBoolean(content_sb.toString().trim()) == true) {
                 return true;
             }
         } catch (MalformedURLException | ProtocolException e) {
@@ -1288,7 +1201,7 @@ public class JudgementViewController implements Initializable {
         return false;
     }
 
-    private boolean fireClick(){
+    private boolean fireClick() {
 //        System.out.println("fireClick");
         engine.executeScript("location.href='#Introduction1';");
         engine.executeScript("location.hash='#Introduction1';");
@@ -1300,14 +1213,14 @@ public class JudgementViewController implements Initializable {
         List<String> _citationList = new ArrayList<String>(Arrays.asList(_citations.split(";")));
 
         StringBuilder _stbCitation = new StringBuilder();
-        for(int i=0;i<_citationList.size();i++){
+        for (int i = 0; i < _citationList.size(); i++) {
             String _citation = _citationList.get(i);
-            if (IsMainCitationOnly){
-                if (_citation.contains(" Supreme(")){
+            if (IsMainCitationOnly) {
+                if (_citation.contains(" Supreme(")) {
                     _stbCitation.append(_citation);
                 }
-            }else{
-                if (!_citation.contains(" Supreme(")){
+            } else {
+                if (!_citation.contains(" Supreme(")) {
                     _stbCitation.append(_citation + "; ");
                 }
             }
@@ -1327,7 +1240,7 @@ public class JudgementViewController implements Initializable {
 //            }
 //        }
 
-        if (_stbCitation.toString().endsWith("; ")){
+        if (_stbCitation.toString().endsWith("; ")) {
             _stbCitation.delete(_stbCitation.toString().length() - 2, _stbCitation.toString().length());
         }
         return _stbCitation.toString().trim();
@@ -1355,7 +1268,7 @@ public class JudgementViewController implements Initializable {
 //            DialogSendEMailController controller = loader.getController();
             controller.setDialogStage(dialogStage);
 
-            if (judgementHTML.contains("Kruti")){
+            if (judgementHTML.contains("Kruti")) {
                 judgementHTML = judgementHTML.replace("<font face=\"Kruti Dev 011\">", "<font face=\"K11\">").
                         replace("<font class=\"krutiFontClass\">", "<font face=\"K11\">").replace("<em class=\"KrutiDev_hindi_text\" style=\"font-family:Kruti Dev 010;\">", "<font face=\"K11\">");
             }
@@ -1514,7 +1427,7 @@ public class JudgementViewController implements Initializable {
         sortBy = SortBy;
         start_from = startFrom;
         hl_fields = hlFields;
-        loadHTML("FullCase", Boolean.FALSE);
+        loadHTML("FullCase");
     }
 }
 

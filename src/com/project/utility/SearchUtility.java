@@ -86,7 +86,8 @@ public class SearchUtility {
 //            String[] fieldList = new String[]{"content"};
 //            String[] fieldList = new String[]{"title", "content", "summary", "acts", "result","citation", "judge", "advocates"};
 //            String[] fieldList = new String[]{"judgementHeader","content","summary","acts","result","citation"};
-            String[] fieldList = new String[]{"judgementHeader","content","summary","result","citation"};
+//            String[] fieldList = new String[]{"judgementHeader","content","summary","result","citation"};
+            String[] fieldList = new String[]{"judgementHeader","content","summary","result"};
 
             if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
                 fieldList = new String[]{"judgementHeader", "content", "summary_new", "result", "citation"};

@@ -47,12 +47,18 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Callback;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.docx4j.convert.in.xhtml.XHTMLImporter;
+//import org.docx4j.convert.in.xhtml.XHTMLImporterImpl;
 import org.w3c.dom.Document;
 import org.w3c.dom.events.Event;
 import org.w3c.dom.events.EventListener;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
@@ -336,6 +342,29 @@ public class CentralActController implements Initializable {
 
         btnPrint.setOnAction(event -> {
             try {
+                try{
+                    // Create new file
+                    String path="D:\\output.docx";
+                    File file = new File(path);
+
+                    // If file doesn't exists, then create it
+                    if (!file.exists()) {
+                        file.createNewFile();
+                    }
+
+                    FileWriter fw = new FileWriter(file.getAbsoluteFile());
+                    BufferedWriter bw = new BufferedWriter(fw);
+
+                    // Write in file
+                    bw.write(htmlContent);
+
+                    // Close connection
+                    bw.close();
+                }
+                catch(Exception e){
+                    System.out.println(e);
+                }
+//                System.out.println(htmlContent);
                 JavaHelper.print(htmlContent);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();

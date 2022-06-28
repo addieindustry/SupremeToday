@@ -179,7 +179,15 @@ public class DialogLiveUpdateController implements Initializable {
             }
         }, 120 * 1000, 1 * 30 * 60 * 1000);
 
-        System.out.println("EXIT");
+//        System.out.println("EXIT");
+//        new Thread(longTask).start();
+
+        System.out.println("LIVE UPDATE STARTING");
+        progressStatus.setVisible(true);
+        progressStatus.progressProperty().bind(longTask.progressProperty());
+        labelStatus.textProperty().bind(longTask.messageProperty());
+        new Thread(longTask).start();
+        System.out.println("LIVE UPDATE STARTED");
     }
 
     private void loadLiveUpdates() {
