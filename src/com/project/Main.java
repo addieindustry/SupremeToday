@@ -387,7 +387,7 @@ public class Main extends Application {
         }
     }
 
-    private TrayIcon trayIcon;
+
     private static final int SINGLE_INSTANCE_LISTENER_PORT = 12345;
     private static final String SINGLE_INSTANCE_FOCUS_MESSAGE = "focus";
     private static final String instanceId = UUID.randomUUID().toString();
@@ -548,13 +548,13 @@ public class Main extends Application {
             popup.add(closeItem);
             /// ... add other items
             // construct a TrayIcon
-            trayIcon = new TrayIcon(image, "Title", popup);
+            Queries.trayIcon = new TrayIcon(image, "Title", popup);
             // set the TrayIcon properties
-            trayIcon.addActionListener(showListener);
+            Queries.trayIcon.addActionListener(showListener);
             // ...
             // add the tray image
             try {
-                tray.add(trayIcon);
+                tray.add(Queries.trayIcon);
             } catch (AWTException e) {
                 System.err.println(e);
             }
@@ -562,7 +562,7 @@ public class Main extends Application {
         }
     }
     public void showProgramIsMinimizedMsg() {
-        trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
+        Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
                 "Double Click to Maximize",
                 TrayIcon.MessageType.INFO);
     }

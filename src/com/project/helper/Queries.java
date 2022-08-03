@@ -8,6 +8,7 @@ package com.project.helper;
 import com.project.model.PrintSettingModel;
 import com.project.utility.EncryptionHelperLatest;
 
+import java.awt.*;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -32,6 +33,8 @@ public class Queries {
 
    public static final Boolean IS_SUPREME_TODAY_APP = Boolean.FALSE;
   public static final String APPLICATION_NAME = "Indian CaseLaw Finder";
+
+    public static TrayIcon trayIcon;
 
  //    public static final String CURRENT_PATH = Paths.get("").toString();
 //    public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "IndianCaseLawFinder-1.0").toString();

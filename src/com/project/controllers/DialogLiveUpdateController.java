@@ -31,6 +31,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -41,6 +43,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -68,6 +71,8 @@ public class DialogLiveUpdateController implements Initializable {
 
     public Thread th;
 
+    private TrayIcon trayIcon;
+
 //    private Stage primaryStage;
     /*INIT SEARCH INTERFACE*/
 //    private static final List<BookmarkSearchListener> searchListenerList = Lists.newArrayList();
@@ -78,6 +83,7 @@ public class DialogLiveUpdateController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("live update INITIALIZE");
 //        System.out.println("INITIALIZE");
 
         progressStatus.setVisible(false);
@@ -165,6 +171,9 @@ public class DialogLiveUpdateController implements Initializable {
             progressStatus.progressProperty().bind(longTask.progressProperty());
             labelStatus.textProperty().bind(longTask.messageProperty());
             new Thread(longTask).start();
+            Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
+                    "btnUpdate CLICKED",
+                    TrayIcon.MessageType.INFO);
         });
 
         loadLiveUpdates();
@@ -217,7 +226,14 @@ public class DialogLiveUpdateController implements Initializable {
 //            btnUpdate.setDisable(false);
         }else{
             tableUpdateStatus.setVisible(false);
+            final SystemTray tray = SystemTray.getSystemTray();
+
             labelStatus.setText("No updates available");
+//            import com.project.Main;
+//            Main.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
+//                    "Double Click to Maximize",
+//                    TrayIcon.MessageType.INFO);
+
 //            btnUpdate.setDisable(true);
         }
     }

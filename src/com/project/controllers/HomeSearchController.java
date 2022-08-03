@@ -11,6 +11,8 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,6 +28,10 @@ public class HomeSearchController implements Initializable {
 //    private static final List<HomeSearchListener> homeSearchList = Lists.newArrayList();
     @FXML
     private Image homeImg;
+
+    @FXML
+    private WebView webViewContent;
+    private WebEngine engine;
 
     @FXML
     private StackPane stackPane;
@@ -44,6 +50,11 @@ public class HomeSearchController implements Initializable {
         Image im=new Image(fil.toURI().toString());
         ImageView view=new ImageView(im);
         stackPane.getChildren().add(view);//This is the added code.
+
+        engine = webViewContent.getEngine();
+
+        engine.load("https://www.google.com");
+//        engine.loadContent(htmlContent, "text/html");
 
 //        try {
 //            InputStream is = new FileInputStream(Queries.splashFile);
