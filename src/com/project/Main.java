@@ -74,7 +74,7 @@ public class Main extends Application {
     private static final int SPLASH_HEIGHT = 311;
 
 //     private boolean isAutoUpdateApplication = true;
-    private static boolean isAutoUpdateApplication = false;
+//    private static boolean isAutoUpdateApplication = false;
 
     public static void main(String[] args) throws Exception {
         Queries.SESSION = new Date().getTime();
@@ -167,6 +167,7 @@ public class Main extends Application {
                 () -> startMainScreen()
         );
         new Thread(friendTask).start();
+//        runSingleInstantApplication();
         startAutoUpdateScreen();
     }
 
@@ -339,6 +340,26 @@ public class Main extends Application {
                     autoHide(mainStage);
                 }
             });
+
+            mainStage.setOnShowing(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent t) {
+                    System.out.println("MAXIMISED MAIN SCREEN");
+                    if (Queries.LIVE_UPDATE_PAUSED == Boolean.FALSE){
+                        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+                        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Do you want to Pause the Live Update for during the Current Session?", yesButton, noButton);
+                        alert.setTitle("Confirm Dialog");
+                        alert.setHeaderText(Queries.APPLICATION_NAME);
+                        alert.showAndWait().ifPresent(rs -> {
+                            if (rs.getText() == "Yes") {
+                                Queries.LIVE_UPDATE_PAUSED = Boolean.TRUE;
+                            }
+                        });
+                    }
+                }
+            });
+
             //BELOW LINE IS FOR MAC OS X SOLUTION
             if (OSValidator.isMac()){
 //                mainStage.setAlwaysOnTop(true);
@@ -394,75 +415,76 @@ public class Main extends Application {
 
     private static final int FOCUS_REQUEST_PAUSE_MILLIS = 2000;
 
-//    public void runSingleInstantApplication() {
-//        CountDownLatch instanceCheckLatch = new CountDownLatch(1);
-//
-//        Thread instanceListener = new Thread(() -> {
-//            try (ServerSocket serverSocket = new ServerSocket(SINGLE_INSTANCE_LISTENER_PORT, 10)) {
-//                instanceCheckLatch.countDown();
-//
-//                while (true) {
-//                    try (
-//                            Socket clientSocket = serverSocket.accept();
-//                            BufferedReader in = new BufferedReader(
-//                                    new InputStreamReader(clientSocket.getInputStream()))
-//                    ) {
-//                        String input = in.readLine();
-//                        System.out.println("Received single instance listener message: " + input);
-//                        if (input.startsWith(SINGLE_INSTANCE_FOCUS_MESSAGE) && mainStage != null) {
-//                            Thread.sleep(FOCUS_REQUEST_PAUSE_MILLIS);
-//                            Platform.runLater(() -> {
-//                                System.out.println("To front " + instanceId);
-//                                mainStage.setIconified(false);
-//                                mainStage.show();
-//                                mainStage.toFront();
-//                            });
-//                        }
-//                    } catch (IOException e) {
-//                        System.out.println("Single instance listener unable to process focus message from client");
-//                        e.printStackTrace();
-//                        Alert alert = new Alert(Alert.AlertType.ERROR);
-//                        alert.setTitle("Live Update Instance already Running!");
-//                        alert.setHeaderText(Queries.APPLICATION_NAME);
-//                        alert.setContentText("Please Close another Instance and Try here...");
-//                        alert.showAndWait();
-//                    }
-//                }
-//            } catch(java.net.BindException b) {
-//                System.out.println("SingleInstanceApp already running");
-//                Alert alert = new Alert(Alert.AlertType.ERROR);
-//                alert.setTitle("Live Update Instance already Running!");
-//                alert.setHeaderText(Queries.APPLICATION_NAME);
-//                alert.setContentText("Please Close another Instance and Try here...");
-//                alert.showAndWait();
-//
-//                try (
-//                        Socket clientSocket = new Socket(InetAddress.getLocalHost(), SINGLE_INSTANCE_LISTENER_PORT);
-//                        PrintWriter out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream()))
-//                ) {
-//                    System.out.println("Requesting existing app to focus");
-//                    out.println(SINGLE_INSTANCE_FOCUS_MESSAGE + " requested by " + instanceId);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                System.out.println("Aborting execution for instance " + instanceId);
-//                Platform.exit();
-//            } catch(Exception e) {
-//                System.out.println(e.toString());
-//            } finally {
-//                instanceCheckLatch.countDown();
-//            }
-//        }, "instance-listener");
-//        instanceListener.setDaemon(true);
-//        instanceListener.start();
-//
-//        try {
-//            instanceCheckLatch.await();
-//        } catch (InterruptedException e) {
-//            Thread.interrupted();
-//        }
-//    }
+    public void runSingleInstantApplication() {
+        CountDownLatch instanceCheckLatch = new CountDownLatch(1);
+
+        Thread instanceListener = new Thread(() -> {
+            try (ServerSocket serverSocket = new ServerSocket(SINGLE_INSTANCE_LISTENER_PORT, 10)) {
+                instanceCheckLatch.countDown();
+
+                while (true) {
+                    try (
+                            Socket clientSocket = serverSocket.accept();
+                            BufferedReader in = new BufferedReader(
+                                    new InputStreamReader(clientSocket.getInputStream()))
+                    ) {
+                        String input = in.readLine();
+                        System.out.println("Received single instance listener message: " + input);
+                        if (input.startsWith(SINGLE_INSTANCE_FOCUS_MESSAGE) && mainStage != null) {
+                            Thread.sleep(FOCUS_REQUEST_PAUSE_MILLIS);
+                            Platform.runLater(() -> {
+                                System.out.println("To front " + instanceId);
+//                                startMainScreen();
+                                mainStage.setIconified(false);
+                                mainStage.show();
+                                mainStage.toFront();
+                            });
+                        }
+                    } catch (IOException e) {
+                        System.out.println("Single instance listener unable to process focus message from client");
+                        e.printStackTrace();
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Live Update Instance already Running!");
+                        alert.setHeaderText(Queries.APPLICATION_NAME);
+                        alert.setContentText("Please Close another Instance and Try here...");
+                        alert.showAndWait();
+                    }
+                }
+            } catch(java.net.BindException b) {
+                System.out.println("SingleInstanceApp already running");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Live Update Instance already Running!");
+                alert.setHeaderText(Queries.APPLICATION_NAME);
+                alert.setContentText("Please Close another Instance and Try here...");
+                alert.showAndWait();
+
+                try (
+                        Socket clientSocket = new Socket(InetAddress.getLocalHost(), SINGLE_INSTANCE_LISTENER_PORT);
+                        PrintWriter out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream()))
+                ) {
+                    System.out.println("Requesting existing app to focus");
+                    out.println(SINGLE_INSTANCE_FOCUS_MESSAGE + " requested by " + instanceId);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                System.out.println("Aborting execution for instance " + instanceId);
+                Platform.exit();
+            } catch(Exception e) {
+                System.out.println(e.toString());
+            } finally {
+                instanceCheckLatch.countDown();
+            }
+        }, "instance-listener");
+        instanceListener.setDaemon(true);
+        instanceListener.start();
+
+        try {
+            instanceCheckLatch.await();
+        } catch (InterruptedException e) {
+            Thread.interrupted();
+        }
+    }
 
     private void startAutoUpdateScreen() {
 /*        try {
@@ -573,7 +595,7 @@ public class Main extends Application {
             public void run() {
                 if (SystemTray.isSupported()) {
                     stage.hide();
-                    Queries.LIVE_UPDATE_PAUSED = Boolean.FALSE;
+//                    Queries.LIVE_UPDATE_PAUSED = Boolean.FALSE;
                     showProgramIsMinimizedMsg();
                 } else {
                     System.exit(0);

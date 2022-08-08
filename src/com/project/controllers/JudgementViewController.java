@@ -282,7 +282,8 @@ public class JudgementViewController implements Initializable {
                 if (Queries.PDF_COUNT < Queries.PDF_LIMIT) {
 
                     try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                            new FileOutputStream(Queries.GOOGLE_TRANSLATOR_HTML), "utf-8"))) {
+                            new FileOutputStream(selectedDirectory.getAbsolutePath() + File.separator + titleText.replaceAll("/", "_").replaceAll("&", "_").replaceAll(":", "_") + ".doc"), "utf-8"))) {
+                        judgementHTML = judgementHTML.replaceAll("</body></html>", "") + "</body></html>";
                         writer.write(judgementHTML);
                         new Utils().showDialogAlert("DOC saved successfully!");
                     } catch (UnsupportedEncodingException e) {

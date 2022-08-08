@@ -132,48 +132,74 @@ public class DialogLiveUpdateController implements Initializable {
             handleCancel();
         });
 
-        Task longTask = new Task<Void>() {
-            @Override public Void call() {
-                int i=1;
-                int max=tableData.size();
-                if (max==0){
-                    loadLiveUpdates();
-                }else{btnUpdate.setDisable(true);};
-
-                for (LiveUpdateModel d : tableData) {
-                    if (isCancelled() || Queries.LIVE_UPDATE_PAUSED == Boolean.TRUE) {
-                        break;
-                    }
-                    updateProgress(i, max);
-                    LiveUpdateModel lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Processing...");
-                    tableUpdateStatus.getItems().set(i-1, lum);
-                    updateMessage("Updating version " + d.getVersion() + " started");
-//                    ServiceHelper.getUpdate(d.getVersion(), d.getCourtId());
-                    if (ServiceHelper.getUpdate(d.getVersion(), d.getCourtId()).getCode()==200){
-                        ServiceHelper.versionUpdate(d.getVersion());
-                        lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Completed");
-                        tableUpdateStatus.getItems().set(i-1, lum);
-                        updateMessage("Updating version " + d.getVersion() + " completed");
-                    }else{
-                        lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Failed");
-                        tableUpdateStatus.getItems().set(i-1, lum);
-                        updateMessage("Updating version " + d.getVersion() + " failed");
-                    }
-                    i+=1;
-                }
-                updateMessage("Updation completed");
-                return null;
-            }
-        };
+//        Task longTask = new Task<Void>() {
+//            @Override public Void call() {
+//                int i=1;
+//                int max=tableData.size();
+//                if (max==0){
+//                    loadLiveUpdates();
+//                }else{
+//                    Queries.LIVE_UPDATE_PAUSED = Boolean.FALSE;
+//                    btnUpdate.setText("Pause Update");
+////                    btnUpdate.setDisable(true);
+//                };
+//
+//                for (LiveUpdateModel d : tableData) {
+//                    if (isCancelled() || Queries.LIVE_UPDATE_PAUSED == Boolean.TRUE) {
+//                        btnUpdate.setText("Resume Update");
+//                        break;
+//                    }
+//                    updateProgress(i, max);
+//                    LiveUpdateModel lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Processing...");
+//                    tableUpdateStatus.getItems().set(i-1, lum);
+//                    updateMessage("Updating version " + d.getVersion() + " started");
+////                    ServiceHelper.getUpdate(d.getVersion(), d.getCourtId());
+//                    if (ServiceHelper.getUpdate(d.getVersion(), d.getCourtId()).getCode()==200){
+//                        ServiceHelper.versionUpdate(d.getVersion());
+//                        lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Completed");
+//                        tableUpdateStatus.getItems().set(i-1, lum);
+//                        updateMessage("Updating version " + d.getVersion() + " completed");
+//                    }else{
+//                        lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Failed");
+//                        tableUpdateStatus.getItems().set(i-1, lum);
+//                        updateMessage("Updating version " + d.getVersion() + " failed");
+//                    }
+//                    i+=1;
+//                }
+//                updateMessage("Updation completed");
+//                return null;
+//            }
+//        };
 
         btnUpdate.setOnAction(event -> {
-            progressStatus.setVisible(true);
-            progressStatus.progressProperty().bind(longTask.progressProperty());
-            labelStatus.textProperty().bind(longTask.messageProperty());
-            new Thread(longTask).start();
-            Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
-                    "btnUpdate CLICKED",
-                    TrayIcon.MessageType.INFO);
+            if (Queries.LIVE_UPDATE_PAUSED == Boolean.TRUE){
+                Queries.LIVE_UPDATE_PAUSED = Boolean.FALSE;
+                btnUpdate.setText("Pause Update");
+
+//                progressStatus.setVisible(true);
+//                progressStatus.progressProperty().bind(longTask.progressProperty());
+//                labelStatus.textProperty().bind(longTask.messageProperty());
+//                new Thread(longTask).start();
+
+//                Platform.runLater(() -> {
+//                    new Thread(longTask).start();
+//
+//                });
+
+                loadLiveUpdates();
+                runTask();
+//                progressStatus.setVisible(true);
+//                progressStatus.progressProperty().bind(longTask.progressProperty());
+//                labelStatus.textProperty().bind(longTask.messageProperty());
+//                new Thread(longTask).start();
+                Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
+                        "Live Update (In Background) Started!",
+                        TrayIcon.MessageType.INFO);
+            }else{
+                Queries.LIVE_UPDATE_PAUSED = Boolean.TRUE;
+                btnUpdate.setText("Resume Update");
+            }
+
         });
 
         loadLiveUpdates();
@@ -182,21 +208,125 @@ public class DialogLiveUpdateController implements Initializable {
             @Override
             public void run() {
                 Platform.runLater(() -> {
+                    if (Queries.LIVE_UPDATE_PAUSED == Boolean.TRUE) {
+                        Queries.LIVE_UPDATE_PAUSED = Boolean.FALSE;
+                        runTask();
+                    }
 //                    btnUpdate.fire();
-                    new Thread(longTask).start();
+//                    new Thread(longTask).start();
                 });
             }
-        }, 120 * 1000, 1 * 30 * 60 * 1000);
+        }, 60 * 1000, 2 * 60 * 60 * 1000);
+
+        //        t.scheduleAtFixedRate(new TimerTask() {
+//            @Override
+//            public void run() {
+//                Platform.runLater(() -> {
+//                    runTask();
+////                    btnUpdate.fire();
+////                    new Thread(longTask).start();
+//                });
+//            }
+//        }, 120 * 1000, 1 * 30 * 60 * 1000);
+
+
 
 //        System.out.println("EXIT");
 //        new Thread(longTask).start();
 
-        System.out.println("LIVE UPDATE STARTING");
-        progressStatus.setVisible(true);
-        progressStatus.progressProperty().bind(longTask.progressProperty());
-        labelStatus.textProperty().bind(longTask.messageProperty());
-        new Thread(longTask).start();
-        System.out.println("LIVE UPDATE STARTED");
+//        System.out.println("LIVE UPDATE STARTING");
+//        progressStatus.setVisible(true);
+//        progressStatus.progressProperty().bind(longTask.progressProperty());
+//        labelStatus.textProperty().bind(longTask.messageProperty());
+//        new Thread(longTask).start();
+//        runTask();
+//        System.out.println("LIVE UPDATE STARTED");
+    }
+
+    private void runTask(){
+        int max=tableData.size();
+        if (max==0){
+            loadLiveUpdates();
+        }else{
+//            Queries.LIVE_UPDATE_PAUSED = Boolean.FALSE;
+            btnUpdate.setText("Pause Update");
+        };
+
+        new Thread(() -> {
+            int i=1;
+            for (LiveUpdateModel d : tableData) {
+                if (Queries.LIVE_UPDATE_PAUSED == Boolean.TRUE) {
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            btnUpdate.setText("Resume Update");
+                        }
+                    });
+                    break;
+                }
+//            updateProgress(i, max);
+                LiveUpdateModel lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Processing...");
+                tableUpdateStatus.getItems().set(i-1, lum);
+
+                Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
+                        "Updating version " + d.getVersion() + " started",
+                        TrayIcon.MessageType.INFO);
+//                    ServiceHelper.getUpdate(d.getVersion(), d.getCourtId());
+                if (ServiceHelper.getUpdate(d.getVersion(), d.getCourtId()).getCode()==200){
+                    ServiceHelper.versionUpdate(d.getVersion());
+                    lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Completed");
+                    tableUpdateStatus.getItems().set(i-1, lum);
+                    Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
+                            "Updating version " + d.getVersion() + " completed",
+                            TrayIcon.MessageType.INFO);
+                }else{
+                    lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Failed");
+                    tableUpdateStatus.getItems().set(i-1, lum);
+                    Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
+                            "Updating version " + d.getVersion() + " failed",
+                            TrayIcon.MessageType.INFO);
+                }
+                i+=1;
+            }
+//            Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
+//                    "Updation completed",
+//                    TrayIcon.MessageType.INFO);
+        }).start();
+
+
+
+//        for (LiveUpdateModel d : tableData) {
+//            if (Queries.LIVE_UPDATE_PAUSED == Boolean.TRUE) {
+//                btnUpdate.setText("Resume Update");
+//                break;
+//            }
+////            updateProgress(i, max);
+//            LiveUpdateModel lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Processing...");
+//            tableUpdateStatus.getItems().set(i-1, lum);
+//
+//            Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
+//                    "Updating version " + d.getVersion() + " started",
+//            TrayIcon.MessageType.INFO);
+////                    ServiceHelper.getUpdate(d.getVersion(), d.getCourtId());
+//            if (ServiceHelper.getUpdate(d.getVersion(), d.getCourtId()).getCode()==200){
+//                ServiceHelper.versionUpdate(d.getVersion());
+//                lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Completed");
+//                tableUpdateStatus.getItems().set(i-1, lum);
+//                Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
+//                        "Updating version " + d.getVersion() + " completed",
+//                        TrayIcon.MessageType.INFO);
+//            }else{
+//                lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Failed");
+//                tableUpdateStatus.getItems().set(i-1, lum);
+//                Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
+//                        "Updating version " + d.getVersion() + " failed",
+//                        TrayIcon.MessageType.INFO);
+//            }
+//            i+=1;
+//        }
+//        Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
+//                "Updation completed",
+//                TrayIcon.MessageType.INFO);
     }
 
     private void loadLiveUpdates() {

@@ -369,6 +369,15 @@
     -fx-cursor: hand;
 }
 
+#btn_doc {
+    -fx-background-color:  transparent;
+    -fx-background-image: url("/com/project/resources/icon_ms_word.png");
+    -fx-background-size: 35 30;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:center;
+    -fx-cursor: hand;
+}
+
 #btn_pdf {
     -fx-background-color: transparent;
     -fx-background-image: url("/com/project/resources/icon_pdf_white.png");

@@ -46,14 +46,22 @@ public class HomeSearchController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        File fil=new File(Queries.homebackgroundFile);
-        Image im=new Image(fil.toURI().toString());
-        ImageView view=new ImageView(im);
-        stackPane.getChildren().add(view);//This is the added code.
-
         engine = webViewContent.getEngine();
+        File html_file = new File(Queries.HOME_PAGE_HTML_PATH);
+        File image_file = new File(Queries.HOME_PAGE_IMAGE_PATH);
+        if (html_file.exists()){
+            System.out.println(html_file.toURI().toString());
+            engine.load(html_file.toURI().toString());
+        }else{
+            Image image=new Image(image_file.toURI().toString());
+            ImageView view=new ImageView(image);
+            stackPane.getChildren().add(view);//This is the added code.
+        }
 
-        engine.load("https://www.google.com");
+
+//        engine.load(Queries.HOME_PAGE_HTML_PATH);
+//        engine.load("https://www.google.com");
+
 //        engine.loadContent(htmlContent, "text/html");
 
 //        try {

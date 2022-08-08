@@ -366,13 +366,15 @@ public class ServiceHelper {
                 for (JsonElement ele : jData) {
                     JsonObject obj = (JsonObject) ele;
 
-                    stb.append("<center><font color=\"blue\">" + obj.get("title").getAsString() + "</font></center><br>");
-                    stb.append("<center><font color=\"red\">" + obj.get("Type").getAsString() + " " +  obj.get("summary").getAsString() + "</font></center><br>");
+                    stb.append("<center><font color=\"blue\">" + obj.get("title").getAsString() + "</font></center></br>");
+                    stb.append("<center><font color=\"red\">" + obj.get("Type").getAsString() + " " +  obj.get("summary").getAsString() + "</font></center></br>");
 
                     String content = obj.get("content_store").getAsString();
                     content = content.replaceAll("font-size\\s?:\\s?\\d+(pt|px|em);", "");
+                    content = content.replace("<br/><body><br/><p align=\"justify\">", "<body><br/><p align=\"justify\">");
+                    content = content.replace("</p><br/><p align=\"justify\">", "</p><p align=\"justify\">");
+                    content = content.replace("<br/><p align=\"justify\"></p><br/><hr color=rgb(84,0,168)><br/><br/></body><br/></html>", "<br/><hr color=rgb(84,0,168)></body><br/></html>");
                     stb.append(content);
-
                 }
                 return "<html><head><meta charset=\"UTF-8\">" + googleTranslatorScript + "<style>body {font-size:" + Queries.PRINT_SETTING_MODEL.getDisplayFontSize() + "px;}</style></head>" + googleTranslatorDiv + "<body>" + stb.toString() + "</body></html>";
             }

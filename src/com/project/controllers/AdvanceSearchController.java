@@ -737,6 +737,8 @@ public class AdvanceSearchController implements Initializable {
         String caseNo = textFieldCaseNo.getText();
         String caseYear = textFieldCaseYear.getText();
         String advocates = textFieldAdvocates.getText();
+        //TILL WE REPLACE MR. WITH SPACE IN DATA SIDE, BELOW CONDITION WOULD BE APPLIED
+        advocates = advocates.replace("Mr.", "").replace("Mrs.", "").replace("Miss ", "");
 
         String fromDate = "";
         String toDate = "";

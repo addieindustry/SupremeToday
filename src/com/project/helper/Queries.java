@@ -28,18 +28,19 @@ public class Queries {
     //Apply FALSE instead of TRUE on below line to Enable Copy
     public static final Boolean IS_COPY_DISABLE = Boolean.TRUE;
 
- //   public static final Boolean IS_SUPREME_TODAY_APP = Boolean.TRUE;
-  //  public static final String APPLICATION_NAME = "Supreme Today";
+    public static final Boolean IS_SUPREME_TODAY_APP = Boolean.TRUE;
+   public static final String APPLICATION_NAME = "Supreme Today";
 
-   public static final Boolean IS_SUPREME_TODAY_APP = Boolean.FALSE;
-  public static final String APPLICATION_NAME = "Indian CaseLaw Finder";
+ //  public static final Boolean IS_SUPREME_TODAY_APP = Boolean.FALSE;
+ // public static final String APPLICATION_NAME = "Indian CaseLaw Finder";
 
     public static TrayIcon trayIcon;
-    public static final Boolean LIVE_UPDATE_PAUSED = Boolean.FALSE;
+    public static Boolean LIVE_UPDATE_PAUSED = Boolean.TRUE;
+//    public static Boolean LIVE_UPDATE_PAUSED = Boolean.FALSE;
 
  //    public static final String CURRENT_PATH = Paths.get("").toString();
 //    public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "IndianCaseLawFinder-1.0").toString();
-    public static final String CURRENT_PATH = Paths.get("D:", "Projects", "SupremeToday").toString();
+    public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "SupremeToday-2.0").toString();
 //    public static final String CURRENT_PATH = Paths.get("E:", "Old_Backup", "SupremeToday", "SupremeToday").toString();
     public static final String DATA_PATH=Paths.get(CURRENT_PATH, "Data").toString();
     public static final String RESOURCE_PATH=Paths.get(CURRENT_PATH, "res").toString();
@@ -52,10 +53,14 @@ public class Queries {
     public static final String HELP_MANUAL_PATH = Paths.get(RESOURCE_PATH, "help.pdf").toString();
     public static final String GOOGLE_TRANSLATOR_HTML = Paths.get(RESOURCE_PATH, "temp.html").toString();
     public static final String GOOGLE_TRANSLATOR_SCRIPT = Paths.get(RESOURCE_PATH, "f.txt").toString();
+    public static final String HOME_PAGE_HTML_PATH = Paths.get(RESOURCE_PATH, "home.html").toString();
+    public static final String HOME_PAGE_IMAGE_PATH = Paths.get(RESOURCE_PATH, "home.png").toString();
 
     public static final String JQUERY_UI_CSS_PATH = Paths.get(RESOURCE_PATH, "jquery-ui.css").toString();
     public static final String JQUERY_UI_MIN_JS_PATH = Paths.get(RESOURCE_PATH, "jquery-ui.min.js").toString();
     public static final String JQUERY_MIN_JS_PATH = Paths.get(RESOURCE_PATH, "jquery.min.js").toString();
+
+
 
 //    public static final List<String> SUPREME_DICTIONARY = EncryptionHelperLatest.ReadObjectToFile();
 
@@ -66,7 +71,7 @@ public class Queries {
     public static String DB_PATH=Paths.get(DATA_PATH, "master_db_desktop.sqlite").toString();
     public static String LOCAL_DB_PATH=Paths.get(DATA_PATH, "local_db.sqlite").toString();
     public static String splashFile = Paths.get(RESOURCE_PATH, "splash_background_small.png").toString();
-    public static String homebackgroundFile = Paths.get(RESOURCE_PATH, "home_background_large.png").toString();
+//    public static String homebackgroundFile = Paths.get(RESOURCE_PATH, "home_background_large.png").toString();
     public static String ERROR_LOG_FILE_PATH = Paths.get(RESOURCE_PATH, "errorLog.txt").toString();
     public static final String LOGO_BASE64_FILE_PATH = Paths.get(RESOURCE_PATH, "logo.txt").toString();
     public static final String LOGO_PATH_BY_APPLICATION=Paths.get(RESOURCE_PATH, "logo.png").toString();
