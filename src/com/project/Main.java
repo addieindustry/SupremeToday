@@ -573,6 +573,7 @@ public class Main extends Application {
             public void run() {
                 if (SystemTray.isSupported()) {
                     stage.hide();
+                    Queries.LIVE_UPDATE_PAUSED = Boolean.FALSE;
                     showProgramIsMinimizedMsg();
                 } else {
                     System.exit(0);

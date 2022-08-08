@@ -35,6 +35,7 @@ public class Queries {
   public static final String APPLICATION_NAME = "Indian CaseLaw Finder";
 
     public static TrayIcon trayIcon;
+    public static final Boolean LIVE_UPDATE_PAUSED = Boolean.FALSE;
 
  //    public static final String CURRENT_PATH = Paths.get("").toString();
 //    public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "IndianCaseLawFinder-1.0").toString();

@@ -141,7 +141,7 @@ public class DialogLiveUpdateController implements Initializable {
                 }else{btnUpdate.setDisable(true);};
 
                 for (LiveUpdateModel d : tableData) {
-                    if (isCancelled()) {
+                    if (isCancelled() || Queries.LIVE_UPDATE_PAUSED == Boolean.TRUE) {
                         break;
                     }
                     updateProgress(i, max);
