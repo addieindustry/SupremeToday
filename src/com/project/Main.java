@@ -315,7 +315,7 @@ public class Main extends Application {
                 DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
                 Date myDate = format.parse(json_data.get("date").toString());
 
-                license_info = "License to " + json_data.get("username").toString() + "\nNumber : " + json_data.get("clientNumber").toString() + "\nLive Facility Till : " + (new SimpleDateFormat("dd MMMM yyyy").format(myDate)).toString();
+                license_info = "License to : " + json_data.get("username").toString() + "\nNumber : " + json_data.get("clientNumber").toString() + "\nLive Facility Till : " + (new SimpleDateFormat("dd MMMM yyyy").format(myDate)).toString();
             }else if (Integer.parseInt(json.get("code").toString()) == 202){
                 license_info = "License Information Not Exits, Please Contact to the Software Vendor!";
             }
