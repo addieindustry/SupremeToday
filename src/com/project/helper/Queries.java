@@ -36,9 +36,12 @@ public class Queries {
 
     public static TrayIcon trayIcon;
     public static Boolean LIVE_UPDATE_PAUSED = Boolean.TRUE;
+    public static final int LIVE_UPDATE_DELAY_IN_MINS = 5;
+    public static final int LIVE_UPDATE_INTERVAL_TO_CHECK_IN_HOURS = 2;
+    public static final int SINGLE_INSTANCE_LISTENER_PORT = 12345;
 //    public static Boolean LIVE_UPDATE_PAUSED = Boolean.FALSE;
 
- //    public static final String CURRENT_PATH = Paths.get("").toString();
+  //   public static final String CURRENT_PATH = Paths.get("").toString();
 //    public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "IndianCaseLawFinder-1.0").toString();
     public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "SupremeToday-2.0").toString();
 //    public static final String CURRENT_PATH = Paths.get("E:", "Old_Backup", "SupremeToday", "SupremeToday").toString();
@@ -84,6 +87,7 @@ public class Queries {
     public static String MESSAGE_LIVE_UPDATE_STARTING = "it will take sometime to update application, Are you sure to update?";
     public static String MESSAGE_ABOUT_US_ADDRESS = APPLICATION_NAME + " - Contact us";
     public static String MESSAGE_CONFIRM_TO_EXIT = "Are you sure you want to exit?";
+    public static String MESSAGE_LICENSE_INFO = "License Information Not Exits, Please Contact to the Software Vendor!";
     public static String TITLE_HISTORY_WINDOW = "History";
     public static String TITLE_BOOKMARK_WINDOW = "Bookmark";
     public static String TITLE_ABOUT_US_WINDOW = "About Us";

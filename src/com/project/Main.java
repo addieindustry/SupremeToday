@@ -7,6 +7,7 @@ package com.project;
 import com.project.controllers.DialogLiveUpdateController;
 import com.project.controllers.TabViewController;
 import com.project.helper.*;
+import com.project.utils.Utils;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -140,6 +141,7 @@ public class Main extends Application {
     }
 
     public void appStart(final Stage initStage) {
+//        assertNoOtherInstanceRunning();
         final Task<ObservableList<String>> friendTask = new Task<ObservableList<String>>() {
             @Override
             protected ObservableList<String> call() throws InterruptedException {
@@ -161,15 +163,33 @@ public class Main extends Application {
 //            new Thread(friendTask).start();
 //        }
 
-        showSplash(
-                initStage,
-                friendTask,
+        runSingleInstantApplication();
+        showSplash(initStage, friendTask,
                 () -> startMainScreen()
         );
         new Thread(friendTask).start();
-//        runSingleInstantApplication();
         startAutoUpdateScreen();
     }
+
+//    public static void assertNoOtherInstanceRunning() {
+//        new Thread(() -> {
+//            try {
+//                new ServerSocket(Queries.SINGLE_INSTANCE_PORT).accept();
+//            } catch (IOException e) {
+////                Platform.exit();
+//                System.exit(0);
+//
+////                new Utils().showErrorDialog(e);
+////                Alert alert = new Alert(Alert.AlertType.ERROR);
+////                alert.setTitle("Another SupremeToday Application is already running!");
+////                alert.setHeaderText(Queries.APPLICATION_NAME);
+////                alert.setContentText("Application will be closed forcibly...");
+////                alert.showAndWait();
+////                Platform.exit();
+////                throw new RuntimeException("Another SupremeToday Application is already running!", e);
+//            }
+//        }).start();
+//    }
 
     @Override
     public void start(final Stage initStage) throws Exception {
@@ -295,10 +315,11 @@ public class Main extends Application {
                 DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH);
                 Date myDate = format.parse(json_data.get("date").toString());
 
-                license_info = "License to " + json_data.get("username").toString() + ", Number : " + json_data.get("clientNumber").toString() + ", Live Facility Till : " + (new SimpleDateFormat("dd MMMM yyyy").format(myDate)).toString();
+                license_info = "License to " + json_data.get("username").toString() + "\nNumber : " + json_data.get("clientNumber").toString() + "\nLive Facility Till : " + (new SimpleDateFormat("dd MMMM yyyy").format(myDate)).toString();
             }else if (Integer.parseInt(json.get("code").toString()) == 202){
                 license_info = "License Information Not Exits, Please Contact to the Software Vendor!";
             }
+            Queries.MESSAGE_LICENSE_INFO = license_info;
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -322,11 +343,12 @@ public class Main extends Application {
             fxmlLoader.setController(controller);
             Parent root = fxmlLoader.load();
             String _expireInfo = getExpireInfo();
-            if (_expireInfo.length() > 0){
-                mainStage.setTitle(Queries.APPLICATION_NAME + " " +  Queries.APPLICATION_VERSION + " - " +  getExpireInfo());
-            }else{
-                mainStage.setTitle(Queries.APPLICATION_NAME + " " +  Queries.APPLICATION_VERSION);
-            }
+//            if (_expireInfo.length() > 0){
+//                mainStage.setTitle(Queries.APPLICATION_NAME + " " +  Queries.APPLICATION_VERSION + " - " +  getExpireInfo());
+//            }else{
+//                mainStage.setTitle(Queries.APPLICATION_NAME + " " +  Queries.APPLICATION_VERSION);
+//            }
+            mainStage.setTitle(Queries.APPLICATION_NAME + " " +  Queries.APPLICATION_VERSION);
             mainStage.getIcons().add(new Image(getClass().getResourceAsStream("resources/logo.png")));
             Scene scene = new Scene(root);
             mainStage.setScene(scene);
@@ -348,7 +370,7 @@ public class Main extends Application {
                     if (Queries.LIVE_UPDATE_PAUSED == Boolean.FALSE){
                         ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
                         ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Do you want to Pause the Live Update for during the Current Session?", yesButton, noButton);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Supreme Today Live Update is already running. Do you want to Pause it for a while?", yesButton, noButton);
                         alert.setTitle("Confirm Dialog");
                         alert.setHeaderText(Queries.APPLICATION_NAME);
                         alert.showAndWait().ifPresent(rs -> {
@@ -409,7 +431,7 @@ public class Main extends Application {
     }
 
 
-    private static final int SINGLE_INSTANCE_LISTENER_PORT = 12345;
+//    private static final int SINGLE_INSTANCE_LISTENER_PORT = 12345;
     private static final String SINGLE_INSTANCE_FOCUS_MESSAGE = "focus";
     private static final String instanceId = UUID.randomUUID().toString();
 
@@ -419,7 +441,7 @@ public class Main extends Application {
         CountDownLatch instanceCheckLatch = new CountDownLatch(1);
 
         Thread instanceListener = new Thread(() -> {
-            try (ServerSocket serverSocket = new ServerSocket(SINGLE_INSTANCE_LISTENER_PORT, 10)) {
+            try (ServerSocket serverSocket = new ServerSocket(Queries.SINGLE_INSTANCE_LISTENER_PORT, 10)) {
                 instanceCheckLatch.countDown();
 
                 while (true) {
@@ -443,23 +465,23 @@ public class Main extends Application {
                     } catch (IOException e) {
                         System.out.println("Single instance listener unable to process focus message from client");
                         e.printStackTrace();
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Live Update Instance already Running!");
-                        alert.setHeaderText(Queries.APPLICATION_NAME);
-                        alert.setContentText("Please Close another Instance and Try here...");
-                        alert.showAndWait();
+//                        Alert alert = new Alert(Alert.AlertType.ERROR);
+//                        alert.setTitle("Live Update Instance already Running!");
+//                        alert.setHeaderText(Queries.APPLICATION_NAME);
+//                        alert.setContentText("Please Close another Instance and Try here...");
+//                        alert.showAndWait();
                     }
                 }
             } catch(java.net.BindException b) {
                 System.out.println("SingleInstanceApp already running");
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Live Update Instance already Running!");
-                alert.setHeaderText(Queries.APPLICATION_NAME);
-                alert.setContentText("Please Close another Instance and Try here...");
-                alert.showAndWait();
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Live Update Instance already Running!");
+//                alert.setHeaderText(Queries.APPLICATION_NAME);
+//                alert.setContentText("Please Close another Instance and Try here...");
+//                alert.showAndWait();
 
                 try (
-                        Socket clientSocket = new Socket(InetAddress.getLocalHost(), SINGLE_INSTANCE_LISTENER_PORT);
+                        Socket clientSocket = new Socket(InetAddress.getLocalHost(), Queries.SINGLE_INSTANCE_LISTENER_PORT);
                         PrintWriter out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream()))
                 ) {
                     System.out.println("Requesting existing app to focus");
@@ -469,7 +491,9 @@ public class Main extends Application {
                 }
 
                 System.out.println("Aborting execution for instance " + instanceId);
-                Platform.exit();
+                System.exit(0);
+//                Platform.exit();
+
             } catch(Exception e) {
                 System.out.println(e.toString());
             } finally {

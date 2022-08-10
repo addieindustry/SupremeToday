@@ -1,5 +1,6 @@
 package com.project.controllers;
 
+import com.project.helper.Queries;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,11 +19,20 @@ public class AboutUsController implements Initializable {
 
     @FXML
     private Hyperlink hyperlinkURL;
-//    private Label labelTitle, labelContactUs;
+
+    @FXML
+    private javafx.scene.control.Label labelTitle;
+
+    public AboutUsController() {
+
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //        labelTitle.setText(ConstantsClass.TITLE_MAIN_WINDOW + ConstantsClass.COPY_RIGHT);
+        labelTitle.setText(Queries.APPLICATION_NAME + " " +  Queries.APPLICATION_VERSION + "\n" +  Queries.MESSAGE_LICENSE_INFO);
+//        labelTitle.setWrapText(true);
+
 //        labelContactUs.setText(ConstantsClass.ABOUT_US_NOTE);
 //        labelNote.setText(ConstantsClass.NOTE);
         hyperlinkURL.setOnAction(new EventHandler<ActionEvent>() {

@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.project.helper.Queries;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.core.SimpleAnalyzer;
 import org.apache.lucene.analysis.miscellaneous.PerFieldAnalyzerWrapper;
@@ -30,6 +33,7 @@ import org.apache.lucene.index.IndexableField;
 import org.apache.lucene.index.MultiFields;
 import org.apache.lucene.index.Terms;
 import org.apache.lucene.index.TermsEnum;
+import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.*;
 import org.apache.lucene.search.spell.LuceneDictionary;
@@ -99,7 +103,7 @@ public class IndexCreator {
         }
     }
 
-public void delete(String queryString){
+public void delete(String queryString) throws IOException, ParseException {
         try {
             
 //        reader = DirectoryReader.open(FSDirectory.open(Paths.get(indexPath)));
@@ -113,6 +117,13 @@ public void delete(String queryString){
 //        parser.setDefaultOperator(QueryParser.Operator.AND);
         } catch (Exception ex) {
             Logger.getLogger(SearchUtility.class.getName()).log(Level.SEVERE, null, ex);
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Another SupremeToday Application is already running!");
+//            alert.setHeaderText(Queries.APPLICATION_NAME);
+//            alert.setContentText("Application will be closed forcibly...");
+//            alert.showAndWait();
+//            Platform.exit();
+//            throw ex;
         }
 }
     public void createAutoSuggest() {

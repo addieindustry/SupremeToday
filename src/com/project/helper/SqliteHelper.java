@@ -5,6 +5,9 @@
  */
 package com.project.helper;
 
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -73,9 +76,22 @@ public class SqliteHelper {
     }
 
     public ResultSet select(String query) throws SQLException {
+        try {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceHelper.class.getName()).log(Level.SEVERE, null, ex);
+//            if (ex.toString().contains("SQLITE_BUSY")){
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setTitle("Another SupremeToday Application is already running!");
+//                alert.setHeaderText(Queries.APPLICATION_NAME);
+//                alert.setContentText("Application will be closed forcibly...");
+//                alert.showAndWait();
+//                Platform.exit();
+//            }
+        }
+        return null;
     }
 
     public int insert(String query) throws SQLException {

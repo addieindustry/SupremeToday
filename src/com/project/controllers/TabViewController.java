@@ -1090,6 +1090,8 @@ public class TabViewController implements Initializable {//, ClickEventHandler {
     public boolean showDialogWindow(String fxmlPath, String dialogTitle) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            AboutUsController controller = new AboutUsController();
+            loader.setController(controller);
             AnchorPane page = loader.load();
             Stage dialogStage = new Stage();
             dialogStage.setTitle(dialogTitle);
@@ -1104,7 +1106,8 @@ public class TabViewController implements Initializable {//, ClickEventHandler {
             dialogStage.setResizable(false);
 
             // Set the person into the controller
-//            HistoryController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+//            AboutUsController controller = loader.getController();
 //            controller.setDialogStage(dialogStage);
 //            controller.setPerson(person);
 

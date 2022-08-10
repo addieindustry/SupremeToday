@@ -101,7 +101,7 @@ public class JudgementViewController implements Initializable {
     private String htmlHeader = "";
     private String copyHeader = "";
     String judgementHTML = "";
-    String googleTranslatorScript = "<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en'},'google_translate_element');}</script> <script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>";
+    String googleTranslatorScript = "<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en', includedLanguages : 'en,bn,gu,hi,kn,ml,mr,ta,te,ur'},'google_translate_element');}</script> <script src=\"http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit\"></script>";
     String googleTranslatorDiv = "<div id=\"google_translate_element\"></div>";
     //    String googleTranslatorDiv = "";
     String judgementCSS = "";

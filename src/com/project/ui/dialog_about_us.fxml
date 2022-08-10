@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="pane_border" nodeOrientation="LEFT_TO_RIGHT" prefHeight="257.0" prefWidth="422.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="pane_border" nodeOrientation="LEFT_TO_RIGHT" prefHeight="257.0" prefWidth="600.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <BorderPane layoutX="224.0" layoutY="82.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
-                <HBox alignment="CENTER" prefHeight="17.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+                <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Label fx:id="labelTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="349.0" text="Supreme Today with All High Courts">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="600.0" text="Supreme Today with All High Courts" wrapText="true">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font></Label>
@@ -42,7 +42,22 @@
                 </VBox>
             </center>
          <bottom>
-            <Hyperlink fx:id="hyperlinkURL" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="206.0" text="www.supreme-today.com" BorderPane.alignment="CENTER" />
+
+
+             <VBox alignment="CENTER" prefHeight="223.0" prefWidth="428.0" BorderPane.alignment="CENTER">
+                 <children>
+                     <Pane id="pane_border" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="175.0" prefWidth="362.0">
+                         <children>
+                             <Hyperlink fx:id="hyperlinkURL" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="206.0" text="www.supreme-today.com" BorderPane.alignment="CENTER" />
+                             <Label fx:id="labelTitle" alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="22.0" prefHeight="151.0" prefWidth="336.0" text="Version : 600002; October 2014&#10;For Any Query, Please Contact : 09899600091&#10;vikasnij@hotmail.com, support@supreme-today.com">
+                                 <font>
+                                     <Font size="14.0" />
+                                 </font></Label>
+                         </children>
+                     </Pane>
+
+                 </children>
+             </VBox>
          </bottom>
         </BorderPane>
     </children>

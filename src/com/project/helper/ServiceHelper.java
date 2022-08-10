@@ -11,8 +11,11 @@ import com.project.extrautility.PropertyMaster;
 import com.project.model.*;
 import com.project.utility.SearchUtility;
 import com.project.utils.Utils;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+
 import java.io.*;
 import java.lang.reflect.Type;
 import java.net.*;

@@ -216,7 +216,7 @@ public class DialogLiveUpdateController implements Initializable {
 //                    new Thread(longTask).start();
                 });
             }
-        }, 60 * 1000, 2 * 60 * 60 * 1000);
+        }, Queries.LIVE_UPDATE_DELAY_IN_MINS * 60 * 1000, Queries.LIVE_UPDATE_INTERVAL_TO_CHECK_IN_HOURS * 60 * 60 * 1000);
 
         //        t.scheduleAtFixedRate(new TimerTask() {
 //            @Override
