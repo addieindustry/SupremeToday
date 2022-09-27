@@ -210,6 +210,7 @@ public class DialogLiveUpdateController implements Initializable {
                 Platform.runLater(() -> {
                     if (Queries.LIVE_UPDATE_PAUSED == Boolean.TRUE) {
                         Queries.LIVE_UPDATE_PAUSED = Boolean.FALSE;
+                        loadLiveUpdates();
                         runTask();
                     }
 //                    btnUpdate.fire();
@@ -288,6 +289,13 @@ public class DialogLiveUpdateController implements Initializable {
                 }
                 i+=1;
             }
+            Queries.LIVE_UPDATE_PAUSED = Boolean.TRUE;
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    loadLiveUpdates();
+                }
+            });
 //            Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
 //                    "Updation completed",
 //                    TrayIcon.MessageType.INFO);
@@ -359,6 +367,7 @@ public class DialogLiveUpdateController implements Initializable {
             final SystemTray tray = SystemTray.getSystemTray();
 
             labelStatus.setText("No updates available");
+            Queries.LIVE_UPDATE_PAUSED = Boolean.TRUE;
 //            import com.project.Main;
 //            Main.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
 //                    "Double Click to Maximize",
