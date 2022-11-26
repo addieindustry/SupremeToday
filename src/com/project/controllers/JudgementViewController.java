@@ -450,12 +450,14 @@ public class JudgementViewController implements Initializable {
                                 if (href.startsWith("act:")) {
                                     showCentralActsDialogWindow(href);
                                 } else if (href.startsWith("overruled:")) {
-                                    String search_query = "caseId:" + href.replace("overruled:", "");
+                                    String caseId = href.replace("overruled:", "");
+                                    String caseOverruledBy = ServiceHelper.getOverruledByCaseId(caseId, true);
+                                    System.out.println(caseOverruledBy);
+                                    String search_query = "caseId:" + caseOverruledBy;
                                     String sort_by = "";
                                     String hl_fields = "false";
                                     Multimap<String, String> filterBy = ArrayListMultimap.create();
                                     resultViewHelper.showJudgementDialogWindow(1, search_query, sort_by, hl_fields, filterBy);
-
 //                                    loadOverruledHTML(href.replace("overruled:", ""));
                                 } else if (href.startsWith("#")) {
                                     ev.preventDefault();
@@ -663,7 +665,7 @@ public class JudgementViewController implements Initializable {
     }
 
     private void loadOverruledHTML(String caseId) {
-        String caseOverruledBy = ServiceHelper.getOverruledByCaseId(caseId);
+        String caseOverruledBy = ServiceHelper.getOverruledByCaseId(caseId, false);
         if (!caseOverruledBy.isEmpty()) {
             StringBuilder stb = new StringBuilder();
             stb.append("<span style=\"background-color:blue;color:white\"><strong>Overruled By :</strong></span><br/><br/>" + caseOverruledBy + "<br/><br/>");
@@ -700,6 +702,7 @@ public class JudgementViewController implements Initializable {
         JsonArray jData = jo.getAsJsonArray("docs");
         for (JsonElement ele : jData) {
             JsonObject obj = (JsonObject) ele;
+            System.out.println(obj);
             docId = obj.get("caseId").getAsString();
             docType = obj.get("DocType").getAsString();
             boolean isWhiteListExist = false;

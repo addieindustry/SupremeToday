@@ -1289,18 +1289,20 @@ public class ServiceHelper {
         }
     }
 
-    public static String getOverruledByCaseId(String CaseId) {
+    public static String getOverruledByCaseId(String CaseId, Boolean onlyCaseId) {
         try {
             SqliteHelper sqliteHelper = new SqliteHelper(Queries.DB_PATH, false);
             sqliteHelper.open();
             String q = String.format(Queries.GET_OVERRULED_BY_CASEID, CaseId);
             ResultSet rs = sqliteHelper.select(q);
             List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+            String OverruledById = "";
 
             StringBuilder _caseIds = new StringBuilder("");
             while (rs.next()) {
                 DecimalFormat decimalFormat = new DecimalFormat("00000000000");
-                _caseIds.append("caseId:\"" + decimalFormat.format(Long.parseLong(rs.getString("white"))) + "\" OR ");
+                OverruledById = decimalFormat.format(Long.parseLong(rs.getString("white")));
+                _caseIds.append("caseId:\"" + OverruledById + "\" OR ");
 //                _caseIds.append("caseId:\"" + decimalFormat.format(Integer.parseInt(rs.getString("white"))) + "\" OR ");
             }
 
@@ -1311,7 +1313,11 @@ public class ServiceHelper {
             sqliteHelper.close();
 
             if (_caseIds.toString().length()>0){
-                return getJudgementHeaderById(_caseIds.toString());
+                if (onlyCaseId){
+                    return OverruledById;
+                }else{
+                    return getJudgementHeaderById(_caseIds.toString());
+                }
             }
             return "";
         } catch (ClassNotFoundException ex) {

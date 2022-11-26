@@ -41,16 +41,16 @@ public class Queries {
     public static final int SINGLE_INSTANCE_LISTENER_PORT = 12345;
 //    public static Boolean LIVE_UPDATE_PAUSED = Boolean.FALSE;
 
-  //   public static final String CURRENT_PATH = Paths.get("").toString();
-//    public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "IndianCaseLawFinder-1.0").toString();
-    public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "SupremeToday-2.0").toString();
-//    public static final String CURRENT_PATH = Paths.get("E:", "Old_Backup", "SupremeToday", "SupremeToday").toString();
+   public static final String CURRENT_PATH = Paths.get("").toString();
+  // public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "IndianCaseLawFinder-1.0").toString();
+ //   public static final String CURRENT_PATH = Paths.get("F:", "Program Files", "SupremeToday-2.0").toString();
+ //   public static final String CURRENT_PATH = Paths.get("E:", "Old_Backup", "SupremeToday", "SupremeToday").toString();
     public static final String DATA_PATH=Paths.get(CURRENT_PATH, "Data").toString();
     public static final String RESOURCE_PATH=Paths.get(CURRENT_PATH, "res").toString();
     public static final String TEMP_FILE_PATH=Paths.get(CURRENT_PATH, "lib", "temp.html").toString();
     public static final String TEMP_DIRECTORY_PATH=Paths.get(CURRENT_PATH, "lib").toString();
     public static final String AUTO_UPDATE_EXE_FILE_SINGLEFILEPATH="SupremeTodayAutoUpdate.exe";
-    public static final String AUTO_UPDATE_EXE_FILE=Paths.get(Paths.get("").toAbsolutePath().toString(), "SupremeTodayAutoUpdate.exe").toString();
+    public static final String AUTO_UPDATE_EXE_FILE=Paths.get(Paths.get("").toAbsolutePath().toString(), "SupremeToday.lnk").toString();
     public static final String INDEX_PATH=Paths.get(DATA_PATH, "Index").toString();
     public static final String KRUTI_FONT_PATH = Paths.get(RESOURCE_PATH, "K012.TTF").toString();
     public static final String HELP_MANUAL_PATH = Paths.get(RESOURCE_PATH, "help.pdf").toString();

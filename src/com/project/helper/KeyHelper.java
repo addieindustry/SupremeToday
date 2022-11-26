@@ -13,6 +13,8 @@ import java.io.OutputStream;
 import java.util.Base64;
 import java.util.Random;
 import java.util.Scanner;
+
+import org.apache.commons.lang3.StringUtils;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -35,7 +37,17 @@ public class KeyHelper {
             }
             return k;
         } else if (OSValidator.isMac()) {
-            return getMacRegKey();
+            String k = getMacRegKey();
+            if (k != null) {
+                k = k.replaceAll("[^A-Z0-9]+", "");
+                if (k.length() > 12) {
+                    k = k.substring(k.length() - 12);
+                }else if (k.length() < 12){
+                    k = k + StringUtils.repeat("A", 12 - k.length());;
+                }
+            }
+            return k;
+//            return getMacRegKey();
         }
 
 //        if (OSValidator.isMac()) {
@@ -62,23 +74,33 @@ public class KeyHelper {
         return regKey;
     }
 
-    public static String getRegKey1() {
-        if (OSValidator.isUnix() || OSValidator.isSolaris()) {
-            String k = LinuxHardwareHelper.getSerialNumber();
-            if (k != null) {
-                k = k.replaceAll("[^A-Z0-9]+", "");
-                if (k.length() > 12) {
-                    k = k.substring(k.length() - 12);
-                }
-            }
-            return k;
-        } else if (OSValidator.isWindows()) {
-            return getWinRegKey();
-        } else if (OSValidator.isMac()) {
-            return getMacRegKey();
-        }
-        return "";
-    }
+//    public static String getRegKey1() {
+//        if (OSValidator.isUnix() || OSValidator.isSolaris()) {
+//            String k = LinuxHardwareHelper.getSerialNumber();
+//            if (k != null) {
+//                k = k.replaceAll("[^A-Z0-9]+", "");
+//                if (k.length() > 12) {
+//                    k = k.substring(k.length() - 12);
+//                }
+//            }
+//            return k;
+//        } else if (OSValidator.isMac()) {
+//            String k = getMacRegKey();
+//            if (k != null) {
+//                k = k.replaceAll("[^A-Z0-9]+", "");
+//                if (k.length() > 12) {
+//                    k = k.substring(k.length() - 12);
+//                }else if (k.length() < 12){
+//                    k = k + StringUtils.repeat("a", 12 - k.length());;
+//                }
+//            }
+//            return k;
+////            return getMacRegKey();
+//        } else if (OSValidator.isWindows()) {
+//            return getWinRegKey();
+////            return "";
+//        }
+//    }
 
     public static String getMacRegKey() {
         String sn = null;

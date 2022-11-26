@@ -355,13 +355,17 @@ public class Main extends Application {
 //            mainStage.setScene(new Scene(root));
 //            NEW LINE
             createTrayIcon(mainStage);
-//            mainStage.setOnCloseRequest(confirmCloseEventHandler);
-            mainStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent t) {
-                    autoHide(mainStage);
-                }
-            });
+            if (OSValidator.isMac() || OSValidator.isUnix()){
+                mainStage.setOnCloseRequest(confirmCloseEventHandler);
+            }
+            else{
+                mainStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent t) {
+                        autoHide(mainStage);
+                    }
+                });
+            }
 
             mainStage.setOnShowing(new EventHandler<WindowEvent>() {
                 @Override
@@ -387,7 +391,11 @@ public class Main extends Application {
 //                mainStage.setAlwaysOnTop(true);
             }else{
                 mainStage.setMaximized(true);
+//                mainStage.setMaximized(false);
             }
+//            mainStage.setMaximized(false);
+//            mainStage.setIconified(true);
+//            mainStage.close();
 
             scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
                 @Override
@@ -409,6 +417,7 @@ public class Main extends Application {
                             }else{
                                 WinRegistry.writeStringValue(WinRegistry.HKEY_CURRENT_USER, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", "SupremeToday",  Queries.AUTO_UPDATE_EXE_FILE);
                             }
+                            autoHide(mainStage);
 
 //                            if (Queries.IS_SUPREME_TODAY_APP == Boolean.FALSE){
 //                                WinRegistry.writeStringValue(WinRegistry.HKEY_CURRENT_USER, "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", "ICLFAutoUpdate",  Queries.AUTO_UPDATE_EXE_FILE.replaceAll("SupremeTodayAutoUpdate.exe", "ICLFAutoUpdate.exe"));
@@ -421,7 +430,10 @@ public class Main extends Application {
                         e.printStackTrace();
                     }
                     }
+
 //                    mainStage.setMaximized(true);
+//                    Stage stage=(Stage) mainStage.getScene().getWindow();
+//                    stage.setIconified(true);
                 }
             });
         } catch (Exception e) {
@@ -617,6 +629,9 @@ public class Main extends Application {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+//                if (OSValidator.isMac() || OSValidator.isUnix()){
+//                    System.exit(0);
+//                }
                 if (SystemTray.isSupported()) {
                     stage.hide();
 //                    Queries.LIVE_UPDATE_PAUSED = Boolean.FALSE;
