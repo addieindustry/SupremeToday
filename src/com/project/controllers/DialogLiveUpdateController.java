@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import com.project.JavaHelper;
+import com.project.helper.OSValidator;
 import com.project.helper.Queries;
 import com.project.helper.ResponseMaster;
 import com.project.helper.ServiceHelper;
@@ -132,69 +133,24 @@ public class DialogLiveUpdateController implements Initializable {
             handleCancel();
         });
 
-//        Task longTask = new Task<Void>() {
-//            @Override public Void call() {
-//                int i=1;
-//                int max=tableData.size();
-//                if (max==0){
-//                    loadLiveUpdates();
-//                }else{
-//                    Queries.LIVE_UPDATE_PAUSED = Boolean.FALSE;
-//                    btnUpdate.setText("Pause Update");
-////                    btnUpdate.setDisable(true);
-//                };
-//
-//                for (LiveUpdateModel d : tableData) {
-//                    if (isCancelled() || Queries.LIVE_UPDATE_PAUSED == Boolean.TRUE) {
-//                        btnUpdate.setText("Resume Update");
-//                        break;
-//                    }
-//                    updateProgress(i, max);
-//                    LiveUpdateModel lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Processing...");
-//                    tableUpdateStatus.getItems().set(i-1, lum);
-//                    updateMessage("Updating version " + d.getVersion() + " started");
-////                    ServiceHelper.getUpdate(d.getVersion(), d.getCourtId());
-//                    if (ServiceHelper.getUpdate(d.getVersion(), d.getCourtId()).getCode()==200){
-//                        ServiceHelper.versionUpdate(d.getVersion());
-//                        lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Completed");
-//                        tableUpdateStatus.getItems().set(i-1, lum);
-//                        updateMessage("Updating version " + d.getVersion() + " completed");
-//                    }else{
-//                        lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Failed");
-//                        tableUpdateStatus.getItems().set(i-1, lum);
-//                        updateMessage("Updating version " + d.getVersion() + " failed");
-//                    }
-//                    i+=1;
-//                }
-//                updateMessage("Updation completed");
-//                return null;
-//            }
-//        };
 
         btnUpdate.setOnAction(event -> {
             if (Queries.LIVE_UPDATE_PAUSED == Boolean.TRUE){
                 Queries.LIVE_UPDATE_PAUSED = Boolean.FALSE;
-                btnUpdate.setText("Pause Update");
-
-//                progressStatus.setVisible(true);
-//                progressStatus.progressProperty().bind(longTask.progressProperty());
-//                labelStatus.textProperty().bind(longTask.messageProperty());
-//                new Thread(longTask).start();
-
-//                Platform.runLater(() -> {
-//                    new Thread(longTask).start();
-//
-//                });
+                if (!OSValidator.isMac() || OSValidator.isUnix()){
+                    btnUpdate.setText("Pause Update");
+                }
 
                 loadLiveUpdates();
-                runTask();
-//                progressStatus.setVisible(true);
-//                progressStatus.progressProperty().bind(longTask.progressProperty());
-//                labelStatus.textProperty().bind(longTask.messageProperty());
-//                new Thread(longTask).start();
-                Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
-                        "Live Update (In Background) Started!",
-                        TrayIcon.MessageType.INFO);
+                if (OSValidator.isMac() || OSValidator.isUnix()){
+                    System.out.println("Live Update Click Event manage here!");
+                    runTask_MacOS();
+                }else{
+                    runTask();
+                    Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
+                            "Live Update (In Background) Started!",
+                            TrayIcon.MessageType.INFO);
+                }
             }else{
                 Queries.LIVE_UPDATE_PAUSED = Boolean.TRUE;
                 btnUpdate.setText("Resume Update");
@@ -213,35 +169,53 @@ public class DialogLiveUpdateController implements Initializable {
                         loadLiveUpdates();
                         runTask();
                     }
-//                    btnUpdate.fire();
-//                    new Thread(longTask).start();
                 });
             }
         }, Queries.LIVE_UPDATE_DELAY_IN_MINS * 60 * 1000, Queries.LIVE_UPDATE_INTERVAL_TO_CHECK_IN_HOURS * 60 * 60 * 1000);
 
-        //        t.scheduleAtFixedRate(new TimerTask() {
-//            @Override
-//            public void run() {
-//                Platform.runLater(() -> {
-//                    runTask();
-////                    btnUpdate.fire();
-////                    new Thread(longTask).start();
-//                });
-//            }
-//        }, 120 * 1000, 1 * 30 * 60 * 1000);
+    }
 
 
+    private void runTask_MacOS(){
+        new Thread(() -> {
+            int i=1;
+            for (LiveUpdateModel d : tableData) {
+                LiveUpdateModel lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Processing...");
+                tableUpdateStatus.getItems().set(i-1, lum);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        labelStatus.setText("Updating version " + d.getVersion() + " started");
+                    }
+                });
 
-//        System.out.println("EXIT");
-//        new Thread(longTask).start();
+                if (ServiceHelper.getUpdate(d.getVersion(), d.getCourtId()).getCode()==200){
+                    new Thread(() -> {
+                        ServiceHelper.versionUpdate(d.getVersion());
+                    }).start();
 
-//        System.out.println("LIVE UPDATE STARTING");
-//        progressStatus.setVisible(true);
-//        progressStatus.progressProperty().bind(longTask.progressProperty());
-//        labelStatus.textProperty().bind(longTask.messageProperty());
-//        new Thread(longTask).start();
-//        runTask();
-//        System.out.println("LIVE UPDATE STARTED");
+                    lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Completed");
+                    tableUpdateStatus.getItems().set(i-1, lum);
+
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            labelStatus.setText("Updating version " + d.getVersion() + " completed");
+                        }
+                    });
+                }else{
+                    lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Failed");
+                    tableUpdateStatus.getItems().set(i-1, lum);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            labelStatus.setText("Updating version " + d.getVersion() + " failed");
+                        }
+                    });
+                }
+                i+=1;
+            }
+        }).start();
     }
 
     private void runTask(){
@@ -296,45 +270,7 @@ public class DialogLiveUpdateController implements Initializable {
                     loadLiveUpdates();
                 }
             });
-//            Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
-//                    "Updation completed",
-//                    TrayIcon.MessageType.INFO);
         }).start();
-
-
-
-//        for (LiveUpdateModel d : tableData) {
-//            if (Queries.LIVE_UPDATE_PAUSED == Boolean.TRUE) {
-//                btnUpdate.setText("Resume Update");
-//                break;
-//            }
-////            updateProgress(i, max);
-//            LiveUpdateModel lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Processing...");
-//            tableUpdateStatus.getItems().set(i-1, lum);
-//
-//            Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
-//                    "Updating version " + d.getVersion() + " started",
-//            TrayIcon.MessageType.INFO);
-////                    ServiceHelper.getUpdate(d.getVersion(), d.getCourtId());
-//            if (ServiceHelper.getUpdate(d.getVersion(), d.getCourtId()).getCode()==200){
-//                ServiceHelper.versionUpdate(d.getVersion());
-//                lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Completed");
-//                tableUpdateStatus.getItems().set(i-1, lum);
-//                Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
-//                        "Updating version " + d.getVersion() + " completed",
-//                        TrayIcon.MessageType.INFO);
-//            }else{
-//                lum = new LiveUpdateModel(d.getVersion(), d.getCourtId(), d.getCourts(), "Failed");
-//                tableUpdateStatus.getItems().set(i-1, lum);
-//                Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
-//                        "Updating version " + d.getVersion() + " failed",
-//                        TrayIcon.MessageType.INFO);
-//            }
-//            i+=1;
-//        }
-//        Queries.trayIcon.displayMessage(Queries.APPLICATION_NAME + " - Auto Update",
-//                "Updation completed",
-//                TrayIcon.MessageType.INFO);
     }
 
     private void loadLiveUpdates() {
